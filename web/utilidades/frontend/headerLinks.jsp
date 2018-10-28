@@ -19,6 +19,8 @@
         <link href="http://localhost:8080/NetJob/utilidades/frontend/sweetalert2.0/sweetalert.css" rel="stylesheet" type="text/css"/>
         <script src="http://localhost:8080/NetJob/utilidades/frontend/bootstrap/js/bootstrap.js" type="text/javascript"></script>
         <link href="http://localhost:8080/NetJob/utilidades/frontend/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="http://localhost:8080/NetJob/utilidades/frontend/materialize/js/materialize.min.js" type="text/javascript"></script>
+        <link href="http://localhost:8080/NetJob/utilidades/frontend/materialize/css/materialize.min.css" rel="stylesheet" type="text/css"/>
     </head>
     
 </html>
