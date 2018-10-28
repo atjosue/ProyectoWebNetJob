@@ -14,15 +14,15 @@
     </head>
     <body>
         <center><div class="container">
-        <br><br><br><br><br><br>
+        <br><br><br>
           <div class="form-column col-md-4 col-sm-4 col-xs-4" ></div>
-                <div class="card card-container form-column col-md-3 col-sm-3 col-xs-3" >
+                <div class="card card-container form-column col-md-5 col-sm-5 col-xs-5" >
 
 
                     <img id="profile-img" class="profile-img-card" src="Contenido/Imagenes/Sistema/netjob.png"/>
                     
                     <div class="content-form">
-                        <h1>Inicia Sesión</h1>
+                        <h3>Inicia Sesión</h3>
                     <h4>¿NetJob? <a href="../cliente/registrarse.php">Regístrate</a></h4>
 
                     <p id="profile-name" class="profile-name-card"></p>
