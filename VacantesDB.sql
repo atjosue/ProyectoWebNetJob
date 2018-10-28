@@ -289,5 +289,80 @@ insert into gradoUniversitario values(0,'Ingenieria',1);
 select h.idHabilidad, h.habilidad, h.descripcion, p.profesion from habilidades h inner join profesion p on p.idProfesion=h.idProfesion where h.estado=1 and h.idProfesion=1;
 select p.nombrePuesto, p.descripcion, a.nombre from puesto p inner join area a on a.idArea=p.idArea where p.estado=1 and p.idArea=1;
 
-select * from rubro
+/*JOSUE AMAYA 28/1018 12:13 am*/
+INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Postulante', '1');
+INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Empresa', '1');
+
+/* agregar un usuario para empresa*/
+INSERT INTO `vacantes`.`usuario` (`nombreUsuario`, `contraseña`, `estado`, `idRol`) VALUES ('aviaca123', '6116afedcb0bc31083935c1c262ff4c9', '1', '4');
+
+/*agregar rubros para las empresas*/
+INSERT INTO `vacantes`.`rubro` (`nombre`, `descripcion`, `estado`) VALUES ('Industriales', 'empresas relacionadas con la industria', '1');
+INSERT INTO `vacantes`.`rubro` (`nombre`, `descripcion`, `estado`) VALUES ('Turismo', 'empresas relacionadas con  el turismo', '1');
+INSERT INTO `vacantes`.`rubro` (`nombre`, `descripcion`, `estado`) VALUES ('Software', 'emresas ralacionadas con la gestion y produccion de softa', '1');
+
+/* agregar paises*/
+INSERT INTO `vacantes`.`pais` (`pais`, `estado`) VALUES ('El Salvador', '1');
+INSERT INTO `vacantes`.`pais` (`pais`, `estado`) VALUES ('Guatemala', '1');
+INSERT INTO `vacantes`.`pais` (`pais`, `estado`) VALUES ('Hondurass', '1');
+INSERT INTO `vacantes`.`pais` (`pais`, `estado`) VALUES ('Nicaragua', '1');
+INSERT INTO `vacantes`.`pais` (`pais`, `estado`) VALUES ('Costarica', '1');
+INSERT INTO `vacantes`.`pais` (`pais`, `estado`) VALUES ('Panama', '1');
+
+/*agregar departamentos para el salvador*/
+INSERT INTO `vacantes`.`departamento` (`idDepartamento`, `departamento`, `idPais`, `estado`) VALUES ('', 'San Salvador', '1', '1');
+INSERT INTO `vacantes`.`departamento` (`departamento`, `idPais`, `estado`) VALUES ('Santa Ana', '1', '1');
+INSERT INTO `vacantes`.`departamento` (`departamento`, `idPais`, `estado`) VALUES ('La Libertad', '1', '1');
+INSERT INTO `vacantes`.`departamento` (`departamento`, `idPais`, `estado`) VALUES ('Sonsonate', '1', '1');
+
+/* agregar provincias para san salvador y la libertad*/
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('San Salvador', '6', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Santa Tecla', '8', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Santa Ana', '7', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Pnchimalco', '6', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Lourdes Colon', '8', '1');
+
+/*Agregar informacion de la empresa avianca*/
+alter table empresa add column facebook varchar(300);
+alter table empresa add column instagram varchar(300);
+alter table empresa add column paginaWeb varchar(300);
+alter table empresa add column imagenEmpresa varchar(300);
+alter table empresa add column descripcion1 varchar(1000);
+alter table empresa add column descripcion2 varchar(300);
+alter table empresa add column imagen mediumblob;
+
+INSERT INTO `vacantes`.`empresa` (`nombre`, `direccion`, `telefono`, `mision`, `vision`, `correo`, `idUsuario`, `idRubro`, `idProvincia`, `idDepartamento`, `idPais`, `estado`, `facebook`, `instagram`, `paginaWeb`, `descripcion1`, `descripcion2`) 
+VALUES ('Avianca', 'Boulevard no se que cerca de Santa elena wey', '(503) 2280-2313', 'Conectamos al mundo con Latinoamérica, buscando dar siempre más.', 'Con la mejor gente y tecnología para una experiencia excepcional, seremos la aerolínea latinoamericana preferida en el mundo. ',
+ 'avianca_sv@gmail.com', '6', '2', '6', '6', '1', '1', 'https://www.facebook.com/AviancaGlobal/', 'https://www.instagram.com/avianca/?hl=es-la', 'https://www.avianca.com/sv/es/', 'Avianca es la empresa lider en el transporte aereo de personas a anivel munial.\nCada vez que alguien menciona 
+ nuestro nombre son una infinidad de pensamientos y recuerdor de los viajes que han realizafo con nosotros\nGracias a la gente que trabaja para nosotros podemos hacer esto y mucho mas por eso queremos que seas parte de nuestra familia', 'Avianca esta comprometida con tigo por eso hemos decidido 
+ estar mas cerca de ti a travez de NetJob. aplica ya y se parte de nuestra familia.');
+ 
+ /*INSERTAR EN AREA*/
+
+select * from area;
+INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('RRHH', '1', '1');
+INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('Sistemas', '1', '1');
+
+ /*INSERTAR EN Puesto para rrhh y sistemas*/
+ 
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Supervisor', 'supervisor de el area', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Programador', 'programador junior', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Diseñador Web', 'encargado de el diseño de la pagina web y de las demas aplicaciones', '2', '1');
+
+ 
+ select * from puesto;
+
+
+
+
+
+
+select * from empresa;
+alter table area add column idEmpresa int;
+alter table area add constraint fk_area_empresa foreign key (idEmpresa) references empresa(idEmpresa);
+select * from rubro;
 
