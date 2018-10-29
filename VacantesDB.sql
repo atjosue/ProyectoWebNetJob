@@ -344,14 +344,16 @@ INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('RRHH', 
 INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('Sistemas', '1', '1');
 
  /*INSERTAR EN Puesto para rrhh y sistemas*/
- 
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Supervisor', 'supervisor de el area', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Programador', 'programador junior', '2', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Diseñador Web', 'encargado de el diseño de la pagina web y de las demas aplicaciones', '2', '1');
+ select * from puesto;
+alter table puesto add column idEmpresa int;
+alter table puesto add constraint fk_empresa_puesto foreign key (idEmpresa) references empresa(idEmpresa);
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Supervisor', 'supervisor de el area', '1', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Programador', 'programador junior', '2', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Diseñador Web', 'encargado de el diseño de la pagina web y de las demas aplicaciones', '2', '1', '1');
 
  
  select * from puesto;
