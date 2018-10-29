@@ -4,6 +4,12 @@
     Author     : josue
 --%>
 
+<%@page import="com.dao.DaoPuestos"%>
+<%@page import="com.modelos.Puestos"%>
+<%@page import="com.modelos.Areas"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.dao.DaoAreas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -57,20 +63,19 @@
     </header>
     <body>  
       <div class="row">
-           <!-- margen de la derecha -->
-          <div class="col-sm-1 col-md-1 col-xs-1"></div>
-          
-           <!-- Contenedor -->
-          <div class="col-sm-10 col-md-10 col-xs-10">
-              <div class="col-sm-12 col-md-12 col-xs-12" >
-             <div class="tab-content">
-                
+       <!-- margen de la derecha -->
+       <div class="col-sm-1 col-md-1 col-xs-1"></div>   
+       <!-- Contenedor principal -->
+       <div class="col-sm-10 col-md-10 col-xs-10">
+           <div class="col-sm-12 col-md-12 col-xs-12" >
+               <div class="tab-content">
                  <!-- CONTENEDOR PARA LAS ESTADISTICAS -->
                  <div id="menu1" class="tab-pane fade in active">
                      
                  </div>
-                 
+                 <!-- FIN CONTENEDOR PARA LAS ESTADISTICAS -->
                  <!-- CONTENEDOR PARA LA GESTION DE OFERTAS -->
+                 
                  <div id="menu2" class="tab-pane fade" >
                      <br>
                      <h3> Gestion  de ofertas laborales 
@@ -156,8 +161,7 @@
                      </table>
                      
                  </div>
-                 
-                 
+                 <!-- FIN CONTENEDOR PARA LA GESTION DE OFERTAS -->
                  <!-- CONTENEDOR PARA LA GESTION DE SOLICITUDES -->
                  <div id="menu3" class="tab-pane fade" >
                         
@@ -180,33 +184,101 @@
                         </ul>
                      </div>
                  </div>
-                 
-                 
+                 <!-- FIN CONTENEDOR PARA LA GESTION DE SOLICITUDES -->
                  <!-- CONTENEDOR PARA LA AREAS -->
                  <div id="menu4" class="tab-pane fade">
-                        buscar areas
+                        <br>
+                     <h3> Gestion  de Areas de la empresa. 
+                         <div class="btn btn-danger right" id="nuevaArea">
+                             Agregar</div>
+                     </h3>
+                     <br><br>
+                     <table>
+                         <thead>
+                            <th>Codigo</th>
+                            <th>Area</th>
+                            <th>Acciones</th>
+                         </thead>
+                         <tbody>
+                             <%
+                                 DaoAreas d = new DaoAreas();
+                                 List listaAreas = new ArrayList();
+                                 listaAreas = d.mostrarAreasEmpresa(1);
+                                 
+                                 
+                                for (int i = 0; i < listaAreas.size(); i++) {
+                                    Areas a = new Areas();
+                                    a = (Areas)listaAreas.get(i);
+                                    
+                                
+                             %>
+                             <tr >
+                                 <td><%= a.getIdArea() %></td>
+                                 <td><%= a.getNombre()%></td>
+                                 <td style="width: 250px;">
+                                     <div class="btn btn-primary modificarArea" id="<%= a.getIdArea() %>">Modificar</div>
+                                     <div class="btn btn-primary eliminarArea" id="<%= a.getIdArea() %>">Eliminar</div>
+                                 </td>
+                             </tr>
+                             <%}%>
+                         </tbody>
+                     </table>
                         
                  </div>
-                 <!-- CONTENEDOR PARA RECURSOS -->
+                 <!-- FIN CONTENEDOR PARA LA AREAS -->
+                 <!-- CONTENEDOR PARA PUESTOS -->
                  <div id="menu5" class="tab-pane fade">
-                        buscar puestos
-                        
+                        <br>
+                     <h3> Gestion  de Puestos de la empresa. 
+                         <div class="btn btn-danger right" id="nuevoPuesto">
+                             Agregar</div>
+                     </h3>
+                     <br><br>
+                     <table>
+                         <thead>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Area</th>
+                            <th>Acciones</th>
+                         </thead>
+                         <tbody>
+                             <%
+                                 DaoPuestos p = new DaoPuestos();
+                                 List listaPuestos = new ArrayList();
+                                 listaPuestos = p.mostrarPuestoEmpresa(1);
+                                 
+                                 
+                                for (int i = 0; i < listaPuestos.size(); i++) {
+                                    Puestos lstp = new Puestos();
+                                    lstp = (Puestos)listaPuestos.get(i);
+                                    
+                                
+                             %>
+                             <tr >
+                                 <td><%= lstp.getNombrePuesto() %></td>
+                                 <td><%= lstp.getDescripcion() %></td>
+                                 <td><%= p.getNombreArea(lstp.getIdArea()) %></td>
+                                 <td style="width: 250px;">
+                                     <div class="btn btn-primary modificarPuesto" id="<%= lstp.getIdPuesto() %>">Modificar</div>
+                                     <div class="btn btn-primary eliminarPuesto" id="<%= lstp.getIdPuesto() %>">Eliminar</div>
+                                 </td>
+                             </tr>
+                             <%}%>
+                         </tbody>
+                     </table>
+                       <br><br><br> 
                  </div>
-                 
-            </div> 
-            </div>
-              
-          </div>
-           
-           <!-- margen de la izquierda -->
-          <div class="col-sm-1 col-md-1 col-xs-1"></div>
-          
-      </div>      
+                 <!-- CONTENEDOR PARA PUESTOS -->      
+               </div>
+           </div>
+       </div> 
+       <!-- margen de la izquierda -->
+       <div class="col-sm-1 col-md-1 col-xs-1"></div>
+       
     </body>
-     <!-- Modal Trigger -->
- 
-  <!-- Modal Structure-->
-  <div id="modalModificar" class="modal modal-fixed-footer" role="dialog">
+</html>
+  <!-- Modal modifiacar oferta -->
+  <div id="modalModificarOferta" class="modal modal-fixed-footer" role="dialog">
     <div class="modal-content">
       <h4>Aca se modifica perro</h4>
       
@@ -219,58 +291,96 @@
             <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
     </div>
   </div> 
-  <!-- modal modificacion restaurante 
-<div class="modal " id="modalModificar" role="dialog" data-backdrop="static" data-keyboard="false" >
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header " Style="height:45px;">
-                    <span class="robo" style="font-size: 20px;">Modificar Restaurante</span>
-                </div>
-                <div class="modal-body" >
-                  
-                      <div class="row" id="infoModificarRestaurante">
-                          <div class="form-column col-md-6 col-sm-4 col-xs-6">
-                                 <div class="form-group required">
-                                  <label for="nombre" class="control-label">Nombre</label>
-                                 <input type="text" class="form-control"  
-                                    placeholder="" name="usuario" id="modificarUsuario"  required="true">
-                                 </div>
-                          </div>
-                           
-                          <div class="form-column col-md-6 col-sm-6 col-xs-6">
-                            <div class="form-group required">
-                              <label for="precio" class="control-label">Contraseña</label>            
-                              <input type="password"  name="pass" class="form-control" id="modificarPass" required>
-                            </div>
-                          </div>
-                          <div class="clearfix"></div>
-                          <div class="form-column col-md-7 col-sm-7 col-xs-7">
-                            <div class="form-group required">
-                              <label for="descripcion" class="control-label">Confirmar Contraseña</label>            
-                              <input type="password"  name="repass" class="form-control" id="modificarRepass" required >
-                            </div>
-                          <input type="hidden" name="idUsuarioModi" id="idUsuarioModi">
-
-                          </div>
-                            
-                          <div class="clearfix"></div>  
-                          <div class="clearfix"></div>
-
-                    </div>
-                    <div>
-                    <button class="btn btn-primary  btn-sm " id="modificarRestaurante" >Guardar</button>
-                    <button class="btn btn-primary  btn-sm " id="cerrarModalModi" >Cancelar</button>
-                    
-
-                  </div>
-
-              </div>         
-               <div class="modal-footer" id="modalFooter" >
-                  
-               </div>
+  <!-- modal modificacion oferta -->
+  
+  <!-- Modal agregar area-->
+  <div id="modalAgregarArea" class="modal modal-fixed-footer" role="dialog">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sm-4 " style="background-color: #e0f2f1; height:320px;">
+                <br><br><br>
+                <center><img src="../../Contenido/Imagenes/Sistema/agregar.png" width="250px" height="250px"/></center>
             </div>
-        </div> 
-</div>
-  -->
-    
-</html>
+            <div class="col-md-8 col-xs-8 col-sm-8">
+                <form id="formularioAgregarArea"> 
+                    <div class="row">
+                        <br><br><br>
+                        <div class="input-field col s12">
+                            <input id="nombreAreaA" type="text" class="validate">
+                          <label for="nombreAreaA">Asigna un nombre a la nueva area..</label>
+                          <input id="keyAreaA" type="hidden" name="key">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      
+      
+    <div class="modal-footer">
+      
+        <div class="waves-effect waves-green btn btn-danger submit button" id="btnAgregarArea" name="btnAgregarArea">Guardar</div>
+        <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
+    </div>
+  </div> 
+  <!--fin del modal agregar area -->
+  
+<!-- MODAL PARA MODIFICAR AREAS-->  
+<div id="modalModificarArea" class="modal modal-fixed-footer" role="dialog">
+    <div class="row">
+            <div class="col-md-4 col-xs-4 col-sm-4 " style="background-color: #e0f2f1; height:320px;">
+                <br><br><br>
+                <center><img src="../../Contenido/Imagenes/Sistema/agregar.png" width="250px" height="250px"/></center>
+            </div>
+            <div class="col-md-8 col-xs-8 col-sm-8">
+                <form id="formularioAgregarArea"> 
+                    <div class="row">
+                        <br><br><br>
+                        <div class="input-field col s12">
+                            <input id="nombreAreaM" placeholder="" type="text" class="validate">
+                            <label for="nombreAreaM">Modifica el nombre del area..</label>
+                          <input id="codModificarArea" type="hidden" name="key">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <div class="modal-footer">
+      
+            <div class="waves-effect waves-green btn btn-danger" id="btnModificarArea">Guardar</div>
+            <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
+    </div>
+  </div> 
+<!--Fin del modal para modificar areas-->    
+
+  <!-- Modal agregar puesto-->
+  <div id="modalAgregarPuesto" class="modal modal-fixed-footer" role="dialog">
+    <div class="modal-content">
+      <h4>Aca se modifica perro</h4>
+      
+    </div>
+      
+      
+    <div class="modal-footer">
+      
+            <div class="waves-effect waves-green btn btn-danger">Guardar</div>
+            <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
+    </div>
+  </div> 
+  <!--fin del modal agregar area -->
+  
+<!-- MODAL PARA MODIFICAR AREAS-->  
+<div id="modalModificarPuesto" class="modal modal-fixed-footer" role="dialog">
+    <div class="modal-content">
+      <h4>Aca se modifica perro</h4>
+      
+    </div>
+      
+      
+    <div class="modal-footer">
+      
+            <div class="waves-effect waves-green btn btn-danger">Guardar</div>
+            <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
+    </div>
+  </div> 
+<!--Fin del modal para modificar areas--> 
