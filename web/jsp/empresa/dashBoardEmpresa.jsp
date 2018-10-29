@@ -193,7 +193,7 @@
                              Agregar</div>
                      </h3>
                      <br><br>
-                     <table>
+                     <table border="1">
                          <thead>
                             <th>Codigo</th>
                             <th>Area</th>
@@ -202,13 +202,13 @@
                          <tbody>
                              <%
                                  DaoAreas d = new DaoAreas();
-                                 List listaAreas = new ArrayList();
-                                 listaAreas = d.mostrarAreasEmpresa(1);
+                                 List<Areas> listaAreas = new ArrayList();
+                                 listaAreas = d.mostrarAreas();
                                  
                                  
-                                for (int i = 0; i < listaAreas.size(); i++) {
-                                    Areas a = new Areas();
-                                    a = (Areas)listaAreas.get(i);
+                                for (Areas a: listaAreas) {
+                                   
+                                   
                                     
                                 
                              %>

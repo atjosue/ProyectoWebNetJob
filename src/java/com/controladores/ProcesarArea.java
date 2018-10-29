@@ -44,7 +44,7 @@ public class ProcesarArea extends HttpServlet {
         switch(op)
         {
             case "agregar":
-                ar.setIdEmpresa(1);
+                ar.setIdEmpresa(10);
                 ar.setNombre(request.getParameter("data"));
                 ar.setEstado(1);
                 a=daoA.insertarArea(ar);
@@ -52,7 +52,7 @@ public class ProcesarArea extends HttpServlet {
                 break;
             case "modificar":
                 ar.setIdArea(Integer.parseInt(request.getParameter("codigo")));
-                ar.setIdEmpresa(1);
+                ar.setIdEmpresa(10);
                 ar.setNombre(request.getParameter("nombre"));
                 a = daoA.ModificarArea(ar);
                 out.println(a);
