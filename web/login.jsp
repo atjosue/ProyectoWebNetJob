@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>NetJob</title>
         <jsp:include page="utilidades/frontend/headerLinks.jsp" />
+        <script src="js/index.js" type="text/javascript"></script>
     </head>
     <body>
         <center><div class="container">
@@ -35,7 +36,7 @@
                                 <input type="checkbox" value="remember-me" name="recordar"> Recordarme
                             </label>
                         </div>
-                        <div class="btn btn-lg btn-primary btn-block btn-signin"  id="logina">Iniciar Sesion</div>
+                        <div class="btn btn-lg btn-primary btn-block btn-signin"  id="login">Iniciar Sesion</div>
                     </form><!-- /form -->
                     <a href="index.jsp" class="forgot-password">
                         Regresar
