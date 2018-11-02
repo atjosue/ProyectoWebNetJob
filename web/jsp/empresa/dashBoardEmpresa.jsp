@@ -231,7 +231,7 @@
                              Agregar</div>
                      </h3>
                      <br><br>
-                     <table>
+                     <table border="1">
                          <thead>
                             <th>Codigo</th>
                             <th>Area</th>
