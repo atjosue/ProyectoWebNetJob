@@ -17,15 +17,14 @@ public class DaoUsuario extends Conexion{
     {
         
         ResultSet res;
-        String rol="";
-        String user="";
-        int resp=0;
+        int rol=0;
+       
         
         
         try 
         {
             this.conectar();
-            String sql="select r.descRol as rol, u.nombreUsuario as user from usuario u inner join Rol r on r.idRol=u.idRol where nombreUsuario=? and contraseña=?";
+            String sql="select idRol from usuario where nombreUsuario=? and contraseña=?";
             PreparedStatement pre=this.getCon().prepareStatement(sql);
             pre.setString(1, us.getNombreUsuario());
             pre.setString(2, us.getContraseña());
@@ -33,18 +32,11 @@ public class DaoUsuario extends Conexion{
             
             if(res.next())
             {
-                rol=res.getString("rol");
-                user=res.getString("user");
+                rol=res.getInt("idRol");
                 
-                //asignando los valores a las variables Globales
-                tipo=rol;
-                usuario=user;
-                resp=1;
+               
             }
-            else
-            {
-               resp=0;
-            }
+            
                
         } 
         catch (SQLException e)
@@ -53,7 +45,34 @@ public class DaoUsuario extends Conexion{
                     
         }
         
-           return resp;  
+           return rol;  
+    }
+    
+    
+    //registrarUsuarios
+    public int insertar(Usuario u) throws Exception
+    {
+        int resp=0;
+        try {
+            this.conectar();
+            String sql = "INSERT INTO `vacantes`.`usuario` (`nombreUsuario`, `contraseña`, `estado`, `idRol`) VALUES (?,?, ?, ?);";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, u.getNombreUsuario());
+            pre.setString(2,u.getContraseña());
+            pre.setInt(3, 1);
+            pre.setInt(4, u.getIdRol());
+            pre.executeUpdate();
+            
+            resp=1;
+        } catch (SQLException e) {
+            
+        }finally
+        {
+            this.desconectar();
+        }
+        
+        return resp;
+    
     }
     
 }

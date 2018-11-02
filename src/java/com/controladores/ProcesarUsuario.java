@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,8 +24,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ProcesarUsuario extends HttpServlet {
 
-    
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,6 +41,8 @@ public class ProcesarUsuario extends HttpServlet {
         Usuario us= new Usuario();
         DaoUsuario daou= new DaoUsuario();
         Encriptacion enc= new Encriptacion();
+        HttpSession sesion=request.getSession();
+        
         
         String key=request.getParameter("key");
         switch(key)
@@ -44,13 +54,14 @@ public class ProcesarUsuario extends HttpServlet {
                 us.setContraseña(passEnd);
                 int resp=daou.login(us);
                 
-                if(resp==1)
+                if(resp>0)
                 {
-                    out.print("bien");
+                    out.print(resp);
+                    sesion.setAttribute("user",request.getParameter("user") );
                 }
                 else
                 {
-                out.print("malo");
+                out.print("Usuario y/o contraseña incorrecta");
                 }
            break;
         
