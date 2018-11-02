@@ -106,7 +106,6 @@ estado int not null
 );
 
 
-
 #tabla rubro 
 create table rubro(
 idRubro int not null primary key auto_increment,
@@ -290,6 +289,7 @@ select h.idHabilidad, h.habilidad, h.descripcion, p.profesion from habilidades h
 select p.nombrePuesto, p.descripcion, a.nombre from puesto p inner join area a on a.idArea=p.idArea where p.estado=1 and p.idArea=1;
 
 /*JOSUE AMAYA 28/1018 12:13 am*/
+
 INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Postulante', '1');
 INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Empresa', '1');
 
@@ -338,33 +338,41 @@ VALUES ('Avianca', 'Boulevard no se que cerca de Santa elena wey', '(503) 2280-2
  estar mas cerca de ti a travez de NetJob. aplica ya y se parte de nuestra familia.');
  
  /*INSERTAR EN AREA*/
-
+use vacantes;
 select * from area;
-INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('RRHH', '1', '1');
-INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('Sistemas', '1', '1');
+INSERT INTO `vacantes`.`area` (`nombre`, `estado`) VALUES ('RRHH', '1');
+INSERT INTO `vacantes`.`area` (`nombre`, `estado`) VALUES ('Sistemas', '1');
 
  /*INSERTAR EN Puesto para rrhh y sistemas*/
  select * from puesto;
 alter table puesto add column idEmpresa int;
 alter table puesto add constraint fk_empresa_puesto foreign key (idEmpresa) references empresa(idEmpresa);
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Supervisor', 'supervisor de el area', '1', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Programador', 'programador junior', '2', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Diseñador Web', 'encargado de el diseño de la pagina web y de las demas aplicaciones', '2', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Supervisor', 'supervisor de el area', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Programador', 'programador junior', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Diseñador Web', 'encargado de el diseño de la pagina web y de las demas aplicaciones', '2', '1');
+alter table oferta add column genero int;
+alter table oferta add column idGradoEstudio int;
+alter table oferta add constraint fk_OfertaGRadoEstudio foreign key (idGradoEstudio) references gradoEstudio(idGradoEstudio);
 
- 
- select * from puesto;
+create table requisitos
+(
+	idRequisito int primary key auto_increment,
+    requisito varchar(100),
+    descripcion varchar(200),
+	idOferta int,
+    
+    constraint fk_requsisto_empresa foreign key (idOferta) references oferta(idOferta)
+);
 
+alter table oferta drop column requisitos;
+alter table oferta drop column generoOferta;
+alter table oferta add column sexo varchar(100);
+alter table oferta add column estadoP int;
 
+select * from oferta;
 
-
-
-
-select * from empresa;
-alter table area add column idEmpresa int;
-alter table area add constraint fk_area_empresa foreign key (idEmpresa) references empresa(idEmpresa);
-select * from rubro;
 
