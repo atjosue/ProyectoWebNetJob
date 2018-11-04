@@ -106,7 +106,6 @@ estado int not null
 );
 
 
-
 #tabla rubro 
 create table rubro(
 idRubro int not null primary key auto_increment,
@@ -200,7 +199,7 @@ edadMinima int,
 edadMaxima int,
 idArea int,
 idPuesto int,
-fechaPublicacion date,
+fechaPublicacion varchar(100),
 estado int
 
 
@@ -290,6 +289,7 @@ select h.idHabilidad, h.habilidad, h.descripcion, p.profesion from habilidades h
 select p.nombrePuesto, p.descripcion, a.nombre from puesto p inner join area a on a.idArea=p.idArea where p.estado=1 and p.idArea=1;
 
 /*JOSUE AMAYA 28/1018 12:13 am*/
+
 INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Postulante', '1');
 INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Empresa', '1');
 
@@ -316,11 +316,11 @@ INSERT INTO `vacantes`.`departamento` (`departamento`, `idPais`, `estado`) VALUE
 INSERT INTO `vacantes`.`departamento` (`departamento`, `idPais`, `estado`) VALUES ('Sonsonate', '1', '1');
 
 /* agregar provincias para san salvador y la libertad*/
-INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('San Salvador', '6', '1');
-INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Santa Tecla', '8', '1');
-INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Santa Ana', '7', '1');
-INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Pnchimalco', '6', '1');
-INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Lourdes Colon', '8', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('San Salvador', '1', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Santa Tecla', '3', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Santa Ana', '2', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Pnchimalco', '1', '1');
+INSERT INTO `vacantes`.`provincia` (`provincia`, `idDepartamento`, `estado`) VALUES ('Lourdes Colon', '3', '1');
 
 /*Agregar informacion de la empresa avianca*/
 alter table empresa add column facebook varchar(300);
@@ -333,38 +333,55 @@ alter table empresa add column imagen mediumblob;
 
 INSERT INTO `vacantes`.`empresa` (`nombre`, `direccion`, `telefono`, `mision`, `vision`, `correo`, `idUsuario`, `idRubro`, `idProvincia`, `idDepartamento`, `idPais`, `estado`, `facebook`, `instagram`, `paginaWeb`, `descripcion1`, `descripcion2`) 
 VALUES ('Avianca', 'Boulevard no se que cerca de Santa elena wey', '(503) 2280-2313', 'Conectamos al mundo con Latinoamérica, buscando dar siempre más.', 'Con la mejor gente y tecnología para una experiencia excepcional, seremos la aerolínea latinoamericana preferida en el mundo. ',
- 'avianca_sv@gmail.com', '6', '2', '6', '6', '1', '1', 'https://www.facebook.com/AviancaGlobal/', 'https://www.instagram.com/avianca/?hl=es-la', 'https://www.avianca.com/sv/es/', 'Avianca es la empresa lider en el transporte aereo de personas a anivel munial.\nCada vez que alguien menciona 
+ 'avianca_sv@gmail.com', '5', '2', '2', '1', '1', '1', 'https://www.facebook.com/AviancaGlobal/', 'https://www.instagram.com/avianca/?hl=es-la', 'https://www.avianca.com/sv/es/', 'Avianca es la empresa lider en el transporte aereo de personas a anivel munial.\nCada vez que alguien menciona 
  nuestro nombre son una infinidad de pensamientos y recuerdor de los viajes que han realizafo con nosotros\nGracias a la gente que trabaja para nosotros podemos hacer esto y mucho mas por eso queremos que seas parte de nuestra familia', 'Avianca esta comprometida con tigo por eso hemos decidido 
  estar mas cerca de ti a travez de NetJob. aplica ya y se parte de nuestra familia.');
  
  /*INSERTAR EN AREA*/
-
+use vacantes;
 select * from area;
-INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('RRHH', '1', '1');
-INSERT INTO `vacantes`.`area` (`nombre`, `estado`, `idEmpresa`) VALUES ('Sistemas', '1', '1');
+INSERT INTO `vacantes`.`area` (`nombre`, `estado`) VALUES ('RRHH', '1');
+INSERT INTO `vacantes`.`area` (`nombre`, `estado`) VALUES ('Sistemas', '1');
 
  /*INSERTAR EN Puesto para rrhh y sistemas*/
  select * from puesto;
 alter table puesto add column idEmpresa int;
 alter table puesto add constraint fk_empresa_puesto foreign key (idEmpresa) references empresa(idEmpresa);
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Supervisor', 'supervisor de el area', '1', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Programador', 'programador junior', '2', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`, `idEmpresa`) VALUES ('Diseñador Web', 'encargado de el diseño de la pagina web y de las demas aplicaciones', '2', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Supervisor', 'supervisor de el area', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Programador', 'programador junior', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Diseñador Web', 'encargado de el diseño de la pagina web y de las demas aplicaciones', '2', '1');
 
- 
- select * from puesto;
+alter table oferta add column idGradoEstudio int;
+alter table oferta add constraint fk_OfertaGRadoEstudio foreign key (idGradoEstudio) references gradoEstudio(idGradoEstudio);
+
+create table requisitos
+(
+	idRequisito int primary key auto_increment,
+    requisito varchar(100),
+    descripcion varchar(200),
+	idOferta int,
+    
+    constraint fk_requsisto_empresa foreign key (idOferta) references oferta(idOferta)
+);
+
+alter table oferta drop column requisitos;
+alter table oferta drop column generoOferta;
+alter table oferta add column sexo varchar(100);
+alter table oferta add column estadoP int;
 
 
 
+INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Parvularia', '1');
+INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Basica', '1');
+INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Media', '1');
+INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Superior', '1');
 
-
-
-select * from empresa;
-alter table area add column idEmpresa int;
-alter table area add constraint fk_area_empresa foreign key (idEmpresa) references empresa(idEmpresa);
-select * from rubro;
-
+/*INSERTAR OFERTA DE PRUEBA*/
+INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES (' solo hoy DBA ', 'esta es la primera oportonuidad que esta a tus pies', '2', '250', '250', '1', '3', '18', '60', '1', '1', '10/18/18', '1', '2', 'masculino', '1');
+INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', 'femenino', '1');
+select * from usuario;
+select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora estándar central)';

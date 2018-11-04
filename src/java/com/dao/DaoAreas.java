@@ -31,7 +31,7 @@ public class DaoAreas extends Conexion{
                 ar.setIdArea(res.getInt("idArea"));
                 ar.setNombre(res.getString("nombre"));
                 ar.setEstado(res.getInt("estado"));
-                ar.setIdEmpresa(res.getInt("idEmpresa"));
+                ar.setIdEmpresa(1);
                 listadoAreas.add(ar);
             }
             
@@ -46,6 +46,36 @@ public class DaoAreas extends Conexion{
         }
         return listadoAreas;
     }
+    public Areas mostrarArea() throws SQLException, Exception
+    {
+        Areas ar= new Areas();
+        ResultSet res;
+        try {
+            this.conectar();
+            String sql="select * from area where estado=1 and idArea=1";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            res=pre.executeQuery();
+            while(res.next())
+            {
+                
+                ar.setIdArea(res.getInt("idArea"));
+                ar.setNombre(res.getString("nombre"));
+                ar.setEstado(res.getInt("estado"));
+                ar.setIdEmpresa(1);
+                
+            }
+            
+        } 
+        catch (SQLException e) 
+        {
+            throw e;
+        } 
+        finally
+        {
+            this.desconectar();
+        }
+        return ar;
+    }
     
     //INSERTAR AREAS
     public int insertarArea(Areas ar) throws Exception
@@ -55,11 +85,10 @@ public class DaoAreas extends Conexion{
         {
             this.conectar();
             
-            String sql="insert into area(nombre, estado, idEmpresa) values(?,?,?)";
+            String sql="insert into area(nombre, estado) values(?,?)";
             PreparedStatement pre= this.getCon().prepareStatement(sql);
             pre.setString(1, ar.getNombre());
             pre.setInt(2, ar.getEstado());
-            pre.setInt(3, ar.getIdEmpresa());
              a=pre.executeUpdate();
         }
         catch (SQLException e)
@@ -80,11 +109,10 @@ public class DaoAreas extends Conexion{
         try 
         {
             this.conectar();
-            String sql="update area set nombre=? where idArea=? and idEmpresa=?";
+            String sql="update area set nombre=? where idArea=?";
             PreparedStatement pre= this.getCon().prepareStatement(sql);
             pre.setString(1, ar.getNombre());
             pre.setInt(2, ar.getIdArea());
-            pre.setInt(3, ar.getIdEmpresa());
             a=pre.executeUpdate();
         }
         catch (SQLException e)
@@ -123,37 +151,6 @@ public class DaoAreas extends Conexion{
         return a;
     }
     
-    public List<Areas> mostrarAreasEmpresa( int cod) throws SQLException, Exception
-    {
-        List<Areas> listadoAreas= new ArrayList();
-        ResultSet res;
-        try {
-            this.conectar();
-            String sql="select * from area where estado=1 and idEmpresa =?";
-            PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, cod);
-            res=pre.executeQuery();
-            while(res.next())
-            {
-                Areas ar= new Areas();
-                ar.setIdArea(res.getInt("idArea"));
-                ar.setNombre(res.getString("nombre"));
-                ar.setEstado(res.getInt("estado"));
-                ar.setIdEmpresa(res.getInt("idEmpresa"));
-                listadoAreas.add(ar);
-            }
-            
-        } 
-        catch (SQLException e) 
-        {
-            throw e;
-        } 
-        finally
-        {
-            this.desconectar();
-        }
-        return listadoAreas;
-    }
     
     public List<Areas> infoArea( int cod) throws SQLException, Exception
     {
@@ -188,3 +185,5 @@ public class DaoAreas extends Conexion{
     }
     
 }
+
+

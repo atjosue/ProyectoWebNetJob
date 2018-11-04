@@ -1,28 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.controladores;
 
-import com.dao.DaoUsuario;
-import com.modelos.Usuario;
-import com.recursos.Encriptacion;
+import com.dao.DaoAreas;
+import com.dao.DaoPuestos;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.modelos.Areas;
+import com.modelos.Puestos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author josue
  */
-public class ProcesarUsuario extends HttpServlet {
+public class ProcesarPuestos extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,49 +37,51 @@ public class ProcesarUsuario extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        //Instancias
-        Usuario us= new Usuario();
-        DaoUsuario daou= new DaoUsuario();
-        Encriptacion enc= new Encriptacion();
-        HttpSession sesion=request.getSession();
-        int resp=0;
+        DaoPuestos daoP = new DaoPuestos();
+        DaoAreas daoA = new DaoAreas();
+        Puestos p = new Puestos();
+        int a =0;
+        String op = request.getParameter("key");
+        Gson json = new Gson();
         
-        
-        String key=request.getParameter("key");
-        switch(key)
+        switch(op)
         {
-            case "log":
-                us.setNombreUsuario(request.getParameter("user"));
-                String pass=enc.SHA1(request.getParameter("pass"));
-                String passEnd=enc.MD5(pass);
-                us.setContraseña(passEnd);
-                Usuario respu = daou.login(us);
-                
-                if(respu.getIdRol()>0)
-                {
-                    
-                    sesion.setAttribute("user",request.getParameter("user") );
-                    sesion.setAttribute("idUsuario",respu.getIdUsuario());
-                    out.print(respu.getIdRol());
-                }
-                else
-                {
-                out.print("Usuario y/o contraseña incorrecta");
-                }
-           break;
-           
-            case "addPost":
-                us.setNombreUsuario(request.getParameter("user"));
-                String passAdd=enc.SHA1(request.getParameter("pass"));
-                us.setContraseña(enc.MD5(passAdd));
-                us.setIdRol(Integer.parseInt(request.getParameter("rol")));
-                resp=daou.insertar(us);
-                
-                out.print(resp);
-                
+            case "agregar":
+                p.setNombrePuesto(request.getParameter("nombre"));
+                p.setDescripcion(request.getParameter("descripcion"));
+                p.setEstado(1);
+                p.setIdArea(Integer.parseInt(request.getParameter("idArea")));
+                p.setIdEmpresa(1);
+                a=daoP.agregar(p);
+                out.println(a);
+                break;
+              
+            case "buscarArea":
                
-        
+                out.println(daoP.getNombreArea(Integer.parseInt(request.getParameter("areaID"))));
+                
+                break;
+                
+                case "mostrarPuestos":
+                    
+                List<Puestos> listaPuestos = new ArrayList<Puestos>();
+                listaPuestos = daoP.mostrarPuestoArea(Integer.parseInt(request.getParameter("codEmpresaSelect")));
+                String jsnP="";
+                /*String js ="{\"Areas\":[";
+                for (Areas listaArea : listaAreas) {
+                    js+="{\"idArea\":\""+listaArea.getIdArea()+"\" , \"nombre\":\""+listaArea.getNombre()+"\"},";
+                }
+                jsn = js.substring(0, js.length()-1); 
+                
+                jsn+="]}";*/
+                Gson gPuesto= new Gson();
+                jsnP=gPuesto.toJson(listaPuestos);
+                out.print(jsnP);
+                
+                break;
+                
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -97,7 +99,7 @@ public class ProcesarUsuario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ProcesarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcesarPuestos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,7 +117,7 @@ public class ProcesarUsuario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ProcesarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcesarPuestos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

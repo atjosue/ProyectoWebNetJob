@@ -1,17 +1,14 @@
+
 package com.modelos;
 
 /**
- *
- * @author Kevin Antonio Montiel Ramos
- * Nombre De La Clase: GradoEstudio
- * Fecha: 15/08/2018
- * Version: 1.0
- * Copyright: Grupo 1 
- * 
+ * nombre GradoEstudio
+ * fecha 02/11/18
+ * version 1.0
+ * copyright netjob
+ * @author josue
  */
-public class GradoEstudio 
-{
-    
+public class GradoEstudio {
     private int idGradoEstudio;
     private String grado;
     private int estado;

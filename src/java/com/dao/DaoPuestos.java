@@ -44,13 +44,13 @@ public class DaoPuestos extends Conexion {
     }
     
     //metodo para mostrar puestos por empresa
-    public List<Puestos> mostrarPuestoEmpresa(int cod) throws Exception
+    public List<Puestos> mostrarPuestoArea(int cod) throws Exception
     {
         ResultSet res;
         List<Puestos> listadoPuestos= new ArrayList();
         try {
          this.conectar();
-         String sql = "select * from puesto where estado=1 and idEmpresa=?";
+         String sql = "select * from puesto where estado=1 and idArea=?";
          PreparedStatement pre = this.getCon().prepareStatement(sql);
          pre.setInt(1, cod);
          res= pre.executeQuery();
@@ -60,7 +60,7 @@ public class DaoPuestos extends Conexion {
                 p.setNombrePuesto(res.getString("nombrePuesto"));
                 p.setDescripcion(res.getString("descripcion"));
                 p.setIdArea(res.getInt("idArea"));
-                p.setIdEmpresa(res.getInt("idEmpresa"));
+               
                 listadoPuestos.add(p);
             }
             
@@ -75,8 +75,9 @@ public class DaoPuestos extends Conexion {
     }
     
     //Metodo para insertar puestos
-    public void agregar(Puestos p) throws Exception
+    public int agregar(Puestos p) throws Exception
     {
+        int a=0;
         try {
            this.conectar();
            String sql="insert into puesto values(?,?,?,?,?,?)";
@@ -87,7 +88,7 @@ public class DaoPuestos extends Conexion {
            pre.setInt(4, p.getIdArea());
            pre.setInt(5, p.getEstado());
            pre.setInt(6, p.getIdEmpresa());
-           pre.executeUpdate();
+           a=pre.executeUpdate();
            
         } catch (SQLException e) {
             throw e;
@@ -95,7 +96,7 @@ public class DaoPuestos extends Conexion {
         {
         this.desconectar();
         }
-    
+        return a;
     }
     
     //Metodo para modificar puestos

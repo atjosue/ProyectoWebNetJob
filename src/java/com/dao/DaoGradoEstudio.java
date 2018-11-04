@@ -1,24 +1,48 @@
-package com.dao;
 
+package com.dao;
 import com.conexion.Conexion;
 import com.modelos.GradoEstudio;
-import com.modelos.Idioma;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.sql.*;
-import javax.swing.JOptionPane;
 
 /**
- *
- * @author Kevin Antonio Montiel Ramos
- * Nombre De La Clase: DaoGradoEstudio
- * Fecha: 15/08/2018
- * Version: 1.0
- * Copyright: Grupo 1 
- * 
+ * nombre DaoGradoEstudio
+ * fecha 02/11/18
+ * version 1.0
+ * copyright netjob
+ * @author josue
  */
-public class DaoGradoEstudio extends Conexion 
-{  
+public class DaoGradoEstudio extends Conexion{
+    
+    public List<GradoEstudio> mostrarGrados() throws Exception
+    {
+        List<GradoEstudio> lista = new ArrayList();
+        ResultSet res;
+        
+        try {
+            this.conectar();
+            String sql="select * from gradoEstudio where estado=?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, 1);
+            res=pre.executeQuery();
+                while(res.next())
+                {
+                    GradoEstudio ge = new GradoEstudio();
+                    ge.setIdGradoEstudio(res.getInt("idGradoEstudio"));
+                    ge.setGrado(res.getString("grado"));
+                    ge.setEstado(res.getInt("estado"));
+                    
+                    lista.add(ge);
+                }
+        } catch (Exception e) {
+            throw e;
+        }finally
+        {
+            this.desconectar();
+        }
+        return lista;
+    }
+     
     public List<GradoEstudio> mostrarGrado() throws Exception
     {
         List<GradoEstudio> listaGrado = new ArrayList();
@@ -43,7 +67,7 @@ public class DaoGradoEstudio extends Conexion
         } 
         catch (Exception e) 
         {
-            JOptionPane.showMessageDialog(null, "Error Al Mostar Datos" + e);
+            
         }
         finally
         {
@@ -66,7 +90,7 @@ public class DaoGradoEstudio extends Conexion
         }
         catch (Exception e) 
         {
-            JOptionPane.showMessageDialog(null, "Error Al Insertar Datos" + e);
+            
         }
         finally
         {
@@ -87,7 +111,7 @@ public class DaoGradoEstudio extends Conexion
         } 
         catch (Exception e)
         {
-            JOptionPane.showMessageDialog(null, "Error Al Modificar Datos" + e);
+            
         }
         finally
         {
@@ -107,7 +131,7 @@ public class DaoGradoEstudio extends Conexion
         } 
         catch (Exception e) 
         {
-            JOptionPane.showMessageDialog(null, "Error Al Eliminar Datos" + e);
+            
         }
         finally
         {
@@ -115,4 +139,5 @@ public class DaoGradoEstudio extends Conexion
         }
    
     }
+
 }

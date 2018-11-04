@@ -14,18 +14,16 @@ public class DaoUsuario extends Conexion{
     public static String usuario;
     
     //metodo de acceso
-    public int login(Usuario us) throws Exception        
+    public Usuario login(Usuario us) throws Exception        
     {
-        
+        Usuario usu= new Usuario();
         ResultSet res;
         int rol=0;
        
-        
-        
         try 
         {
             this.conectar();
-            String sql="select idRol from usuario where nombreUsuario=? and contraseña=?";
+            String sql="select * from usuario where nombreUsuario=? and contraseña=?";
             PreparedStatement pre=this.getCon().prepareStatement(sql);
             pre.setString(1, us.getNombreUsuario());
             pre.setString(2, us.getContraseña());
@@ -33,12 +31,10 @@ public class DaoUsuario extends Conexion{
             
             if(res.next())
             {
-                rol=res.getInt("idRol");
-                
-               
-            }
-            
-               
+                usu.setIdUsuario(res.getInt("idUsuario"));
+                usu.setIdRol(res.getInt("idRol"));
+                usu.setNombreUsuario(res.getString("nombreUsuario"));
+            }  
         } 
         catch (SQLException e)
         {
@@ -46,7 +42,7 @@ public class DaoUsuario extends Conexion{
                     
         }
         
-           return rol;  
+           return usu;  
     }
     
     

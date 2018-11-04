@@ -8,6 +8,10 @@
         <servlet-name>ProcesarArea</servlet-name>
         <servlet-class>com.controladores.ProcesarArea</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarPuestos</servlet-name>
+        <servlet-class>com.controladores.ProcesarPuestos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>gestionAreas</servlet-name>
         <url-pattern>/GestionAreas</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ProcesarArea</servlet-name>
         <url-pattern>/procesarArea</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarPuestos</servlet-name>
+        <url-pattern>/procesarPuestos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
