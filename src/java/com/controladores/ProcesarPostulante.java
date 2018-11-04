@@ -1,81 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.controladores;
 
-import com.dao.DaoUsuario;
-import com.modelos.Usuario;
-import com.recursos.Encriptacion;
+import com.dao.DaoDepartamento;
+import com.dao.DaoProvincia;
+import com.google.gson.Gson;
+import com.modelos.Departamento;
+import com.modelos.Provincia;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Carlos_Campos
  */
-public class ProcesarUsuario extends HttpServlet {
+public class ProcesarPostulante extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        //Instancias
-        Usuario us= new Usuario();
-        DaoUsuario daou= new DaoUsuario();
-        Encriptacion enc= new Encriptacion();
-        HttpSession sesion=request.getSession();
-        int resp=0;
+        Gson json= new Gson();
+        DaoDepartamento daod= new DaoDepartamento();
+        DaoProvincia daopro= new DaoProvincia();
+        
         
         
         String key=request.getParameter("key");
+        
         switch(key)
         {
-            case "log":
-                us.setNombreUsuario(request.getParameter("user"));
-                String pass=enc.SHA1(request.getParameter("pass"));
-                String passEnd=enc.MD5(pass);
-                us.setContraseña(passEnd);
-                resp=daou.login(us);
-                
-                if(resp>0)
-                {
-                    out.print(resp);
-                    sesion.setAttribute("user",request.getParameter("user") );
-                }
-                else
-                {
-                out.print("Usuario y/o contraseña incorrecta");
-                }
-           break;
-           
-            case "addPost":
-                us.setNombreUsuario(request.getParameter("user"));
-                String passAdd=enc.SHA1(request.getParameter("pass"));
-                us.setContraseña(enc.MD5(passAdd));
-                us.setIdRol(Integer.parseInt(request.getParameter("rol")));
-                resp=daou.insertar(us);
-                
-                out.print(resp);
-                
-               
+            case "depPais":
+                int idPais= Integer.parseInt(request.getParameter("idPais"));
+                List<Departamento> dep= daod.mostrarDeptoPorPais(idPais);
+                out.println(json.toJson(dep));
+            break;
+            case "munDep":
+                int idDep= Integer.parseInt(request.getParameter("idDepartamento"));
+                List<Provincia> pro= daopro.mostrarDeptoPorPais(idDep);
+                out.println(json.toJson(pro));
+            break;
+        
         
         }
     }
@@ -95,7 +67,7 @@ public class ProcesarUsuario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ProcesarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcesarPostulante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -113,7 +85,7 @@ public class ProcesarUsuario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ProcesarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcesarPostulante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

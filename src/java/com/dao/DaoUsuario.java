@@ -1,6 +1,7 @@
 
-package com.modelos;
+package com.dao;
 import com.conexion.Conexion;
+import com.modelos.Usuario;
 import static java.lang.System.out;
 import java.sql.*;
 

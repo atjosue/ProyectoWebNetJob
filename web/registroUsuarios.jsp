@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registro</title>
         <jsp:include page="utilidades/frontend/headerLinks.jsp" />
+        <script src="js/index.js" type="text/javascript"></script>
     </head>
     <body>
         
@@ -35,13 +36,16 @@
                         
                         <input type="password" name="pass" class="form-control" placeholder="Contraseña" value="" required id="pass">
                         <input type="password" name="secondPassword" class="form-control" placeholder="Reescriba su Contraseña" value="" required id="pass2">
+                        <input type="hidden" name="key"  value="addPost"/>
+                        <input type="hidden" name="rol"  value="3"/>
+                        
                         
                         <div id="remember" class="checkbox">
                             <label>
                                 <input type="checkbox" value="remember-me" name="recordar"> Recordarme
                             </label>
                         </div>
-                        <div class="btn btn-lg btn-primary btn-block btn-signin"  id="login">REGISTRARSE</div>
+                        <div class="btn btn-lg btn-primary btn-block btn-signin"  id="add">REGISTRARSE</div>
                     </form><!-- /form -->
                     <a href="index.jsp" class="forgot-password">
                         Regresar
