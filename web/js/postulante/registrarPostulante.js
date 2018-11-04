@@ -9,13 +9,11 @@ $(document).ready(function(){
 
 $('select').formSelect();
 
-    
-});
-
-
 $("#pais").change(function(){
     
-        var idPais=$("#pais").value();
+    alert("hola mundo");
+    
+       var idPais=$("#pais").value();
         var key="depPais";
         $.ajax({
             
@@ -26,11 +24,25 @@ $("#pais").change(function(){
                 
                 var content=JSON.parse(response);
                 
-                
+                $.each(response,function(key, value) {
+            $('#departamento').append('<option value="'+key+'">'+value+'</option>');
+                }); 
                 
             }
             
             
             
         });
+        
+        
+       
 });
+    
+
+
+
+
+});
+
+
+

@@ -74,7 +74,7 @@ $(document).ready(function(){
                                     
 
                             });
-              // window.location.href="login.jsp";
+               window.location.href="login.jsp";
                     
             }
         }

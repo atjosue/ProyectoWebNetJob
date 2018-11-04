@@ -90,18 +90,10 @@
         <div class="row">
         <div class="input-field col s6 ">
           <select class="search selection" id="departamento">
-                <%
-                                DaoDepartamento daod= new DaoDepartamento();
-                                
-                                List<Departamento> lstD=daod.mostrarDeptoPorPais(1);
-                                for(Departamento d:lstD)
-                                {
-                            %>
-                            <option value="<%=d.getIdDepartamento()%>"><%=d.getDepartamento()%></option>
+               
+                            
                 
-                <%
-                    }
-                %>
+              
             </select>
           <label for="departamento">Deparatamento</label>
         </div>
