@@ -4,10 +4,12 @@ package com.controladores;
 import com.dao.DaoAreas;
 import com.dao.DaoPuestos;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.modelos.Areas;
 import com.modelos.Puestos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,9 +38,11 @@ public class ProcesarPuestos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         DaoPuestos daoP = new DaoPuestos();
+        DaoAreas daoA = new DaoAreas();
         Puestos p = new Puestos();
         int a =0;
         String op = request.getParameter("key");
+        Gson json = new Gson();
         
         switch(op)
         {
@@ -51,19 +55,31 @@ public class ProcesarPuestos extends HttpServlet {
                 a=daoP.agregar(p);
                 out.println(a);
                 break;
-            case "getInfoPuesto":
-                
-                List<Puestos> lista = daoP.mostrarPuestoEmpresa(Integer.parseInt(request.getParameter("id")));
-
-                Gson json = new Gson();
-                out.print(json.toJson(lista));
-                
-                break;    
+              
             case "buscarArea":
                
                 out.println(daoP.getNombreArea(Integer.parseInt(request.getParameter("areaID"))));
                 
                 break;
+                
+                case "mostrarPuestos":
+                    
+                List<Puestos> listaPuestos = new ArrayList<Puestos>();
+                listaPuestos = daoP.mostrarPuestoArea(Integer.parseInt(request.getParameter("codEmpresaSelect")));
+                String jsnP="";
+                /*String js ="{\"Areas\":[";
+                for (Areas listaArea : listaAreas) {
+                    js+="{\"idArea\":\""+listaArea.getIdArea()+"\" , \"nombre\":\""+listaArea.getNombre()+"\"},";
+                }
+                jsn = js.substring(0, js.length()-1); 
+                
+                jsn+="]}";*/
+                Gson gPuesto= new Gson();
+                jsnP=gPuesto.toJson(listaPuestos);
+                out.print(jsnP);
+                
+                break;
+                
         }
         
     }

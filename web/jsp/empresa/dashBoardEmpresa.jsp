@@ -4,6 +4,7 @@
     Author     : josue
 --%>
 
+<%@page import="javax.jms.Session"%>
 <%@page import="com.dao.DaoPuestos"%>
 <%@page import="com.modelos.Puestos"%>
 <%@page import="com.modelos.Areas"%>
@@ -19,6 +20,7 @@
         <jsp:include page="../../utilidades/frontend/headerLinks.jsp" />
         <script src="../../js/empresa/dashBoardEmpresa.js" type="text/javascript"></script>
         <link href="../../css/empresa/dashBoardEmpresa.css" rel="stylesheet" type="text/css"/>
+        <script src="../../utilidades/frontend/Ajax_Camvas/underscoreJS.js" type="text/javascript"></script>
     </head>
     <header>
          <nav class="nav-extended teal">
@@ -31,7 +33,8 @@
                   <li><a><span class="glyphicon glyphicon-bell"></span><span class="badge">5</span></a></li>
                 <li style="width: 150px;">
                             <a class="dropdown-trigger" href="#!" data-target="dropdown1">
-                                <img src="../../Contenido/Imagenes/postulantes/carla.jpg" class="rounded-circle " width="35px" height="35px" style="border-radius: 16px;"> Empresa
+                                <img src="../../Contenido/Imagenes/postulantes/carla.jpg" class="rounded-circle " width="35px" height="35px" style="border-radius: 16px;"> 
+                                <%= session.getAttribute("users") %>
                             </a>
 
                 </li>
@@ -54,6 +57,7 @@
                 </ul>
     </header>
     <body>  
+        <input type="hidden" id="idUsuarioGlobal" value="<%= session.getAttribute("idUsuario")%>">
       <div class="row">
        <!-- margen de la derecha -->
        <div class="col-sm-1 col-md-1 col-xs-1"></div>   
@@ -81,145 +85,201 @@
                           <form id="formularioAgregarOferta"> 
                                 <div class="row">
                                     <br>
+                                    <input type="hidden" id="idUsuario" name="idUsuario" value="<%= session.getAttribute("idUsuario")%>">
                                     <div class="input-field col s8">
-                                        <input id="txtTituloOferta" type="text" class="validate">
-                                      <label for="txtTituloOferta">Titulo</label>
+                                        <input id="txtTituloOferta" name="titulo" type="text" class="validate">
+                                      <label for="txtTituloOferta">Titulo de la oferta</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtVacantesOferta" type="number" class="validate">
-                                      <label for="txtVacantesOferta">Vacantes</label>
+                                        <input id="txtVacantesOferta" name="vacantes" type="number" class="validate">
+                                      <label for="txtVacantesOferta">Vacantes desponibles</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="txtDescripcionOferta" type="text" class="validate">
-                                      <label for="txtDescripcionOferta">Descripcion</label>
+                                        <input id="txtDescripcionOferta" name="descripcion" type="text" class="validate">
+                                      <label for="txtDescripcionOferta">Descripcion de la oferta</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtSalarioMinimo" type="text" class="validate">
+                                        <input id="txtSalarioMinimo" name="salarioMinimo" type="number" step="any" min="0" class="validate">
                                       <label for="txtSalarioMinimo">Salario Minimo</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtSalarioMaximo" type="text" class="validate">
+                                        <input id="txtSalarioMaximo" name="salarioMaximo" type="number" step="any" min="0" class="validate">
                                       <label for="txtSalarioMinimo">Salario Maximo</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtAnosExperiencia" type="text" class="validate">
+                                        <input id="txtAnosExperiencia" name="aniosExperiencia" type="number" step="1" min="0" max="50" class="validate">
                                       <label for="txtAnosExperiencia">Años de experiencia</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtArea" type="text" class="validate">
-                                      <label for="txtArea">Seleccionar area de la empresa</label>
+                                    <div class="input-field col s5">
+                                        <select id="selectArea" name="idArea">
+                                          
+                                        </select>
+                                       <label>Seleccionar area de la empresa</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtPuesto" type="text" class="validate">
-                                      <label for="txtArea">Seleccionar puesto de la empresa</label>
+                                    <div class="input-field col s1">
+                                        <div class="waves-effect waves-green btn btn-danger" id="agregarNuevaArea" >
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </div>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtGeneroPreferencia" type="text" class="validate">
-                                      <label for="txtGeneroPreferencia">Genero de preferencia</label>
+                                    <div class="input-field col s5">
+                                        <select id="selectPuesto" name="idPuesto">
+                                          
+                                        </select>
+                                       <label>Seleccionar puesto de la empresa</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtGradoEstudio" type="text" class="validate">
-                                      <label for="txtArea">Grado de estudio requerido</label>
+                                    <div class="input-field col s1">
+                                        <div class="waves-effect waves-green btn btn-danger" id="agregarNuevoPuesto" >
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </div>
+                                    </div>
+                                    <div class="input-field col s8">
+                                      <p>
+                                      <label for="txtGeneroPreferencia">Genero de preferencia</label><br>
+                                      <label>
+                                          <input class="with-gap" name="sexo" type="radio" id="txtGeneroPreferencia" value="1" />
+                                          <span>Masculino</span>
+                                        </label>
+                                        <label>
+                                            <input class="with-gap" name="sexo" type="radio" id="txtGeneroPreferencia" value="2" />
+                                          <span>Femenino</span>
+                                        </label>
+                                        <label>
+                                            <input class="with-gap" name="sexo" type="radio" id="txtGeneroPreferencia" value="3" />
+                                          <span>No relevante</span>
+                                        </label>
+                                      </p>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtEdadMinima" type="number" min="18" max="65" class="validate">
+                                        <select id="selectGrado" name="idGradoEstudio">
+                                          
+                                        </select>
+                                       <label>Seleccionar grado de Estudio requerido</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="input-field col s4">
+                                        <input id="txtEdadMinima" name="edadMinima" type="number" min="18" max="65" class="validate">
                                       <label for="txtEdadMinima">Edad minima</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtEdadMaxima" type="number" min="18" max="65" class="validate">
+                                        <input id="txtEdadMaxima" name="edadMaxima" type="number" min="18" max="65" class="validate">
                                       <label for="txtEdadMaxima">Edad maxima</label>
                                     </div>
                                     <div class="input-field col s4">
                                         <center>
                                             <div class="switch">
+                                                <label for="txtEstadoOf">Estado de activacion de oferta:</label>
                                                 <label>
-                                                  activa
-                                                  <input id="txtEstado" type="checkbox">
-                                                  <span class="lever"></span>
                                                   desactiva
+                                                  <input id="txtEstadoOf" type="checkbox" checked="checked">
+                                                  <span class="lever"></span>
+                                                  activa
                                                 </label>
                                               </div>
                                         </center>
                                     </div>
                                 </div>
+                                    <input id="txtEstadoDesactivo" name="estadoP" type="hidden" >
                             </form>
-                            <br><br><br><br><br><br><br><br><br>
+                            <!--<br>
+                            <h6>Requisitos</h6>
+                            <br>
+                            <div id="contenedorTablaRequisitos" class="row">
+                                <form id="frmRequisitos" class="col-sm-12 col-md-12">
+                                    <div id="dynamicDiv">
+                                        
+                                    </div>
+                                </form>
+                            <a href="javascript:void(0)" class="waves-effect waves-green btn btn-danger small" id="addInput">
+                                   <span class="glyphicon glyphicon-tasks"></span>Agregar
+                            </a>
+                            </div>-->
+                      
+			<script>
+			/*$(function () {
+			    var scntDiv = $('#dynamicDiv');
+                            var a=1;
+			    
+                                    $(document).on('click', '#addInput', function () {
+                                    
+                                    if (a<=10) {
+                                    $( '<h7>'+ 
+                                            '<div class="col-sm-3 col-md-3">'+    
+                                            '<input id="tituloRequisito'+a+'" name="tituloRequisito[]"  type="text" id="inputeste" placeholder="titulo">'+
+                                            '</div>'+
+                                            '<div class="col-sm-7 col-md-7" >'+
+                                            '<input id="descripcionRequisito'+a+'" name="descripcionRequisito[]" type="text" id="inputeste" placeholder="Descripcion">'+
+                                            '</div>'+
+                                            '<a class="waves-effect waves-green btn btn-danger col-sm-1 col-md-1" " id="remInput">'+
+                                                '<span class="glyphicon glyphicon-trash"></span>'+
+                                            '</a>'+
+                                            '</h7><div class="clearfix"></div>').appendTo(scntDiv);
+                                    a=a+1;
+                                    }else
+                                    {
+                                        swal({
+                                                    title:"Error!",
+                                                    text: "Solo se pueden agregar 10 requisitos.",
+                                                    timer: 1800,
+                                                    type: 'error',
+                                                    closeOnConfirm: true,
+                                                    closeOnCancel: true
+                                            });
+                                    }
+                                    return false;
+                                });
+                                $(document).on('click', '#remInput', function () {
+                                $(this).parents('h7').remove();
+                                a=a-1;
+                                    return false;
+                                });
+			});*/
+			</script>
+		
                       </div>
                        <div class="col-sm-3 col-md-3 col-sm-3 ">
-                           <div style="margin-top: 100%;">
-                               <div class="waves-effect waves-green btn btn-danger" id="btnGuardadNuevaOferta" >Guardar</div>
+                           <div>
+                               <div style="margin-top: 200%; margin-left: 20%; width: 200px;" class="waves-effect waves-green btn btn-danger " id="btnGuardadNuevaOferta" data-toggle="collapse" data-target="#agregarOfertaContainer" >Guardar</div>
                            </div>
                        </div>
-                      
+                       
                      </div>
                      
                      <!---------------------- FIN CONTENEDOR PARA AGREGAR OFERTAS ------------------------------>
-
                      <br><br>
+                     <!---------------------- TABLA DE OFERTAS ------------------------------>
+                     <div id="contenedorTabla">
+                        <table id="tableOfertas" class="tab-content highlight responsive-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Puesto</th>
+                                <th>Descripcion</th>
+                                <th>Vacantes</th>
+                                <th>id</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Puesto</th>
+                                <th>Descipcion</th>
+                                <th>Vacantes</th>
+                                <th>id</th>
+                                <th style="width: 250px;">Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table> 
+                    </div>
                      
-                     <table class="tab-content highlight responsive-table" cellspacing="1" width="100%">
-                         <thead>
-                            <th>Puesto</th>
-                            <th>Descripcion</th>
-                            <th>Estado0</th>
-                            <th>Acciones</th>
-                         </thead>
-                         <tbody>
-                        <!--  INICIO DE LA FILA -->
-                             <tr>
-                                 <td>Programador en Java</td>
-                                 <td style="width: 550px;">
-                                     Programador que sea capas de realizar distiantas  aplicaciones en android java
-                                     y en unity y que sea tambien ingenirto en fisica nuclea y que sepa cocinar ok?
-                                 </td>
-                                 <td style="width: 150px;">
-                                    <center>
-                                     <div class="input-field col s4">
-                                        <center>
-                                            <div class="switch">
-                                                <label>
-                                                  <input id="txtEstado" type="checkbox">
-                                                  <span class="lever"></span>
-                                                </label>
-                                              </div>
-                                        </center>
-                                    </div>
-                                    </center>
-                                 </td>
-                                 <td>
-                                     <div class="waves-effect waves-light btn modal-trigger modificarOferta" >Editar</div>
-                                     <div class="btn btn-danger small">Eliminar</div>
-                                 </td>                                 
-                             </tr>
-                            
-                        <!--  FIN DE LA FILA -->
-                        
-                         </tbody>
-                     </table>
-                     
+                     <!---------------------- FIN TABLA DE OFERTAS ------------------------------>
                  </div>
                  <!-- FIN CONTENEDOR PARA LA GESTION DE OFERTAS -->
                  <!-- CONTENEDOR PARA LA GESTION DE SOLICITUDES -->
                  <div id="menu3" class="tab-pane fade" >
                         
-                     <div class="row">
-                         <ul class="collapsible">
-                          <li>
-                            <div class="collapsible-header">
-                              <i class="material-icons">filter_drama</i>
-                              First
-                              <span class="new badge">4</span></div>
-                            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                          </li>
-                          <li>
-                            <div class="collapsible-header">
-                              <i class="material-icons">place</i>
-                              Second
-                              <span class="badge">1</span></div>
-                            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                          </li>
-                        </ul>
-                     </div>
+                     
+                     
+                     
+                     
                  </div>
                  <!-- FIN CONTENEDOR PARA LA GESTION DE SOLICITUDES -->
                  <!-- CONTENEDOR PARA LA AREAS -->

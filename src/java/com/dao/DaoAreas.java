@@ -31,7 +31,7 @@ public class DaoAreas extends Conexion{
                 ar.setIdArea(res.getInt("idArea"));
                 ar.setNombre(res.getString("nombre"));
                 ar.setEstado(res.getInt("estado"));
-                ar.setIdEmpresa(res.getInt("idEmpresa"));
+                ar.setIdEmpresa(1);
                 listadoAreas.add(ar);
             }
             
@@ -45,6 +45,36 @@ public class DaoAreas extends Conexion{
             this.desconectar();
         }
         return listadoAreas;
+    }
+    public Areas mostrarArea() throws SQLException, Exception
+    {
+        Areas ar= new Areas();
+        ResultSet res;
+        try {
+            this.conectar();
+            String sql="select * from area where estado=1 and idArea=1";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            res=pre.executeQuery();
+            while(res.next())
+            {
+                
+                ar.setIdArea(res.getInt("idArea"));
+                ar.setNombre(res.getString("nombre"));
+                ar.setEstado(res.getInt("estado"));
+                ar.setIdEmpresa(1);
+                
+            }
+            
+        } 
+        catch (SQLException e) 
+        {
+            throw e;
+        } 
+        finally
+        {
+            this.desconectar();
+        }
+        return ar;
     }
     
     //INSERTAR AREAS

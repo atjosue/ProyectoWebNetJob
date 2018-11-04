@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.modelos.Areas;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,6 +71,22 @@ public class ProcesarArea extends HttpServlet {
                 ar.setEstado(0);
                 a = daoA.eliminarArea(ar);
                 out.println(a);
+                break;
+            case "mostrarAreas":
+                List<Areas> listaAreas = new ArrayList<Areas>();
+                listaAreas = daoA.mostrarAreas();
+                String jsn="";
+                /*String js ="{\"Areas\":[";
+                for (Areas listaArea : listaAreas) {
+                    js+="{\"idArea\":\""+listaArea.getIdArea()+"\" , \"nombre\":\""+listaArea.getNombre()+"\"},";
+                }
+                jsn = js.substring(0, js.length()-1); 
+                
+                jsn+="]}";*/
+                Gson g= new Gson();
+                jsn=g.toJson(listaAreas);
+                out.print(jsn);
+                
                 break;
         }
     }

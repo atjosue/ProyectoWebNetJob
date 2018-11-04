@@ -1,6 +1,8 @@
 
 package com.modelos;
 
+import java.io.Serializable;
+
 /**
  * nombre Oferta
  * fecha 30/10/18
@@ -9,7 +11,7 @@ package com.modelos;
  * @author josue
  */
 
-public class Oferta {
+public class Oferta implements Serializable{
   private int idOferta;
   private String  titulo;
   private String  descripcion;

@@ -16,10 +16,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author josue
+ * @author Carlos_Campos
  */
 public class ProcesarUsuario extends HttpServlet {
 
@@ -40,6 +41,8 @@ public class ProcesarUsuario extends HttpServlet {
         Usuario us= new Usuario();
         DaoUsuario daou= new DaoUsuario();
         Encriptacion enc= new Encriptacion();
+        HttpSession sesion=request.getSession();
+        
         
         String key=request.getParameter("key");
         switch(key)
@@ -49,15 +52,17 @@ public class ProcesarUsuario extends HttpServlet {
                 String pass=enc.SHA1(request.getParameter("pass"));
                 String passEnd=enc.MD5(pass);
                 us.setContraseña(passEnd);
-                int resp=daou.login(us);
+                Usuario resp=daou.login(us);
                 
-                if(resp==1)
+                if(resp.getIdRol()>0)
                 {
-                    out.print("bien");
+                    out.print(resp.getIdRol());
+                    sesion.setAttribute("user",request.getParameter("user") );
+                    sesion.setAttribute("idUsuario",resp.getIdUsuario());
                 }
                 else
                 {
-                out.print("malo");
+                out.print("Usuario y/o contraseña incorrecta");
                 }
            break;
         
