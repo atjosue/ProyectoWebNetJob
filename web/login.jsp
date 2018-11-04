@@ -24,8 +24,8 @@
                     
                     <div class="content-form">
                         <h3>Inicia Sesión</h3>
-                    <h4>¿NetJob? <a href="../cliente/registrarse.php">Regístrate</a></h4>
-
+                    <h4>¿NetJob? <a href="registroUsuarios.jsp">Regístrate</a></h4>
+                    
                     <p id="profile-name" class="profile-name-card"></p>
                     <form class="form-signin" method="POST" id="infoUsuario">
                         <span id="reauth-user" class="reauth-user"></span>

@@ -5,7 +5,7 @@
  */
 package com.controladores;
 
-import com.modelos.DaoUsuario;
+import com.dao.DaoUsuario;
 import com.modelos.Usuario;
 import com.recursos.Encriptacion;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Carlos_Campos
+ * @author josue
  */
 public class ProcesarUsuario extends HttpServlet {
 
@@ -42,6 +42,7 @@ public class ProcesarUsuario extends HttpServlet {
         DaoUsuario daou= new DaoUsuario();
         Encriptacion enc= new Encriptacion();
         HttpSession sesion=request.getSession();
+        int resp=0;
         
         
         String key=request.getParameter("key");
@@ -52,19 +53,31 @@ public class ProcesarUsuario extends HttpServlet {
                 String pass=enc.SHA1(request.getParameter("pass"));
                 String passEnd=enc.MD5(pass);
                 us.setContraseña(passEnd);
-                Usuario resp=daou.login(us);
+                Usuario respu = daou.login(us);
                 
-                if(resp.getIdRol()>0)
+                if(respu.getIdRol()>0)
                 {
-                    out.print(resp.getIdRol());
+                    
                     sesion.setAttribute("user",request.getParameter("user") );
-                    sesion.setAttribute("idUsuario",resp.getIdUsuario());
+                    sesion.setAttribute("idUsuario",respu.getIdUsuario());
+                    out.print(respu.getIdRol());
                 }
                 else
                 {
                 out.print("Usuario y/o contraseña incorrecta");
                 }
            break;
+           
+            case "addPost":
+                us.setNombreUsuario(request.getParameter("user"));
+                String passAdd=enc.SHA1(request.getParameter("pass"));
+                us.setContraseña(enc.MD5(passAdd));
+                us.setIdRol(Integer.parseInt(request.getParameter("rol")));
+                resp=daou.insertar(us);
+                
+                out.print(resp);
+                
+               
         
         }
     }

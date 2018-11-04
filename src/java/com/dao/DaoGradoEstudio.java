@@ -42,6 +42,102 @@ public class DaoGradoEstudio extends Conexion{
         }
         return lista;
     }
+     
+    public List<GradoEstudio> mostrarGrado() throws Exception
+    {
+        List<GradoEstudio> listaGrado = new ArrayList();
+        ResultSet res;
+        
+        try 
+        {
+            this.conectar();
+            String sql = "SELECT * FROM gradoEstudio WHERE estado = 1;";
+            PreparedStatement pre = getCon().prepareStatement(sql);
+            res=pre.executeQuery();
+            
+            while(res.next())
+            {   
+                GradoEstudio gr = new GradoEstudio();
+                
+                gr.setIdGradoEstudio(res.getInt("idGradoEstudio"));
+                gr.setGrado(res.getString("grado"));
+                gr.setEstado(res.getInt("estado"));
+                listaGrado.add(gr);     
+            }
+        } 
+        catch (Exception e) 
+        {
+            
+        }
+        finally
+        {
+            this.desconectar();
+        }
+        
+        return listaGrado;
+    }
+       
+    public void insertarGrado(GradoEstudio gr) throws Exception
+    {
+        
+        try 
+        {
+            this.conectar();
+            String sql = "INSERT INTO gradoEstudio (grado, estado) VALUES (?, 1);";
+            PreparedStatement pre = getCon().prepareStatement(sql);
+            pre.setString(1, gr.getGrado());
+            pre.executeUpdate();
+        }
+        catch (Exception e) 
+        {
+            
+        }
+        finally
+        {
+            this.desconectar();
+        }    
+    }
     
+    public void modificarDatos(GradoEstudio gr) throws Exception
+    {
+        try 
+        {
+            this.conectar();
+            String sql = "UPDATE gradoEstudio set grado = ? WHERE idGradoEstudio = ?;";
+            PreparedStatement pre = getCon().prepareStatement(sql);
+            pre.setString(1, gr.getGrado());
+            pre.setInt(2, gr.getIdGradoEstudio());
+            pre.executeUpdate();
+        } 
+        catch (Exception e)
+        {
+            
+        }
+        finally
+        {
+            this.desconectar();
+        }
+    }
     
+    public void eliminarGrado(GradoEstudio gr) throws Exception
+    {
+        try 
+        {
+            this.conectar();
+            String sql = "UPDATE gradoEstudio set estado = 0  WHERE idGradoEstudio = ?;";
+            PreparedStatement pre = getCon().prepareStatement(sql);
+            pre.setInt(1, gr.getIdGradoEstudio());
+            pre.executeUpdate();
+        } 
+        catch (Exception e) 
+        {
+            
+        }
+        finally
+        {
+            this.desconectar();
+        }
+   
+    }
+
 }

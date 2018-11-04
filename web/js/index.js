@@ -52,6 +52,38 @@ $(document).ready(function(){
         
     });
     
+    //agregando Postulante
+    $("#add").click(function(){
+        
+        var data=$("#registroUsuario").serialize();
+        $.ajax({
+            type:'post',
+            url:'procesarUsuario',
+            data: data,
+            
+            success:function (response){
+                
+                if(response===1)
+                {
+                    swal({
+                                    title:"Exito",
+                                    text: "Te has registrado Correctamente! ",
+                                    timer: 1800,
+                                    type: 'success',
+                                    closeOnConfirm: true,
+                                    
+
+                            });
+              // window.location.href="login.jsp";
+                    
+            }
+        }
+     
+        });
+        
+        
+    });
+    
     
     
     
