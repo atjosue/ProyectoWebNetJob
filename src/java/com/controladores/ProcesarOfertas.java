@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.controladores;
 
 import com.dao.DaoGradoEstudio;
@@ -41,7 +37,7 @@ public class ProcesarOfertas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+       PrintWriter out = response.getWriter();
         DaoOferta daoO = new DaoOferta();
         DaoGradoEstudio daoG = new DaoGradoEstudio();
         
@@ -56,13 +52,25 @@ public class ProcesarOfertas extends HttpServlet {
                 com.google.gson.JsonObject obj = new JsonObject();
                 JsonArray array = new JsonArray();
                 List<Oferta> listaO = daoO.mostrarOfertaEmpresa(idUsuarioEm);
+                
                     for (Oferta of : listaO) {
                         JsonObject item = new JsonObject();
+                        item.addProperty("idOferta",of.getIdOferta());
                         item.addProperty("titulo",of.getTitulo());
                         item.addProperty("descripcion",of.getDescripcion());
-                        item.addProperty("estadoP",of.getEstadoP());
-                        item.addProperty("idOferta",of.getIdOferta());
                         item.addProperty("vacantes",of.getVacantes());
+                        item.addProperty("salarioMinimo",of.getSalarioMinimo());
+                        item.addProperty("salarioMaximo",of.getSalarioMaximo());
+                        item.addProperty("idEmpresa",of.getIdEmpresa());
+                        item.addProperty("aniosExperiencia",of.getAniosExperiencia());
+                        item.addProperty("edadMinima",of.getEdadMinima());
+                        item.addProperty("edadMaxima",of.getEdadMaxima());
+                        item.addProperty("idArea",of.getIdArea());
+                        item.addProperty("idPuesto",of.getIdPuesto());
+                        item.addProperty("idGradoEstudio",of.getIdGradoEstudio());
+                        item.addProperty("sexo",of.getSexo());
+                        item.addProperty("estadoP",of.getEstadoP());
+                        
                         array.add(item);
                     }
                 

@@ -21,6 +21,7 @@
         <script src="../../js/empresa/dashBoardEmpresa.js" type="text/javascript"></script>
         <link href="../../css/empresa/dashBoardEmpresa.css" rel="stylesheet" type="text/css"/>
         <script src="../../utilidades/frontend/Ajax_Camvas/underscoreJS.js" type="text/javascript"></script>
+        <link href="../../css/empresa/AnimateCss.css" rel="stylesheet" type="text/css"/>
     </head>
     <header>
          <nav class="nav-extended teal">
@@ -117,7 +118,7 @@
                                        <label>Seleccionar area de la empresa</label>
                                     </div>
                                     <div class="input-field col s1">
-                                        <div class="waves-effect waves-green btn btn-danger" id="agregarNuevaArea" >
+                                        <div class="waves-effect waves-green btn btn-danger nuevaArea" id="agregarNuevaArea" >
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </div>
                                     </div>
@@ -128,7 +129,7 @@
                                        <label>Seleccionar puesto de la empresa</label>
                                     </div>
                                     <div class="input-field col s1">
-                                        <div class="waves-effect waves-green btn btn-danger" id="agregarNuevoPuesto" >
+                                        <div class="waves-effect waves-green btn btn-danger nuevoPuesto" id="agregarNuevoPuesto" >
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </div>
                                     </div>
@@ -251,19 +252,41 @@
                         <table id="tableOfertas" class="tab-content highlight responsive-table" style="width:100%">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Puesto</th>
                                 <th>Descripcion</th>
                                 <th>Vacantes</th>
-                                <th>id</th>
-                                <th>Acciones</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="width: 250px;">Acciones</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th>Puesto</th>
-                                <th>Descipcion</th>
+                                <th>Descripcion</th>
                                 <th>Vacantes</th>
-                                <th>id</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th style="width: 250px;">Acciones</th>
                             </tr>
                         </tfoot>
@@ -332,72 +355,108 @@
             <div class="col-md-4 col-xs-4 col-sm-4 " style="background-color: #e0f2f1; height:320px;">
                 <br><br><br>
                 <center><img src="../../Contenido/Imagenes/Sistema/agregar.png" width="250px" height="250px"/></center>
+                <br><br><br>
+                <div class="waves-effect waves-green btn large"  id="btnGestionarRequisitos">GESTIONAR REQUISITOS</div>
             </div>
             <div class="col-md-8 col-xs-8 col-sm-8">
                             <form id="formularioModificarOferta"> 
                                 <div class="row">
                                     <br>
+                                    <input type="hidden" id="idUsuarioM" name="idUsuarioM" >
+                                    <input type="hidden" id="idOferta" name="idOferta" >
                                     <div class="input-field col s8">
-                                        <input id="txtTituloOfertaM" type="text" class="validate">
-                                      <label for="txtTituloOfertaM">Titulo</label>
+                                        <input id="txtTituloOfertaM" placeholder="" name="tituloM" type="text" class="validate">
+                                      <label for="txtTituloOferta">Titulo de la oferta</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtVacantesOfertaM" type="number" class="validate">
-                                      <label for="txtVacantesOfertaM">Vacantes</label>
+                                        <input id="txtVacantesOfertaM" placeholder="" name="vacantesM" type="number" class="validate">
+                                      <label for="txtVacantesOferta">Vacantes desponibles</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="txtDescripcionOfertaM" type="text" class="validate">
-                                      <label for="txtDescripcionOfertaM">Descripcion</label>
+                                        <input id="txtDescripcionOfertaM" placeholder="" name="descripcionM" type="text" class="validate">
+                                      <label for="txtDescripcionOferta">Descripcion de la oferta</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtSalarioMinimoM" type="text" class="validate">
-                                      <label for="txtSalarioMinimoM">Salario Minimo</label>
+                                        <input id="txtSalarioMinimoM" placeholder="" name="salarioMinimoM" type="number" step="any" min="0" class="validate">
+                                      <label for="txtSalarioMinimo">Salario Minimo</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtSalarioMaximoM" type="text" class="validate">
-                                      <label for="txtSalarioMinimoM">Salario Maximo</label>
+                                        <input id="txtSalarioMaximoM" placeholder="" name="salarioMaximoM" type="number" step="any" min="0" class="validate">
+                                      <label for="txtSalarioMinimo">Salario Maximo</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtAnosExperienciaM" type="text" class="validate">
-                                      <label for="txtAnosExperienciaM">Años de experiencia</label>
+                                        <input id="txtAnosExperienciaM" placeholder="" name="aniosExperienciaM" type="number" step="1" min="0" max="50" class="validate">
+                                      <label for="txtAnosExperiencia">Años de experiencia</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtAreaM" type="text" class="validate">
-                                      <label for="txtAreaM">Seleccionar area de la empresa</label>
+                                    <div class="input-field col s5">
+                                        <select id="selectAreaM" name="idAreaM">
+                                          
+                                        </select>
+                                       <label>Seleccionar area de la empresa</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtPuestoM" type="text" class="validate">
-                                      <label for="txtPuestoM">Seleccionar puesto de la empresa</label>
+                                    <div class="input-field col s1">
+                                        <div class="waves-effect waves-green nuevaArea" id="guardarAreaModificada" >
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </div>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtGeneroPreferenciaM" type="text" class="validate">
-                                      <label for="txtGeneroPreferenciaM">Genero de preferencia</label>
+                                    <div class="input-field col s5">
+                                        <select id="selectPuestoM" name="idPuestoM">
+                                          
+                                        </select>
+                                       <label>Seleccionar puesto de la empresa</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input id="txtGradoEstudioM" type="text" class="validate">
-                                      <label for="txtGradoEstudioM">Grado de estudio requerido</label>
+                                    <div class="input-field col s1">
+                                        <div class="waves-effect waves-green nuevoPuesto "  >
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </div>
+                                    </div>
+                                    <div class="input-field col s8">
+                                      <p>
+                                      <label for="txtGeneroPreferenciaM">Genero de preferencia</label><br>
+                                      <label>
+                                          <input class="with-gap" name="sexoM" type="radio" id="txtGeneroPreferenciaM" value="1"/>
+                                          <span>Masculino</span>
+                                        </label>
+                                        <label>
+                                            <input class="with-gap" name="sexoM" type="radio" id="txtGeneroPreferenciaM" value="2"/>
+                                          <span>Femenino</span>
+                                        </label>
+                                        <label>
+                                            <input class="with-gap" name="sexoM" type="radio" id="txtGeneroPreferenciaM" value="3"/>
+                                          <span>No relevante</span>
+                                        </label>
+                                      </p>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtEdadMinimaM" type="number" min="18" max="65" class="validate">
-                                      <label for="txtEdadMinimaM">Edad minima</label>
+                                        <select id="selectGradoM" name="idGradoEstudioM">
+                                          
+                                        </select>
+                                       <label>Seleccionar grado de Estudio requerido</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="input-field col s4">
+                                        <input id="txtEdadMinimaM" placeholder="" name="edadMinimaM" type="number" min="18" max="65" class="validate">
+                                      <label for="txtEdadMinima">Edad minima</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="txtEdadMaximaM" type="number" min="18" max="65" class="validate">
-                                      <label for="txtEdadMaximaM">Edad maxima</label>
+                                        <input id="txtEdadMaximaM" placeholder="" name="edadMaximaM" type="number" min="18" max="65" class="validate">
+                                      <label for="txtEdadMaxima">Edad maxima</label>
                                     </div>
                                     <div class="input-field col s4">
                                         <center>
                                             <div class="switch">
+                                                <label for="txtEstadoOf">Estado de activacion de oferta:</label>
                                                 <label>
-                                                  activa
-                                                  <input id="txtEstadoM" type="checkbox">
-                                                  <span class="lever"></span>
                                                   desactiva
+                                                  <input id="txtEstadoOfM" type="checkbox" checked="checked">
+                                                  <span class="lever"></span>
+                                                  activa
                                                 </label>
                                               </div>
                                         </center>
                                     </div>
                                 </div>
+                                    <input id="txtEstadoDesactivoM" name="estadoP" type="hidden" >
                             </form>
             </div>
         </div>
@@ -437,38 +496,10 @@
     <div class="modal-footer">
       
         <div class="waves-effect waves-green btn btn-danger submit button" id="btnAgregarArea" name="btnAgregarArea">Guardar</div>
-        <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
+        <div class="waves-effect waves-green btn btn-danger cansInterno" >Cancelar</div>
     </div>
   </div> 
   <!--fin del modal agregar area -->
-  
-<!-- MODAL PARA MODIFICAR AREAS-->  
-<div id="modalModificarArea" class="modal modal-fixed-footer" role="dialog">
-    <div class="row">
-            <div class="col-md-4 col-xs-4 col-sm-4 " style="background-color: #e0f2f1; height:320px;">
-                <br><br><br>
-                <center><img src="../../Contenido/Imagenes/Sistema/agregar.png" width="250px" height="250px"/></center>
-            </div>
-            <div class="col-md-8 col-xs-8 col-sm-8">
-                <form id="formularioAgregarArea"> 
-                    <div class="row">
-                        <br><br><br>
-                        <div class="input-field col s12">
-                            <input id="nombreAreaM" placeholder="" type="text" class="validate">
-                            <label for="nombreAreaM">Modifica el nombre del area..</label>
-                          <input id="codModificarArea" type="hidden" name="key">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    <div class="modal-footer">
-      
-            <div class="waves-effect waves-green btn btn-danger" id="btnModificarArea">Guardar</div>
-            <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
-    </div>
-  </div> 
-<!--Fin del modal para modificar areas-->    
 
   <!-- Modal agregar puesto-->
   <div id="modalAgregarPuesto" class="modal modal-fixed-footer" role="dialog">
@@ -521,61 +552,75 @@
     <div class="modal-footer">
       
         <div class="waves-effect waves-green btn btn-danger submit button" id="btnAgregarPuesto" name="btnAgregarPuesto">Guardar</div>
-        <div class="waves-effect waves-red btn btn-danger cans" >Cancelar</div>
+        <div class="waves-effect waves-red btn btn-danger cansInterno" >Cancelar</div>
     </div>
   </div> 
   <!--fin del modal agregar area -->
-  
-<!-- MODAL PARA MODIFICAR AREAS-->  
-<div id="modalModificarPuesto" class="modal modal-fixed-footer" role="dialog">
+ 
+   <!-- Modal GESTIONAR REQUISITOS DE OFERTA-->
+  <div id="modalGestionRequisitosOferta" class="modal modal-fixed-footer" role="dialog">
     <div class="modal-content">
         <div class="row">
-            <div class="col-md-4 col-xs-4 col-sm-4 " style="background-color: #e0f2f1; height:320px;">
-                <br><br><br>
-                <center><img src="../../Contenido/Imagenes/Sistema/modificar.png" width="250px" height="250px"/></center>
+            <div class="col-md-1 col-xs-1 col-sm-1 " style="background-color: #e0f2f1; height:320px; margin-bottom: 0px;">
+            
             </div>
-            <div class="col-md-8 col-xs-8 col-sm-8">
-                <form id="formularioModificarArea"> 
+            <div class="col-md-11 col-xs-11 col-sm-11">
+                <form id="formularioGestionRequisitosOferta"> 
                     <div class="row">
                         <br>
-                        <div class="input-field col s6">
-                            <input id="nombrePuestoM" type="text" class="validate">
-                          <label for="nombrePuestoM">Puesto</label>
-                          
+                        <h6>Gestionar requisitos</h6>
+                        <br>
+                        <input id="idRequisito" type="hidden">
+                        <div class="input-field col s3">
+                            <input id="tituloRequisito" placeholder="" type="text" class="validate">
+                          <label for="tituloRequisito">Titulo</label>  
                         </div>
                         
-                        <div class="input-field col s6">
-                                <% 
-                                    List<Areas> comboAreas = d.mostrarAreas();
-                                    
-                                %>
-                                <select id="selectAreaM">
-                                    <% 
-                                        for (int i = 0; i < comboAreas.size(); i++) {
-                                        Areas areaCombo = (Areas)comboAreas.get(i);
-                                    %>
-                                    <option value="<%= areaCombo.getIdArea()%>" id="<%= areaCombo.getIdArea()%>"><%= areaCombo.getNombre()%></option>
-                                  
-                                  <% } %>
-                                </select>
-                                <label>Seleccionar Area de la empresa</label>
+                        <div class="input-field col s8">    
+                            <input id="descripcionRequisito" placeholder="" type="text" class="validate">
+                          <label for="descripcionRequisito">Descripcion</label>  
                         </div>
-                        
                         <div class="input-field col s12">
-                            <input id="descripcionPuestoM" placeholder="" type="text" class="validate">
-                          <label for="descripcionPuestoM">Editar descripcion al puesto..</label>
-                          <input id="codModificarPuesto" type="hidden" name="key">
+                            <div class="waves-effect waves-green btn btn-danger submit button col s3 resetBotones" id="btnAgregarRequisito">Guardar</div>
+                            <div class="waves-effect waves-green btn btn-danger submit button col s3 resetBotones"  id="btnModificarRequisito">Modificar</div>
+                            <div class="waves-effect waves-green btn btn-danger submit button col s3 resetBotones"  id="btnEliminarRequisito">Eliminar</div>
+                            <div class="waves-effect waves-green btn btn-danger submit button col s3 resetBotones"  id="btnLimpiarRequisito">Limpiar</div>
                         </div>
-                    </div>
+                        <input id="idOfertaM" type="hidden">
                 </form>
+                        <!---------------------- TABLA DE Requerimientps ------------------------------>
+                     <div id="contenedorTablaR">
+                        <table id="tableRequerimientos" class="tab-content highlight responsive-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>idOferta</th>
+                                <th>Titulo</th>
+                                <th>Descripcion</th>
+                                <th>idOferta</th>
+                                <th style="width: 50px;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>idOferta</th>
+                                <th>Titulo</th>
+                                <th>Descripcion</th>
+                                <th>idOferta</th>
+                                <th style="width: 50px;">Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table> 
+                    </div>
+                     <!---------------------- FIN TABLA DE Requerimientos ------------------------------>
+                    </div>
+                
             </div>
         </div>
     </div>
       
     <div class="modal-footer">
-      
-        <div class="waves-effect waves-green btn btn-danger" id="btnModificarPuesto">Guardar</div>
-            <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
+        <div class="waves-effect waves-red btn btn-danger cansInterno" id="salirTablaRequisitos">SALIR</div>
     </div>
   </div> 
-<!--Fin del modal para modificar areas--> 
+  <!--fin del modal GESTIONAR REQUISITOS DE OFERTA-->
+

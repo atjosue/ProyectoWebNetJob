@@ -16,7 +16,7 @@ public class Oferta implements Serializable{
   private String  titulo;
   private String  descripcion;
   private int  vacantes;
-  private double  SalarioMinimo;
+  private double  salarioMinimo;
   private double  salarioMaximo;
   private int  idEmpresa;
   private int  aniosExperiencia;
@@ -33,12 +33,12 @@ public class Oferta implements Serializable{
     public Oferta() {
     }
     
-    public Oferta(int idOferta, String titulo, String descripcion, int vacantes, double SalarioMinimo, double salarioMaximo, int idEmpresa, int aniosExperiencia, int edadMinima, int edadMaxima, int idArea, int idPuesto, String fechaPublicacion, int estado, int idGradoEstudio, int sexo, int estadoP) {
+    public Oferta(int idOferta, String titulo, String descripcion, int vacantes, double salarioMinimo, double salarioMaximo, int idEmpresa, int aniosExperiencia, int edadMinima, int edadMaxima, int idArea, int idPuesto, String fechaPublicacion, int estado, int idGradoEstudio, int sexo, int estadoP) {
         this.idOferta = idOferta;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.vacantes = vacantes;
-        this.SalarioMinimo = SalarioMinimo;
+        this.salarioMinimo = salarioMinimo;
         this.salarioMaximo = salarioMaximo;
         this.idEmpresa = idEmpresa;
         this.aniosExperiencia = aniosExperiencia;
@@ -86,11 +86,11 @@ public class Oferta implements Serializable{
     }
 
     public double getSalarioMinimo() {
-        return SalarioMinimo;
+        return salarioMinimo;
     }
 
-    public void setSalarioMinimo(double SalarioMinimo) {
-        this.SalarioMinimo = SalarioMinimo;
+    public void setSalarioMinimo(double salarioMinimo) {
+        this.salarioMinimo = salarioMinimo;
     }
 
     public double getSalarioMaximo() {

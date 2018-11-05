@@ -27,17 +27,31 @@ public class DaoOferta extends Conexion{
         ResultSet res;
         try {
             this.conectar();
-            String sql="select * from oferta o inner join empresa e on e.idUsuario=?;";
+            String sql="select o.idEmpresa as empresa , idOferta , titulo , "
+                    + "descripcion , vacantes , salarioMinimo , salarioMaximo , "
+                    + "aniosExperiencia , edadMinima , edadMaxima , idArea , "
+                    + "idPuesto , idGradoEstudio , sexo , estadoP  from oferta o "
+                    + "inner join empresa e on e.idUsuario=?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, idUsuarioEmpresa);
             res=pre.executeQuery();
             while (res.next()) {                
                 Oferta o= new Oferta();
+                o.setIdEmpresa(res.getInt("empresa"));
                 o.setIdOferta(res.getInt("idOferta"));
                 o.setTitulo(res.getString("titulo"));
                 o.setDescripcion(res.getString("descripcion"));
-                o.setEstadoP(res.getInt("estadoP"));
                 o.setVacantes(res.getInt("vacantes"));
+                o.setSalarioMinimo(res.getDouble("salarioMinimo"));
+                o.setSalarioMaximo(res.getDouble("salarioMaximo"));
+                o.setAniosExperiencia(res.getInt("aniosExperiencia"));
+                o.setEdadMinima(res.getInt("edadMinima"));
+                o.setEdadMaxima(res.getInt("edadMaxima"));
+                o.setIdArea(res.getInt("idArea"));
+                o.setIdPuesto(res.getInt("idPuesto"));
+                o.setIdGradoEstudio(res.getInt("idGradoEstudio"));
+                o.setSexo(res.getInt("sexo"));
+                o.setEstadoP(res.getInt("estadoP"));
                 lista.add(o);
               }
         } catch (Exception e) {
