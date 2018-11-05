@@ -23,10 +23,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author josue
- */
 public class ProcesarOfertas extends HttpServlet {
 
     /**
@@ -42,7 +38,7 @@ public class ProcesarOfertas extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        DaoOferta daoO = new DaoOferta();
+            DaoOferta daoO = new DaoOferta();
         DaoGradoEstudio daoG = new DaoGradoEstudio();
         
         Oferta o = new Oferta();
