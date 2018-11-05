@@ -358,7 +358,36 @@
                 </div>
             </div>
             <div class="s1 m1"></div>
+            
         </div>    
         
     </body>
+    <footer class=" teal lighten-2">
+     
+    <!-- Footer Elements -->
+    <div class="container">
+        <div style="height: 100px; ">
+            <div class="col-sm-8 col-md-8 col-s8">
+                <h5>¿Eres una empresa? se parte de nuestra familia y logra muchas cosas.!</h5>
+                <div class="btn btn-default" id="btnVerMasOfertas">
+                    Ver Mas..
+                </div>
+            </div>
+            <div class="s4" class="col-md-4 col-s4 " style="margin-right: 0%; margin-top: 50px;">
+                <img src="Contenido/Imagenes/Sistema/iconos.png" width="250px" height="65px" />
+            </div>
+        </div>
+
+        
+        
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div style="background-color: #00897b; height: 50px; font-size: 16px;"><br>
+        <center>  NETJOB todos los derechos reservados por Copyright. © 2018  </center>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
 </html>

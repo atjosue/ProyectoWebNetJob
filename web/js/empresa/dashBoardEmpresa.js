@@ -464,9 +464,8 @@ $(document).ready(function(){
     /**************** FIN GESTION DE REQUISITOS   ***************/
     
     
-    
 });
- ;
+ 
 
 /*FIN DEL DOCUMENT READY*/
 
@@ -606,7 +605,7 @@ $(document).ready(function(){
                                             {"data": "requisito"},
                                             {"data": "descripcion"},
                                             {"data": "idOferta"},
-                                            {"defaultContent":"<div class='waves-effect waves-green btn btn-danger cargarDataRequisito'><span class='glyphicon glyphicon-retweet'></span></div> "},
+                                            {"defaultContent":"<input type='button' value='cargar' class='waves-effect waves-green btn btn-danger cargarDataRequisito'>"},
                                     ],
                                     "columnDefs": [
                                     {
@@ -626,7 +625,7 @@ $(document).ready(function(){
     var obtenerDataRequisito = function(tbody, table)
     {
         var filaR="";
-        $(tbody).on("click","div.cargarDataRequisito",function(){
+        $(tbody).on("click","input.cargarDataRequisito",function(){
            filaR= table.row( $(this).parents("tr")).data();
             $("#idRequisito").val(filaR.idRequisito);
             $("#tituloRequisito").val(filaR.requisito);
@@ -698,7 +697,7 @@ $(document).ready(function(){
                               closeOnCancel: true
                             });
                                             $("#modalAgregarArea").hide();
-                                            //limpiarFrmRe();
+                                            limpiarFrmRe();
                                             $("#tableRequerimientos").DataTable().Destroy();
                                             cargarTableRequisitos();
                 }else{

@@ -381,10 +381,6 @@ INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Media', '1');
 INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Superior', '1');
 
 /*INSERTAR OFERTA DE PRUEBA*/
-INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES (' solo hoy DBA ', 'esta es la primera oportonuidad que esta a tus pies', '2', '250', '250', '1', '3', '18', '60', '1', '1', '10/18/18', '1', '2', 'masculino', '1');
-INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', 'femenino', '1');
+INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES (' solo hoy DBA ', 'esta es la primera oportonuidad que esta a tus pies', '2', '250', '250', '1', '3', '18', '60', '1', '1', '10/18/18', '1', '2', '1', '1');
+INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', '1', '1');
 
-select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora estándar central)';
-
-select * from usuario;
-select ( idOferta ,titulo , descripcion , vacantes , salarioMinimo , salarioMaximo , aniosExperiencia , edadMinima , edadMaxima , idArea , idPuesto , idGradoEstudio , sexo , estadoP ) from oferta o inner join empresa e on e.idUsuario=5;

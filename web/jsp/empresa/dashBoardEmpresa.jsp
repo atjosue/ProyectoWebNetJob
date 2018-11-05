@@ -463,8 +463,8 @@
     </div>
     <div class="modal-footer">
       
-        <div class="waves-effect waves-green btn btn-danger" id="btnGuardarModOferta">Guardar</div>
-        <div class="waves-effect waves-green btn btn-danger cans" >Cancelar</div>
+        <div class="waves-effect waves-green btn btn-danger cargarOfertas" id="btnGuardarModOferta">Guardar</div>
+        <div class="waves-effect waves-green btn btn-danger cans cargarOfertas" >Cancelar</div>
     </div>
   </div> 
   <!-- fin modal modificacion oferta -->
@@ -619,7 +619,7 @@
     </div>
       
     <div class="modal-footer">
-        <div class="waves-effect waves-red btn btn-danger cansInterno" id="salirTablaRequisitos">SALIR</div>
+        <div class="waves-effect waves-red btn btn-danger cansInterno cargarRequisitos" id="salirTablaRequisitos">SALIR</div>
     </div>
   </div> 
   <!--fin del modal GESTIONAR REQUISITOS DE OFERTA-->
