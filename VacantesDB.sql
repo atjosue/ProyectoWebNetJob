@@ -81,6 +81,7 @@ direccion varchar(75) not null,
 idProfesion int not null,
 idGradoEstudio int not null,
 idIdioma int not null,
+fotoPerfil longBLOB,
 fechaRegistro date not null, 
 estado int not null 
 );
@@ -295,6 +296,7 @@ INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Empresa', '1');
 
 /* agregar un usuario para empresa*/
 INSERT INTO `vacantes`.`usuario` (`nombreUsuario`, `contraseña`, `estado`, `idRol`) VALUES ('aviaca123', '6116afedcb0bc31083935c1c262ff4c9', '1', '4');
+INSERT INTO `vacantes`.`usuario` (`nombreUsuario`, `contraseña`, `estado`, `idRol`) VALUES ('CarlosRamos', '6116afedcb0bc31083935c1c262ff4c9', '1', '3');
 
 /*agregar rubros para las empresas*/
 INSERT INTO `vacantes`.`rubro` (`nombre`, `descripcion`, `estado`) VALUES ('Industriales', 'empresas relacionadas con la industria', '1');
@@ -385,3 +387,21 @@ INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMi
 INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', 'femenino', '1');
 select * from usuario;
 select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora estándar central)';
+
+
+#INSERTANDO POFESIONES
+INSERT INTO `vacantes`.`profesion` (`profesion`, `estado`, `descripcion`) VALUES ('Programador', '1', 'Desarrollar Software de Diferente Tipo');
+INSERT INTO `vacantes`.`profesion` (`profesion`, `estado`, `descripcion`) VALUES ('Recepcionista', '1', 'Atender clientes que desen un servicio de algun negocio');
+
+#INSERTANDO IDIOMAS
+INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Inglés', '1');
+INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Francés', '1');
+
+select * from postulante;
+select * from usuario;
+select * from postulante where idUsuario=6
+select * from oferta
+
+select idPostulante ,nombres, apellidos, fotoPerfil from postulante where idUsuario=6
+
+select e.nombre, o.idOferta, o.titulo, o.Descripcion from oferta o inner join empresa e on o.idEmpresa= e.idEmpresa;

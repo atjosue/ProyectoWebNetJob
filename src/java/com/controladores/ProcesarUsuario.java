@@ -18,27 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author josue
- */
+
 public class ProcesarUsuario extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        //Instancias
-        Usuario us= new Usuario();
+       PrintWriter out = response.getWriter();
+         Usuario us= new Usuario();
         DaoUsuario daou= new DaoUsuario();
         Encriptacion enc= new Encriptacion();
         HttpSession sesion=request.getSession();
@@ -60,12 +47,37 @@ public class ProcesarUsuario extends HttpServlet {
                     
                     sesion.setAttribute("user",request.getParameter("user") );
                     sesion.setAttribute("idUsuario",respu.getIdUsuario());
-                    out.print(respu.getIdRol());
+                    
+                    if(respu.getIdRol()==3)
+                    {
+                    int reg=0;
+                    reg=daou.verificar(respu.getIdUsuario());
+                    if(reg==0)
+                    {
+                        out.print("no");
+                    }
+                    else
+                    {
+                     out.print(respu.getIdRol());
+                    }
+                    
+                    
+                    
+                    }
+                    else
+                    {
+                     out.print(respu.getIdRol());
+                    }
+                    
+                  
+                   
+                    
                 }
                 else
                 {
                 out.print("Usuario y/o contraseña incorrecta");
                 }
+                
            break;
            
             case "addPost":

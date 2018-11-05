@@ -1,6 +1,6 @@
 $(document).ready(function(){
      $(".dropdown-trigger").dropdown();
-     cargarTable();
+    
      cargarSelectGrado(); 
      cargarAreas();
      
@@ -8,7 +8,7 @@ $(document).ready(function(){
      
            
      /*----------    PARA DATATABLE OFERTAS -------------------------------------*/
-         function cargarTable(){
+       
              var key='getOfertas';
             var id=$("#idUsuario").val();
           var tableOfertas= $('#tableOfertas').DataTable( {
@@ -36,7 +36,7 @@ $(document).ready(function(){
                         });
              
              
-         }
+      
                
          
        /*---------- FIN  PARA DATATABLE OFERTAS -------------------------------------*/
@@ -185,7 +185,12 @@ $(document).ready(function(){
                                             closeOnConfirm: true,
                                             closeOnCancel: true
                                     });
+                                  
+                                 
                                 }
+                                
+                                
+                                
                             }
 
                         });
@@ -378,8 +383,8 @@ $(document).ready(function(){
                                                 closeOnCancel: true
 
                                                 });
-                                                $("#tableOfertas").dataTable.ajax.fnDestroy();
-                                                cargarTable();
+                                                
+                                                 tableOfertas.ajax.reload();
                                             
                                 }else
                                 {
@@ -392,6 +397,7 @@ $(document).ready(function(){
                                             closeOnCancel: true
                                     });
                                 }
+                                
                             }
 
                   });

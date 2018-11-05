@@ -34,15 +34,15 @@
         <div class="container white" style="min-height: 100vh; padding: 20px; ">
                 
              <div class="row">
-    <form class="col s12">
+                 <form class="col s12"  id="frmPostulante"  method="post" action="../../procesarPostulante" enctype="multipart/form-data" > 
       <div class="row">
         <div class="input-field col s6 ">
-          <input id="nombres" type="text" class="validate">
+            <input id="nombres" type="text" class="validate" name="nombres">
           <label for="nombres">Nombres</label>
         </div>
         <div class="input-field col s6">
-          <input id="apellidos" type="text" class="validate">
-          <label for="nombres">Apellidos</label>
+            <input id="apellidos" type="text" class="validate" name="apellidos">
+          <label for="apellidos">Apellidos</label>
         </div>
       </div>
       <div class="row">
@@ -59,18 +59,18 @@
          
         </div>
            <div class="input-field col s6">
-          <input id="fecha" type="text" class="datepicker">
+               <input id="fecha" type="text" class="datepicker" name="fechaNac">
           <label for="nombres">Fecha de Nacimiento</label>
         </div>
       </div>
          <div class="row">
         <div class="input-field col s6 ">
-          <input id="telefono" type="text" class="validate">
+            <input id="telefono" type="text" class="validate" name="telefono">
           <label for="telefono">Telefono</label>
         </div>
         <div class="input-field col s6">
             
-            <select class="search selection" id="pais">
+            <select class="search selection" id="pais" name="pais">
                 <%
                                 DaoPais daop= new DaoPais();
                                 
@@ -89,7 +89,7 @@
       </div>
         <div class="row">
         <div class="input-field col s6 ">
-          <select class="search selection" id="departamento">
+            <select class="search selection" id="departamento" name="departamento">
                
                             
                 
@@ -98,7 +98,7 @@
           <label for="departamento">Deparatamento</label>
         </div>
         <div class="input-field col s6">
-            <select class="search selection" id="municipio">
+            <select class="search selection" id="municipio" name="municipio">
                   <%
                                 DaoProvincia daopro= new DaoProvincia();
                                 
@@ -118,19 +118,19 @@
         
         <div class="row">
         <div class="input-field col s6 ">
-            <input id="correo" type="email" class="validate">
+            <input id="correo" type="email" class="validate" name="email">
           <label for="correo">Correo</label>
         </div>
         <div class="input-field col s6">
             <label>Direccion</label>
-            <textarea>
+            <textarea name="direccion">
                 
             </textarea>
         </div>
       </div>
          <div class="row">
         <div class="input-field col s6 ">
-          <select class="search selection" id="profesion">
+            <select class="search selection" id="profesion" name="profesion">
                 <%
                                 DaoProfesion daopf= new DaoProfesion();
                                 
@@ -147,7 +147,7 @@
           <label for="departamento">Profesion</label>
         </div>
         <div class="input-field col s6">
-            <select class="search selection" id="gradoEstudio">
+            <select class="search selection" id="gradoEstudio" name="gradoEstudio">
                 <%
                                 DaoGradoEstudio daog= new DaoGradoEstudio();
                                 
@@ -166,7 +166,7 @@
       </div>
          <div class="row">
         <div class="input-field col s6 ">
-          <select class="search selection" id="idiomas">
+            <select class="search selection" id="idiomas" name="idioma">
                 <%
                                 DaoIdioma daoi= new DaoIdioma();
                                 
@@ -180,14 +180,17 @@
                     }
                 %>
             </select>
-          <label for="departamento">Idiomas</label>
+          <label for="idiomas">Idiomas</label>
         </div>
+            <label for="">Foto de Perfil</label>
+             <input type="file" name="fichero">
+            <input type="hidden" value="registrar" name="key"/>
       </div>
+      
         
      <div class="row">
         <div class="input-field col s12 ">
-            <button class="btn blue waves-light" > Guardar Cambios</button>
-            <button class="btn green waves-light" > Cancelar</button>
+            <input type="submit" id="registrarPostulante" value="Enviar"/>
         </div>
       </div>
      
