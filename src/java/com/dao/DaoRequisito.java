@@ -14,17 +14,16 @@ import java.util.*;
  */
 public class DaoRequisito extends Conexion{
     
-    private List<Requisitos> mostrarRequisito(int idOf) throws Exception
+    public List<Requisitos> mostrarRequisito(int idOf) throws Exception
     {
         ResultSet res;
         List<Requisitos> lista = new ArrayList();
         
         try {
             this.conectar();
-            String sql="select * from requisitos where estado=? and idOferta=?";
+            String sql="select * from requisitos where idOferta=?";
             PreparedStatement pre= this.getCon().prepareStatement(sql);
-            pre.setInt(1, 1);
-            pre.setInt(2, idOf );
+            pre.setInt(1, idOf );
             res=pre.executeQuery();
             while(res.next())
             {
@@ -41,7 +40,7 @@ public class DaoRequisito extends Conexion{
         return lista;
     }
     
-    private int agregarRequisito(Requisitos re) throws Exception
+    public int agregarRequisito(Requisitos re) throws Exception
     {
         int resp=0;
         ResultSet res;
@@ -49,6 +48,25 @@ public class DaoRequisito extends Conexion{
         try {
             this.conectar();
             String sql="Insert into requisitos values(?,?,?,?);";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, 0);
+            pre.setString(2, re.getRequisito());
+            pre.setString(3, re.getDescripcion());
+            pre.setInt(4, re.getIdOferta());
+            resp = pre.executeUpdate();
+        } catch (Exception e) {
+        throw e;
+        }
+        return resp;
+    }
+    public int modificarRequisito(Requisitos re) throws Exception
+    {
+        int resp=0;
+        ResultSet res;
+        
+        try {
+            this.conectar();
+            String sql="UPDATE requisitos SET requisito=?, descripcion=? WHERE idRequisito=?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, 0);
             pre.setString(2, re.getRequisito());

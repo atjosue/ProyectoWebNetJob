@@ -13,7 +13,7 @@ estado int not null
 create table usuario(
 idUsuario int not null primary key auto_increment,
 nombreUsuario varchar(50),
-contrase√±a varchar(50),
+contraseÒa varchar(50),
 estado int not null,
 idRol int not null
 
@@ -81,7 +81,6 @@ direccion varchar(75) not null,
 idProfesion int not null,
 idGradoEstudio int not null,
 idIdioma int not null,
-fotoPerfil longBLOB,
 fechaRegistro date not null, 
 estado int not null 
 );
@@ -282,7 +281,7 @@ insert into usuario values(0,'FernandoFlamenco','27b97374ec529e1ec0cadae4cd25e04
 insert into usuario values(0,'KevinMontiel','27b97374ec529e1ec0cadae4cd25e04c',1,1);
 
 
-select r.descRol, u.nombreUsuario from usuario u inner join Rol r on r.idRol=u.idRol where nombreUsuario='CarlosCampos' and contrase√±a='27b97374ec529e1ec0cadae4cd25e04c';
+select r.descRol, u.nombreUsuario from usuario u inner join Rol r on r.idRol=u.idRol where nombreUsuario='CarlosCampos' and contraseÒa='27b97374ec529e1ec0cadae4cd25e04c';
 
 insert into gradoUniversitario values(0,'Ingenieria',1);
 
@@ -295,8 +294,7 @@ INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Postulante', '1');
 INSERT INTO `vacantes`.`rol` (`descRol`, `estado`) VALUES ('Empresa', '1');
 
 /* agregar un usuario para empresa*/
-INSERT INTO `vacantes`.`usuario` (`nombreUsuario`, `contrase√±a`, `estado`, `idRol`) VALUES ('aviaca123', '6116afedcb0bc31083935c1c262ff4c9', '1', '4');
-INSERT INTO `vacantes`.`usuario` (`nombreUsuario`, `contrase√±a`, `estado`, `idRol`) VALUES ('CarlosRamos', '6116afedcb0bc31083935c1c262ff4c9', '1', '3');
+INSERT INTO `vacantes`.`usuario` (`nombreUsuario`, `contraseÒa`, `estado`, `idRol`) VALUES ('aviaca123', '6116afedcb0bc31083935c1c262ff4c9', '1', '4');
 
 /*agregar rubros para las empresas*/
 INSERT INTO `vacantes`.`rubro` (`nombre`, `descripcion`, `estado`) VALUES ('Industriales', 'empresas relacionadas con la industria', '1');
@@ -334,7 +332,7 @@ alter table empresa add column descripcion2 varchar(300);
 alter table empresa add column imagen mediumblob;
 
 INSERT INTO `vacantes`.`empresa` (`nombre`, `direccion`, `telefono`, `mision`, `vision`, `correo`, `idUsuario`, `idRubro`, `idProvincia`, `idDepartamento`, `idPais`, `estado`, `facebook`, `instagram`, `paginaWeb`, `descripcion1`, `descripcion2`) 
-VALUES ('Avianca', 'Boulevard no se que cerca de Santa elena wey', '(503) 2280-2313', 'Conectamos al mundo con Latinoam√©rica, buscando dar siempre m√°s.', 'Con la mejor gente y tecnolog√≠a para una experiencia excepcional, seremos la aerol√≠nea latinoamericana preferida en el mundo. ',
+VALUES ('Avianca', 'Boulevard no se que cerca de Santa elena wey', '(503) 2280-2313', 'Conectamos al mundo con LatinoamÈrica, buscando dar siempre m·s.', 'Con la mejor gente y tecnologÌa para una experiencia excepcional, seremos la aerolÌnea latinoamericana preferida en el mundo. ',
  'avianca_sv@gmail.com', '5', '2', '2', '1', '1', '1', 'https://www.facebook.com/AviancaGlobal/', 'https://www.instagram.com/avianca/?hl=es-la', 'https://www.avianca.com/sv/es/', 'Avianca es la empresa lider en el transporte aereo de personas a anivel munial.\nCada vez que alguien menciona 
  nuestro nombre son una infinidad de pensamientos y recuerdor de los viajes que han realizafo con nosotros\nGracias a la gente que trabaja para nosotros podemos hacer esto y mucho mas por eso queremos que seas parte de nuestra familia', 'Avianca esta comprometida con tigo por eso hemos decidido 
  estar mas cerca de ti a travez de NetJob. aplica ya y se parte de nuestra familia.');
@@ -355,7 +353,7 @@ INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estad
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria', 'secretaria de sistemas', '2', '1');
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Programador', 'programador junior', '2', '1');
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Administrador de Base de Datos', 'encargado de adminitrar los datos de la empresa', '2', '1');
-INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Dise√±ador Web', 'encargado de el dise√±o de la pagina web y de las demas aplicaciones', '2', '1');
+INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('DiseÒador Web', 'encargado de el diseÒo de la pagina web y de las demas aplicaciones', '2', '1');
 
 alter table oferta add column idGradoEstudio int;
 alter table oferta add constraint fk_OfertaGRadoEstudio foreign key (idGradoEstudio) references gradoEstudio(idGradoEstudio);
@@ -382,30 +380,9 @@ INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Basica', '1')
 INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Media', '1');
 INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Superior', '1');
 
+
 /*INSERTAR OFERTA DE PRUEBA*/
 INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES (' solo hoy DBA ', 'esta es la primera oportonuidad que esta a tus pies', '2', '250', '250', '1', '3', '18', '60', '1', '1', '10/18/18', '1', '2', 'masculino', '1');
 INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', 'femenino', '1');
-
-select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora est√°ndar central)';
-
-select * from usuario;
-select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora est√°ndar central)';
-
-
-#INSERTANDO POFESIONES
-INSERT INTO `vacantes`.`profesion` (`profesion`, `estado`, `descripcion`) VALUES ('Programador', '1', 'Desarrollar Software de Diferente Tipo');
-INSERT INTO `vacantes`.`profesion` (`profesion`, `estado`, `descripcion`) VALUES ('Recepcionista', '1', 'Atender clientes que desen un servicio de algun negocio');
-
-#INSERTANDO IDIOMAS
-INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Ingl√©s', '1');
-INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Franc√©s', '1');
-
-select * from postulante;
-select * from usuario;
-select * from postulante where idUsuario=6
-select * from oferta
-
-select idPostulante ,nombres, apellidos, fotoPerfil from postulante where idUsuario=6
-
-select e.nombre, o.idOferta, o.titulo, o.Descripcion from oferta o inner join empresa e on o.idEmpresa= e.idEmpresa;
-select ( idOferta ,titulo , descripcion , vacantes , salarioMinimo , salarioMaximo , aniosExperiencia , edadMinima , edadMaxima , idArea , idPuesto , idGradoEstudio , sexo , estadoP ) from oferta o inner join empresa e on e.idUsuario=5;
+select * from oferta;
+select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora est·ndar central)';
