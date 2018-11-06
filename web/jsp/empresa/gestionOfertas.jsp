@@ -494,7 +494,7 @@
                         <table id="tableRequerimientos" class="tab-content highlight responsive-table" style="width:100%">
                         <thead>
                             <tr>
-                                <th>idOferta</th>
+                                <th>idRequisito</th>
                                 <th>Titulo</th>
                                 <th>Descripcion</th>
                                 <th>idOferta</th>
@@ -503,7 +503,7 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>idOferta</th>
+                                <th>idRequisito</th>
                                 <th>Titulo</th>
                                 <th>Descripcion</th>
                                 <th>idOferta</th>

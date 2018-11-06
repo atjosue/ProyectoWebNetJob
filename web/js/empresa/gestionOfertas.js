@@ -539,12 +539,239 @@ $(document).ready(function(){
     
     /**************** FIN GESTION DE REQUISITOS   ***************/
     
+    function cargarTableRequisitos(){
+            
+            var tableRequisitos;
+            var key='getRequisitoOferta';
+            var id=$("#idOfertaM").val();
+
+           tableRequisitos= $('#tableRequerimientos').DataTable( {
+                                    "destroy":true,
+                                    ajax:{
+                                        method: "post",
+                                        "data": {key,id},
+                                        "url": "../../procesarRequisitos",
+                                        "dataSrc": "requisitos",
+                                        
+                                    },
+                                    "columns": [
+                                            {"data": "idRequisito"},
+                                            {"data": "requisito"},
+                                            {"data": "descripcion"},
+                                            {"data": "idOferta"},
+                                            {"defaultContent":"<div class='waves-effect waves-green btn btn-danger cargarDataRequisito'><span class='glyphicon glyphicon-retweet'></span></div> "},
+                                    ],
+                                    "columnDefs": [
+                                    {
+                                        "targets": [0,3],
+                                        "visible": false,
+                                        "searchable": true
+                                    }],
+                                
+                        });
+             
+             obtenerDataRequisito("#tableRequerimientos tbody",tableRequisitos);
+             //obtenerDataEliminarRequisito("#tableOfertas tbody",tableRequisitos);
+             
+             
+         }
     
+   var obtenerDataRequisito = function(tbody, table)
+    {
+        var filaR={};
+        
+        $(tbody).on("click","div.cargarDataRequisito",function(){
+           filaR= table.row( $(this).parents("tr")).data();
+           
+            console.log("info de la fila "+filaR);
+           
+            $("#idRequisito").val(filaR.idRequisito);
+            $("#tituloRequisito").val(filaR.requisito);
+            $("#descripcionRequisito").val(filaR.descripcion);
+            
+            console.log(filaR);
+            controlBotonesRequisitos(0);
+            
+            $('.resetBotones').click(function(){
+                controlBotonesRequisitos(1);
+                limpiarFrmRe();
+            });
+            
+        });
+        
+    };  
+    
+    //----------------GUARDAR
+        $(document).on("click","#btnAgregarRequisito",function(){
+            
+          var titulo=$("#tituloRequisito").val();
+          var descripcion=$("#descripcionRequisito").val();
+          var idOfertaR=$("#idOfertaMR").val();
+          var key="agregarRequisito";
+          if (titulo==="" || descripcion==="") 
+          {
+              swal({
+                title: 'COMPLETA TODOS LOS CAMPOS!!',
+                animation: false,
+                customClass: 'animated tada'
+               }); 
+          }else
+          {
+            $.ajax({
+                type:'post',
+                data:{titulo,key,descripcion,idOfertaR},
+                url: '../../procesarRequisitos',
+                success: function(response){
+                if (response>0){                    
+                       swal({
+                              title:"EXITO!",
+                              text: "Requisito agregado con exito",
+                              timer: 1800,
+                              type: 'success',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                            });
+                                            //$("#modalAgregarArea").hide();
+                                            //limpiarFrmRe();
+                                            //$("#tableRequerimientos").DataTable().Destroy();
+                                            cargarTableRequisitos();
+                                            //location.reload();
+                }else{
+                       swal({
+                              title:"Error!",
+                              text: "No se pudo agregar el requisito.",
+                              timer: 1800,
+                              type: 'error',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                      });
+                   }
+                 }
+              });
+                         
+          }
+          
+        });
+    
+    //----------------MODIFICAR 
+         $(document).on("click","#btnModificarRequisito",function(){
+          var idRequisito=$("#idRequisito").val();  
+          var titulo=$("#tituloRequisito").val();
+          var descripcion=$("#descripcionRequisito").val();
+          var idOferta=$("#idOfertaMR").val();
+          var key="modificarRequisito";
+          
+          console.log(titulo);
+          console.log(descripcion);
+          
+          if (titulo==="" || descripcion==="") 
+          {
+              swal({
+                title: 'COMPLETA TODOS LOS CAMPOS!!',
+                animation: false,
+                customClass: 'animated tada'
+               }); 
+          }else
+          {
+            $.ajax({
+                type:'post',
+                data:{titulo,key,descripcion,idOferta,idRequisito},
+                url: '../../procesarRequisitos',
+                success: function(response){
+                if (response>0){                    
+                       swal({
+                              title:"EXITO!",
+                              text: "requisito modificado con exito",
+                              timer: 1800,
+                              type: 'success',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                            });
+                                            //$("#modalAgregarArea").hide();
+                                            //limpiarFrmRe();
+                                            //$("#tableRequerimientos").DataTable().Destroy();
+                                            var table = $("#tableRequerimientos").DataTable();
+                                            table.ajax.reload( function (){
+                                                
+                                            });
+                                            
+                }else{
+                       swal({
+                              title:"Error!",
+                              text: "No se pudo modificar el area.",
+                              timer: 1800,
+                              type: 'error',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                      });
+                   }
+                 }
+              });
+                         
+          }
+          
+        });
+    //----------------ELIMINAR
+    $(document).on("click","#btnEliminarRequisito",function(){
+          var idRequisito=$("#idRequisito").val();  
+          var titulo=$("#tituloRequisito").val();
+          var descripcion=$("#descripcionRequisito").val();
+          var idOferta=$("#idOfertaMR").val();
+          var key="eliminarRequisito";
+          
+          console.log(titulo);
+          console.log(descripcion);
+          
+          if (titulo==="" || descripcion==="") 
+          {
+              swal({
+                title: 'COMPLETA TODOS LOS CAMPOS!!',
+                animation: false,
+                customClass: 'animated tada'
+               }); 
+          }else
+          {
+            $.ajax({
+                type:'post',
+                data:{idRequisito,key},
+                url: '../../procesarRequisitos',
+                success: function(response){
+                if (response>0){                    
+                       swal({
+                              title:"EXITO!",
+                              text: "requisito eliminado con exito",
+                              timer: 1800,
+                              type: 'success',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                            });
+                                            //$("#modalAgregarArea").hide();
+                                            //limpiarFrmRe();
+                                            //$("#tableRequerimientos").DataTable().Destroy();
+                                            cargarTableRequisitos();
+                }else{
+                       swal({
+                              title:"Error!",
+                              text: "No se pudo eliminar el area.",
+                              timer: 1800,
+                              type: 'error',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                      });
+                   }
+                 }
+              });
+                         
+          }
+          
+        });
+    
+/*----------------------------FIN GESTION DE REQUISITOS------------------------*/
     
 });
- ;
+ 
 
-/*FIN DEL DOCUMENT READY*/
+/********************************************************************************FIN DEL DOCUMENT READY*/
 
 
 /*----------    PARA GESTION DE OFERTAS OFERTAS -------------------------------------*/
@@ -714,62 +941,9 @@ $(document).ready(function(){
 
 /*----------------------------PARA GESTION DE REQUISITOS----------------------*/
 
-   function cargarTableRequisitos(){
-            
-            var tableRequisitos;
-            var key='getRequisitoOferta';
-            var id=$("#idOfertaM").val();
-
-           tableRequisitos= $('#tableRequerimientos').DataTable( {
-                                    "destroy":true,
-                                    ajax:{
-                                        method: "post",
-                                        "data": {key,id},
-                                        "url": "../../procesarRequisitos",
-                                        "dataSrc": "requisitos",
-                                        
-                                    },
-                                    "columns": [
-                                            {"data": "idRequisito"},
-                                            {"data": "requisito"},
-                                            {"data": "descripcion"},
-                                            {"data": "idOferta"},
-                                            {"defaultContent":"<div class='waves-effect waves-green btn btn-danger cargarDataRequisito'><span class='glyphicon glyphicon-retweet'></span></div> "},
-                                    ],
-                                    "columnDefs": [
-                                    {
-                                        "targets": [0,3],
-                                        "visible": false,
-                                        "searchable": true
-                                    }],
-                                
-                        });
-             
-             obtenerDataRequisito("#tableRequerimientos tbody",tableRequisitos);
-             //obtenerDataEliminarRequisito("#tableOfertas tbody",tableRequisitos);
-             
-             
-         }
+   
     
-    var obtenerDataRequisito = function(tbody, table)
-    {
-        var filaR="";
-        $(tbody).on("click","div.cargarDataRequisito",function(){
-           filaR= table.row( $(this).parents("tr")).data();
-            $("#idRequisito").val(filaR.idRequisito);
-            $("#tituloRequisito").val(filaR.requisito);
-            $("#descripcionRequisito").val(filaR.descripcion);
-            
-            console.log(filaR);
-            controlBotonesRequisitos(0);
-            
-            $('.resetBotones').click(function(){
-                controlBotonesRequisitos(1);
-                limpiarFrmRe();
-            });
-            
-        });
-    };
+   
     
     var limpiarFrmRe= function()
     {
@@ -795,166 +969,5 @@ $(document).ready(function(){
             
         }
     }
-    //----------------GUARDAR
-        $(document).on("click","#btnAgregarRequisito",function(){
-            
-          var titulo=$("#tituloRequisito").val();
-          var descripcion=$("#descripcionRequisito").val();
-          var idOfertaR=$("#idOfertaMR").val();
-          var key="agregarRequisito";
-          if (titulo==="" || descripcion==="") 
-          {
-              swal({
-                title: 'COMPLETA TODOS LOS CAMPOS!!',
-                animation: false,
-                customClass: 'animated tada'
-               }); 
-          }else
-          {
-            $.ajax({
-                type:'post',
-                data:{titulo,key,descripcion,idOfertaR},
-                url: '../../procesarRequisitos',
-                success: function(response){
-                if (response>0){                    
-                       swal({
-                              title:"EXITO!",
-                              text: "Requisito agregado con exito",
-                              timer: 1800,
-                              type: 'success',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                            });
-                                            //$("#modalAgregarArea").hide();
-                                            //limpiarFrmRe();
-                                            //$("#tableRequerimientos").DataTable().Destroy();
-                                            cargarTableRequisitos();
-                                            //location.reload();
-                }else{
-                       swal({
-                              title:"Error!",
-                              text: "No se pudo agregar el requisito.",
-                              timer: 1800,
-                              type: 'error',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                      });
-                   }
-                 }
-              });
-                         
-          }
-          
-        });
     
-    //----------------MODIFICAR 
-         $(document).on("click","#btnModificarRequisito",function(){
-          var idRequisito=$("#idRequisito").val();  
-          var titulo=$("#tituloRequisito").val();
-          var descripcion=$("#descripcionRequisito").val();
-          var idOferta=$("#idOfertaMR").val();
-          var key="modificarRequisito";
-          
-          console.log(titulo);
-          console.log(descripcion);
-          
-          if (titulo==="" || descripcion==="") 
-          {
-              swal({
-                title: 'COMPLETA TODOS LOS CAMPOS!!',
-                animation: false,
-                customClass: 'animated tada'
-               }); 
-          }else
-          {
-            $.ajax({
-                type:'post',
-                data:{titulo,key,descripcion,idOferta,idRequisito},
-                url: '../../procesarRequisitos',
-                success: function(response){
-                if (response>0){                    
-                       swal({
-                              title:"EXITO!",
-                              text: "requisito modificado con exito",
-                              timer: 1800,
-                              type: 'success',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                            });
-                                            //$("#modalAgregarArea").hide();
-                                            //limpiarFrmRe();
-                                            //$("#tableRequerimientos").DataTable().Destroy();
-                                            cargarTableRequisitos();
-                }else{
-                       swal({
-                              title:"Error!",
-                              text: "No se pudo modificar el area.",
-                              timer: 1800,
-                              type: 'error',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                      });
-                   }
-                 }
-              });
-                         
-          }
-          
-        });
-    //----------------ELIMINAR
-    $(document).on("click","#btnEliminarRequisito",function(){
-          var idRequisito=$("#idRequisito").val();  
-          var titulo=$("#tituloRequisito").val();
-          var descripcion=$("#descripcionRequisito").val();
-          var idOferta=$("#idOfertaMR").val();
-          var key="eliminarRequisito";
-          
-          console.log(titulo);
-          console.log(descripcion);
-          
-          if (titulo==="" || descripcion==="") 
-          {
-              swal({
-                title: 'COMPLETA TODOS LOS CAMPOS!!',
-                animation: false,
-                customClass: 'animated tada'
-               }); 
-          }else
-          {
-            $.ajax({
-                type:'post',
-                data:{idRequisito,key},
-                url: '../../procesarRequisitos',
-                success: function(response){
-                if (response>0){                    
-                       swal({
-                              title:"EXITO!",
-                              text: "requisito eliminado con exito",
-                              timer: 1800,
-                              type: 'success',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                            });
-                                            //$("#modalAgregarArea").hide();
-                                            //limpiarFrmRe();
-                                            //$("#tableRequerimientos").DataTable().Destroy();
-                                            cargarTableRequisitos();
-                }else{
-                       swal({
-                              title:"Error!",
-                              text: "No se pudo eliminar el area.",
-                              timer: 1800,
-                              type: 'error',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                      });
-                   }
-                 }
-              });
-                         
-          }
-          
-        });
-    
-/*----------------------------FIN GESTION DE REQUISITOS------------------------*/
 
