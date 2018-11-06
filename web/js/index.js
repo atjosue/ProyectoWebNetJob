@@ -31,6 +31,12 @@ $(document).ready(function(){
                     
                     window.location.href="jsp/postulante/dashBoardPostulante.jsp";
                 }
+                else if(response==="no")
+                {
+                    
+                    window.location.href="jsp/postulante/registroPostulante.jsp";
+                    
+                }
                 else
                 {
                     swal({
@@ -70,11 +76,11 @@ $(document).ready(function(){
                                     text: "Te has registrado Correctamente! ",
                                     timer: 1800,
                                     type: 'success',
-                                    closeOnConfirm: true,
+                                    closeOnConfirm: true
                                     
 
                             });
-              // window.location.href="login.jsp";
+               window.location.href="login.jsp";
                     
             }
         }

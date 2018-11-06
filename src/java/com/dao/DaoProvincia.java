@@ -132,7 +132,7 @@ public class DaoProvincia extends Conexion {
         try 
         {
             this.conectar();
-            String sql="select pr.idProvincia, pr.provincia, d.departamento, p.pais from provincia pr\n" +
+            String sql="select pr.idProvincia as idProvincia, pr.provincia as provincia, d.departamento as departamento, p.pais as pais from provincia pr\n" +
 "inner join departamento d on d.idDepartamento = pr.idDepartamento\n" +
 "inner join pais p on d.idPais = p.idPais \n" +
 "where pr.idDepartamento=?;";

@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.controladores;
 
 import com.dao.DaoGradoEstudio;
@@ -37,7 +41,7 @@ public class ProcesarOfertas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-       PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
         DaoOferta daoO = new DaoOferta();
         DaoGradoEstudio daoG = new DaoGradoEstudio();
         
@@ -78,6 +82,10 @@ public class ProcesarOfertas extends HttpServlet {
                 out.print(obj.toString());
                 break;
                 
+                case "eliminarOferta":
+                    out.print(daoO.eliminarOferta(Integer.parseInt(request.getParameter("idof"))));
+                break;
+                
                 case "obtenerGrados":
                 
                 List<GradoEstudio> listaGrados = new ArrayList();
@@ -113,6 +121,30 @@ public class ProcesarOfertas extends HttpServlet {
                     List resp =daoO.agregarOferta(o);
                     out.print(resp);
                     break;
+                    
+                    case "modificarOferta":
+                    o = new Oferta();
+                    daoO = new DaoOferta();
+                    
+                    o.setIdOferta(Integer.parseInt(request.getParameter("idOferta")));
+                    o.setTitulo(request.getParameter("titulo"));
+                    o.setDescripcion(request.getParameter("descripcion"));
+                    o.setVacantes(Integer.parseInt(request.getParameter("vacantes")));
+                    o.setSalarioMinimo(Double.parseDouble(request.getParameter("salarioMinimo")));
+                    o.setSalarioMaximo(Double.parseDouble(request.getParameter("salarioMaximo")));
+                    o.setAniosExperiencia(Integer.parseInt(request.getParameter("aniosExperiencia")));
+                    o.setEdadMinima(Integer.parseInt(request.getParameter("edadMinima")));
+                    o.setEdadMaxima(Integer.parseInt(request.getParameter("edadMaxima")));
+                    o.setIdArea(Integer.parseInt(request.getParameter("idArea")));
+                    o.setIdPuesto(Integer.parseInt(request.getParameter("idPuesto")));
+                    o.setFechaPublicacion(request.getParameter("fechaPublicacion"));
+                    o.setIdGradoEstudio(Integer.parseInt(request.getParameter("idGradoEstudio")));
+                    o.setSexo(Integer.parseInt(request.getParameter("sexo")));
+                    o.setEstadoP(Integer.parseInt(request.getParameter("estadoP")));
+                    int respM =daoO.modificarOferta(o);
+                    out.print(respM);
+                    break;        
+                
         }
     }
 

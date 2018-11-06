@@ -72,4 +72,37 @@ public class DaoUsuario extends Conexion{
     
     }
     
+    
+    //METODO PARA VERIFICAR
+    public int verificar(int idUsuario) throws Exception
+    {
+        ResultSet res;
+        int resp=0;
+        try {
+            this.conectar();
+            String sql = "select * from postulante where idUsuario=? ";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idUsuario);
+            
+            res=pre.executeQuery();
+            if(res.next())
+            {
+                resp=1;
+            }
+            
+            
+            
+        } catch (SQLException e) {
+            
+        }finally
+        {
+            this.desconectar();
+        }
+        
+        return resp;
+    
+    }
+    
+    
+    
 }

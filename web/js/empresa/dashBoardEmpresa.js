@@ -1,7 +1,7 @@
 $(document).ready(function(){
     //mismiadf
      $(".dropdown-trigger").dropdown();
-     cargarTable();
+    
      cargarSelectGrado(); 
      cargarAreas();
      
@@ -31,6 +31,39 @@ $(document).ready(function(){
 };
      controlBotonesRequisitos(1);
      $('#txtEstadoDesactivo').val(1);
+     
+           
+     /*----------    PARA DATATABLE OFERTAS -------------------------------------*/
+       
+             var key='getOfertas';
+            var id=$("#idUsuario").val();
+          var tableOfertas= $('#tableOfertas').DataTable( {
+                           
+                                    ajax:{
+                                        method: "post",
+                                        "data": {key,id},
+                                        "url": "../../procesarOfertas",
+                                        "dataSrc": "oferta",
+                                        
+                                    },
+                                    "columns": [
+                                            {"data": "titulo"},
+                                            {"data": "descripcion"},
+                                            {"data": "vacantes"},
+                                            {"data": "idOferta"},
+                                            {"defaultContent":"<div class='waves-effect waves-green btn btn-danger submit button modificarOferta' id='descripcion' name='btnAgregarPuesto'>Modificar</div> <div id='descripcion' class='waves-effect waves-red btn btn-danger cans' >Eliminar</div>"},
+                                    ],
+                                    "columnDefs": [
+                                    {
+                                        "targets": [ 3 ],
+                                        "visible": false,
+                                        "searchable": true
+                                    }]
+                        });
+             
+             
+      
+               
          
        /*---------- FIN  PARA DATATABLE OFERTAS -------------------------------------*/
        
@@ -179,7 +212,12 @@ $(document).ready(function(){
                                             closeOnConfirm: true,
                                             closeOnCancel: true
                                     });
+                                  
+                                 
                                 }
+                                
+                                
+                                
                             }
 
                         });
@@ -411,16 +449,10 @@ $(document).ready(function(){
                                                 closeOnConfirm: true,
                                                 closeOnCancel: true
 
-                                                }).then((result) => {
-                                                    swal({
-                                                    title: 'Recuerda modificar tu oferta para agregar Requisitos!!',
-                                                    animation: false,
-                                                    customClass: 'animated tada'
-                                                  });
-                                               });
-                                              
-                                                cargarTable();
+                                                });
                                                 
+                                                 tableOfertas.ajax.reload();
+                                            
                                 }else
                                 {
                                     swal({
@@ -432,6 +464,7 @@ $(document).ready(function(){
                                             closeOnCancel: true
                                     });
                                 }
+                                
                             }
 
                   });

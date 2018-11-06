@@ -65,19 +65,26 @@ public class ProcesarRequisitos extends HttpServlet {
                 break;
                 
             case "agregarRequisito":
-                re.setIdOferta(Integer.parseInt(request.getParameter("idOferta")));
+                re.setIdOferta(Integer.parseInt(request.getParameter("idOfertaR")));
                 re.setRequisito(request.getParameter("titulo"));
                 re.setDescripcion(request.getParameter("descripcion"));
                 resp = daoR.agregarRequisito(re);
                 out.print(resp);
                     break;
             case "modificarRequisito":
+                re=new Requisitos();
                 re.setIdOferta(Integer.parseInt(request.getParameter("idOferta")));
                 re.setRequisito(request.getParameter("titulo"));
                 re.setDescripcion(request.getParameter("descripcion"));
                 re.setIdRequisito(Integer.parseInt(request.getParameter("idRequisito")));
                 resp = daoR.modificarRequisito(re);
                 out.print(resp);
+                    break;
+                    
+            case "eliminarRequisito":
+                re=new Requisitos();
+                
+                out.print(daoR.eliminarRequisito(Integer.parseInt(request.getParameter("idRequisito"))));
                     break;
         }
     }

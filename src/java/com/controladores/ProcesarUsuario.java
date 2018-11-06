@@ -37,8 +37,7 @@ public class ProcesarUsuario extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        //Instancias
-        Usuario us= new Usuario();
+         Usuario us= new Usuario();
         DaoUsuario daou= new DaoUsuario();
         Encriptacion enc= new Encriptacion();
         HttpSession sesion=request.getSession();
@@ -60,12 +59,37 @@ public class ProcesarUsuario extends HttpServlet {
                     
                     sesion.setAttribute("user",request.getParameter("user") );
                     sesion.setAttribute("idUsuario",respu.getIdUsuario());
-                    out.print(respu.getIdRol());
+                    
+                    if(respu.getIdRol()==3)
+                    {
+                    int reg=0;
+                    reg=daou.verificar(respu.getIdUsuario());
+                    if(reg==0)
+                    {
+                        out.print("no");
+                    }
+                    else
+                    {
+                     out.print(respu.getIdRol());
+                    }
+                    
+                    
+                    
+                    }
+                    else
+                    {
+                     out.print(respu.getIdRol());
+                    }
+                    
+                  
+                   
+                    
                 }
                 else
                 {
                 out.print("Usuario y/o contraseña incorrecta");
                 }
+                
            break;
            
             case "addPost":
