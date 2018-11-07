@@ -405,10 +405,7 @@ alter table empresa drop column imagenEmpresa;
 alter table empresa add column imagen2 longblob;
 
 use vacantes;
-select * from rubro;
+select * from usuario;
 select * from requisitos;
 INSERT INTO empresa (idEmpresa , nombre, telefono, correo, idUsuario,idPais, estado, estadoA) VALUES (0,'bimbo','561','fef',22,1,1,0);
 INSERT INTO empresa (idEmpresa , nombre, telefono, correo, idUsuario,idPais, estado, estadoA ) VALUES (0,'Curacao','84653','bvuifn@feo',42,1,1,0);
-select * from departamento;
-select * from provincia;
-select * from empresa where idUsuario=12
