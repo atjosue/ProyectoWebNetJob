@@ -114,7 +114,7 @@ public class DaoPostulante extends Conexion{
         try 
         {
             this.conectar();
-            String sql="select e.nombre as nombre, o.idOferta as idOferta, o.titulo as titulo, o.Descripciona as descripcion from oferta o inner join empresa e on o.idEmpresa= e.idEmpresa;";
+            String sql="select e.idEmprresa as idEmpresa, o.idOferta as idOferta, o.titulo as titulo, o.Descripciona as descripcion from oferta o inner join empresa e on o.idEmpresa= e.idEmpresa;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             res=pre.executeQuery();
             while(res.next())
@@ -123,17 +123,188 @@ public class DaoPostulante extends Conexion{
                 of.setIdOferta(res.getInt("idOferta"));
                 of.setTitulo(res.getString("titulo"));
                 of.setDescripcion(res.getString("descripcion"));
-                of.setIdEmpresa(res.getInt(""));
+                of.setIdEmpresa(res.getInt("idEmpresa"));
+                lstOferta.add(of);
             }
             
         }
         catch (Exception e)
         {
         }
-            
+          return lstOferta;  
     }
 
-
+    
+    
+    //Obteniendo todos los postulantes
+    
+    public List<Postulante> getPostulantes(int idPostulante)
+    {
+        List<Postulante> lst= new ArrayList();
+       
+        ResultSet res;
+        try 
+        {
+            this.conectar();
+            
+            String sql="select * from postulante where idPostulante!=?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idPostulante);
+            res=pre.executeQuery();
+            while(res.next())
+            {
+                Postulante pos= new Postulante();
+                pos.setNombres(res.getString("nombres"));
+                pos.setApellidos(res.getString("apellidos"));
+                pos.setIdPostulante(res.getInt("idPostulante"));
+                pos.setCorreo(res.getString("correo"));
+                
+               
+                
+                Blob blob= res.getBlob("fotoPerfil");
+                if(blob !=null)
+                {
+                    InputStream inputStream= blob.getBinaryStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer= new byte[4096];
+                    int bytesRead= -1;
+                    while((bytesRead= inputStream.read(buffer))!= -1)
+                    {
+                                outputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] imagesBytes = outputStream.toByteArray();
+                    String base64Image= Base64.getEncoder().encodeToString(imagesBytes);
+                    
+                    pos.setBase64Image(base64Image);
+                    inputStream.close();
+                    outputStream.close();
+                    
+                    
+               }
+                lst.add(pos);
+            }
+        }
+        
+        catch (Exception e) {
+        }
+        
+        return lst;
+    }
+    
+    
+    //OBTENIENDO INFORMACION ESPECIFICA DEL POSTULANTE
+    public Postulante getSpecificInfo(int idPostulante)
+    {
+        Postulante pos= new Postulante();
+        ResultSet res;
+        try 
+        {
+            this.conectar();
+            
+            String sql="select * from postulante where idPostulante=?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idPostulante);
+            res=pre.executeQuery();
+            while(res.next())
+            {
+               
+                pos.setNombres(res.getString("nombres"));
+                pos.setApellidos(res.getString("apellidos"));
+                pos.setIdPostulante(res.getInt("idPostulante"));
+                pos.setGenero(res.getString("genero"));
+                pos.setFechaNacimiento(res.getString("fechaNacimiento"));
+                pos.setTelefono(res.getString("telefono"));
+                pos.setIdProvincia(res.getInt("idProvincia"));
+                pos.setIdDepartamento(res.getInt("idDepartamento"));
+                pos.setIdPais(res.getInt("idPais"));
+                pos.setCorreo(res.getString("correo"));
+                pos.setDireccion(res.getString("direccion"));
+                pos.setIdProfesion(res.getInt("idProfesion"));
+                pos.setIdGradoEstudio(res.getInt("idGradoEstudio"));
+                pos.setIdIdioma(res.getInt("idIdioma"));
+               
+                
+                Blob blob= res.getBlob("fotoPerfil");
+                if(blob !=null)
+                {
+                    InputStream inputStream= blob.getBinaryStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer= new byte[4096];
+                    int bytesRead= -1;
+                    while((bytesRead= inputStream.read(buffer))!= -1)
+                    {
+                                outputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] imagesBytes = outputStream.toByteArray();
+                    String base64Image= Base64.getEncoder().encodeToString(imagesBytes);
+                    
+                    pos.setBase64Image(base64Image);
+                    inputStream.close();
+                    outputStream.close();
+               }
+            }
+        }
+        
+        catch (Exception e) {
+        }
+        
+        return pos;
+    }
+    
+     public List<Postulante> getSeguidos(int idPostulante)
+    {
+        List<Postulante> lst= new ArrayList();
+       
+        ResultSet res;
+        try 
+        {
+            this.conectar();
+            
+            String sql="select p.nombres as nombres, p.apellidos as apellidos, p.idPostulante as idPostulante, p.correo as correo, p.fotoPerfil as fotoPerfil"
+                    + " from postulante p inner join relacion r on r.idSeguido=p.idPostulante AND r.idSeguidor=?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idPostulante);
+            res=pre.executeQuery();
+            while(res.next())
+            {
+                Postulante pos= new Postulante();
+                pos.setNombres(res.getString("nombres"));
+                pos.setApellidos(res.getString("apellidos"));
+                pos.setIdPostulante(res.getInt("idPostulante"));
+                pos.setCorreo(res.getString("correo"));
+                
+               
+                
+                Blob blob= res.getBlob("fotoPerfil");
+                if(blob !=null)
+                {
+                    InputStream inputStream= blob.getBinaryStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer= new byte[4096];
+                    int bytesRead= -1;
+                    while((bytesRead= inputStream.read(buffer))!= -1)
+                    {
+                                outputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] imagesBytes = outputStream.toByteArray();
+                    String base64Image= Base64.getEncoder().encodeToString(imagesBytes);
+                    
+                    pos.setBase64Image(base64Image);
+                    inputStream.close();
+                    outputStream.close();
+                    
+                    
+               }
+                lst.add(pos);
+            }
+        }
+        
+        catch (Exception e) {
+        }
+        
+        return lst;
+    }
+    
     
     
     

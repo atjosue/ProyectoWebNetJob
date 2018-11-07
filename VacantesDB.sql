@@ -92,7 +92,6 @@ idExperiencia int not null primary key auto_increment,
 empresa varchar(50),
 cargo varchar(50),
 descripcion varchar(50),
-salario double,
 tiempoLaborado int,
 idPostulante int not null,
 estado int
@@ -267,6 +266,7 @@ alter table aplicacionOferta add constraint fk_OfertaPostulante foreign key(idOf
 alter table comentario add constraint fk_comentarioUsuario foreign key(idUsuario) references usuario(idUsuario);
 alter table comentarioPerfil add constraint fk_PerfilComentario foreign key(idComentario) references comentario(idComentario);
 alter table comentarioPerfil add constraint fk_ComentarioPerfil foreign key(idPostulante) references postulante(idPostulante);
+alter table Experiencia add constraint fk_ExperienciaPostulante foreign key(idPostulante) references postulante(idPostulante);
 
 
 
@@ -280,6 +280,7 @@ insert into usuario values(0,'CarlosCampos','27b97374ec529e1ec0cadae4cd25e04c',1
 insert into usuario values(0,'JosueTrejo','27b97374ec529e1ec0cadae4cd25e04c',1,1);
 insert into usuario values(0,'FernandoFlamenco','27b97374ec529e1ec0cadae4cd25e04c',1,1);
 insert into usuario values(0,'KevinMontiel','27b97374ec529e1ec0cadae4cd25e04c',1,1);
+insert into usuario values(0,'EduardoRamos','123',1,1);
 
 
 select r.descRol, u.nombreUsuario from usuario u inner join Rol r on r.idRol=u.idRol where nombreUsuario='CarlosCampos' and contraseña='27b97374ec529e1ec0cadae4cd25e04c';
@@ -348,7 +349,7 @@ INSERT INTO `vacantes`.`area` (`nombre`, `estado`) VALUES ('Sistemas', '1');
  /*INSERTAR EN Puesto para rrhh y sistemas*/
  select * from puesto;
 alter table puesto add column idEmpresa int;
-alter table puesto add constraint fk_empresa_puesto foreign key (idEmpresa) references empresa(idEmpresa);
+alter table puesto drop constraint fk_empresa_puesto foreign key (idEmpresa) references empresa(idEmpresa);
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1');
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Supervisor', 'supervisor de el area', '1', '1');
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1');
@@ -385,9 +386,6 @@ INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Superior', '1
 /*INSERTAR OFERTA DE PRUEBA*/
 INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES (' solo hoy DBA ', 'esta es la primera oportonuidad que esta a tus pies', '2', '250', '250', '1', '3', '18', '60', '1', '1', '10/18/18', '1', '2', 'masculino', '1');
 INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', 'femenino', '1');
-
-select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora estándar central)';
-
 select * from usuario;
 select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora estándar central)';
 
@@ -400,12 +398,21 @@ INSERT INTO `vacantes`.`profesion` (`profesion`, `estado`, `descripcion`) VALUES
 INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Inglés', '1');
 INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Francés', '1');
 
-select * from postulante;
+select * from habilidades;
 select * from usuario;
 select * from postulante where idUsuario=6
-select * from oferta
+select * from relacion;
+
+
 
 select idPostulante ,nombres, apellidos, fotoPerfil from postulante where idUsuario=6
 
 select e.nombre, o.idOferta, o.titulo, o.Descripcion from oferta o inner join empresa e on o.idEmpresa= e.idEmpresa;
-select ( idOferta ,titulo , descripcion , vacantes , salarioMinimo , salarioMaximo , aniosExperiencia , edadMinima , edadMaxima , idArea , idPuesto , idGradoEstudio , sexo , estadoP ) from oferta o inner join empresa e on e.idUsuario=5;
+select o.idEmpresa as empresa , idOferta , titulo , descripcion , vacantes , salarioMinimo , salarioMaximo , aniosExperiencia , edadMinima , edadMaxima , idArea ,idPuesto , idGradoEstudio , sexo , estadoP  from oferta o inner join empresa e;
+
+select * from DetalleHabilidad
+select * from experiencia where idPostulante=1
+
+select d.idDetalleHabilidad as idDetalle, h.habilidad as habilidadfrom detalleHabilidad d inner join habilidades h on h.idHabilidad=d.idHabilidad where d.idPostulante=1;
+alter table puesto drop column idEmpresa;
+select p.nombres from postulante p inner join relacion r on r.idSeguidor=2;

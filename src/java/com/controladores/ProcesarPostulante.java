@@ -6,12 +6,17 @@
 package com.controladores;
 
 import com.dao.DaoDepartamento;
+import com.dao.DaoDetalleHabilidad;
 import com.dao.DaoPostulante;
 import com.dao.DaoProvincia;
+import com.dao.DaoRelacion;
 import com.google.gson.Gson;
 import com.modelos.Departamento;
+import com.modelos.DetalleHabilidad;
+import com.modelos.Habilidad;
 import com.modelos.Postulante;
 import com.modelos.Provincia;
+import com.modelos.Relacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -32,24 +37,30 @@ import javax.servlet.http.Part;
  *
  * @author Carlos_Campos
  */
- @WebServlet("/uploadServlet") 
+@WebServlet("/uploadServlet") 
 /* marca este servlet para que el contenedor de servlets lo cargue al 
 inicio y lo asigne al patrón de URL / uploadServlet .*/
-    @MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(maxFileSize = 16177215)
 /*indica que este servlet gestionará la solicitud de 
 varias partes. Restringimos el tamaño máximo del archivo de carga de hasta 16 MB.*/
+
 public class ProcesarPostulante extends HttpServlet {
 
-   
+ 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+       PrintWriter out = response.getWriter();
         Gson json= new Gson();
         DaoDepartamento daod= new DaoDepartamento();
         DaoProvincia daopro= new DaoProvincia();
         Postulante pos= new Postulante();
         DaoPostulante daop=new DaoPostulante();
+        DetalleHabilidad dt= new DetalleHabilidad();
+        Relacion re= new Relacion();
+        DaoRelacion daor= new DaoRelacion();
+        Habilidad hab= new Habilidad();
+        DaoDetalleHabilidad daodh= new DaoDetalleHabilidad();
         Date fecha = new Date();
         SimpleDateFormat df= new SimpleDateFormat("yyyy/MM/dd");
         HttpSession sesion= request.getSession(); 
@@ -83,7 +94,7 @@ public class ProcesarPostulante extends HttpServlet {
                  
                 try 
                 {
-                    
+                     
                 pos.setNombres(request.getParameter("nombres"));
                 pos.setApellidos(request.getParameter("apellidos"));
                 pos.setGenero(request.getParameter("genero"));
@@ -97,14 +108,14 @@ public class ProcesarPostulante extends HttpServlet {
                 pos.setIdProfesion(Integer.parseInt(request.getParameter("profesion")));
                 pos.setIdGradoEstudio(Integer.parseInt(request.getParameter("gradoEstudio")));
                 pos.setIdIdioma(Integer.parseInt(request.getParameter("idioma")));
-                pos.setIdUsuario(6);
+                pos.setIdUsuario(Integer.parseInt("idUsuario"));
                     
                 Part filePart = request.getPart("fichero"); //Obtener la parte del archivo cargado
                 if (filePart != null){
                 pos.setImagen(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
                    
                 }
-                
+                 
                 
                 //fecha actual
                 pos.setFechaRegistro(df.format(fecha));  
@@ -122,6 +133,37 @@ public class ProcesarPostulante extends HttpServlet {
                 catch (Exception e)
                 {
                  out.print(e);   
+                }
+                
+            break;
+            
+            case "addHabilidad":
+                
+                dt.setIdHabilidad(Integer.parseInt(request.getParameter("id")));
+                dt.setIdPostulante(Integer.parseInt(request.getParameter("idPostulante")));
+                
+                resp=daodh.agregar(dt);
+                out.print(resp);
+                
+            break;
+            case "verPerfil":
+                sesion.setAttribute("idPostulantePerfil", request.getParameter("idPostulante"));
+                out.print(1);
+            break;
+            
+            case "seguir":
+                try 
+                {
+                    re.setIdSeguidor(Integer.parseInt(request.getParameter("idSeguidor")));
+                re.setIdSeguido(Integer.parseInt(request.getParameter("idSeguido")));
+                
+                resp=daor.seguir(re);
+                
+                out.print(resp);
+                }
+                catch (Exception e)
+                {
+                    out.print(e);
                 }
                 
             break;

@@ -24,7 +24,11 @@
         <!-- codigo jsp -->
         
         <%
+                HttpSession sesion= request.getSession();
+                
+            
                 Pais pa= new Pais();
+                
                 
         %>
     </head>
@@ -35,6 +39,8 @@
                 
              <div class="row">
                  <form class="col s12"  id="frmPostulante"  method="post" action="../../procesarPostulante" enctype="multipart/form-data" > 
+                      <input type="hidden" value="registrar" name="key">
+                      <input type="hidden" value="<%=sesion.getAttribute("idUsuario") %>">
       <div class="row">
         <div class="input-field col s6 ">
             <input id="nombres" type="text" class="validate" name="nombres">
@@ -184,7 +190,7 @@
         </div>
             <label for="">Foto de Perfil</label>
              <input type="file" name="fichero">
-            <input type="hidden" value="registrar" name="key"/>
+           
       </div>
       
         
@@ -196,8 +202,10 @@
      
     </form>
   </div>
-        
+            
+            
    </div><!--fin CONTAINER-->
         
     </body>
 </html>
+

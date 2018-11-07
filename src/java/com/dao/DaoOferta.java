@@ -50,7 +50,7 @@ public class DaoOferta extends Conexion{
                 o.setIdArea(res.getInt("idArea"));
                 o.setIdPuesto(res.getInt("idPuesto"));
                 o.setIdGradoEstudio(res.getInt("idGradoEstudio"));
-                o.setSexo(res.getInt("sexo"));
+                o.setSexo(res.getString("sexo"));
                 o.setEstadoP(res.getInt("estadoP"));
                 lista.add(o);
               }
@@ -110,7 +110,7 @@ public class DaoOferta extends Conexion{
             pre.setString(13, of.getFechaPublicacion());
             pre.setInt(14, of.getEstado());
             pre.setInt(15, of.getIdGradoEstudio());
-            pre.setInt(16, of.getSexo());
+            pre.setString(16, of.getSexo());
             pre.setInt(17, of.getEstadoP());
             pre2.setInt(1, of.getEdadMaxima());
             pre2.setInt(2, of.getIdEmpresa());
@@ -164,5 +164,45 @@ public class DaoOferta extends Conexion{
         }
         return r;
     }*/
+    
+    //obtener ofertas generalmente
+    public List<Oferta> getOfertas() throws Exception
+    {   
+        List<Oferta> lista = new ArrayList();
+        ResultSet res;
+        try {
+            this.conectar();
+            String sql="select o.idEmpresa as empresa , idOferta , titulo , "
+                    + "descripcion , vacantes , salarioMinimo , salarioMaximo , "
+                    + "aniosExperiencia , edadMinima , edadMaxima , idArea , "
+                    + "idPuesto , idGradoEstudio , sexo , estadoP  from oferta o "
+                    + "inner join empresa e;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            
+            res=pre.executeQuery();
+            while (res.next()) {                
+                Oferta o= new Oferta();
+                o.setIdEmpresa(res.getInt("empresa"));
+                o.setIdOferta(res.getInt("idOferta"));
+                o.setTitulo(res.getString("titulo"));
+                o.setDescripcion(res.getString("descripcion"));
+                o.setVacantes(res.getInt("vacantes"));
+                o.setSalarioMinimo(res.getDouble("salarioMinimo"));
+                o.setSalarioMaximo(res.getDouble("salarioMaximo"));
+                o.setAniosExperiencia(res.getInt("aniosExperiencia"));
+                o.setEdadMinima(res.getInt("edadMinima"));
+                o.setEdadMaxima(res.getInt("edadMaxima"));
+                o.setIdArea(res.getInt("idArea"));
+                o.setIdPuesto(res.getInt("idPuesto"));
+                o.setIdGradoEstudio(res.getInt("idGradoEstudio"));
+                o.setSexo(res.getString("sexo"));
+                o.setEstadoP(res.getInt("estadoP"));
+                lista.add(o);
+              }
+        } catch (Exception e) {
+            throw e;
+        }
+        return lista;
+    } 
     
 }
