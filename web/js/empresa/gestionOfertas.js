@@ -1,24 +1,7 @@
 $(document).ready(function(){
-    var idUsuario=$("#idUsuarioGlobal").val();
-   
-    
-    var primeravex= function() {
-        var key="primera";
-        $.ajax({
-            type:'post',
-            data:{idUsuario,key},
-            url: '../../procesarEmpresa',
-            success: function(data){
-                if (data=="null") {
-                    window.location.href="gestionPerfil.jsp"; 
-                }
-            }
-        });
-    };
-    primeravex();
-    
+    //mismiadf
      $(".dropdown-trigger").dropdown();
-    
+     cargarTable();
      cargarSelectGrado(); 
      cargarAreas();
      
@@ -48,39 +31,6 @@ $(document).ready(function(){
 };
      controlBotonesRequisitos(1);
      $('#txtEstadoDesactivo').val(1);
-     
-           
-     /*----------    PARA DATATABLE OFERTAS -------------------------------------*/
-       
-             var key='getOfertas';
-            var id=$("#idUsuario").val();
-          var tableOfertas= $('#tableOfertas').DataTable( {
-                           
-                                    ajax:{
-                                        method: "post",
-                                        "data": {key,id},
-                                        "url": "../../procesarOfertas",
-                                        "dataSrc": "oferta",
-                                        
-                                    },
-                                    "columns": [
-                                            {"data": "titulo"},
-                                            {"data": "descripcion"},
-                                            {"data": "vacantes"},
-                                            {"data": "idOferta"},
-                                            {"defaultContent":"<div class='waves-effect waves-green btn btn-danger submit button modificarOferta' id='descripcion' name='btnAgregarPuesto'>Modificar</div> <div id='descripcion' class='waves-effect waves-red btn btn-danger cans' >Eliminar</div>"},
-                                    ],
-                                    "columnDefs": [
-                                    {
-                                        "targets": [ 3 ],
-                                        "visible": false,
-                                        "searchable": true
-                                    }]
-                        });
-             
-             
-      
-               
          
        /*---------- FIN  PARA DATATABLE OFERTAS -------------------------------------*/
        
@@ -149,6 +99,11 @@ $(document).ready(function(){
         $(document).on("click",".modificarOferta", function(){
            $("#modalModificarOferta").show();
         });
+        $(document).on("click",".recargarPagina", function(){
+           location.reload();
+        });
+        
+        
    /* FIN MODIFICAR OFERTA*/
    
    /*AGREGAR AREAS*/
@@ -229,12 +184,7 @@ $(document).ready(function(){
                                             closeOnConfirm: true,
                                             closeOnCancel: true
                                     });
-                                  
-                                 
                                 }
-                                
-                                
-                                
                             }
 
                         });
@@ -293,7 +243,7 @@ $(document).ready(function(){
                                   $("#selectArea").append('<option value='+json[a].idArea+'>'+json[a].nombre+'</option>');
                                 }
                                 
-                                $("#selectAreaM").append('<option value="'+0+'">Seleccionar</option>');
+                               
                                 for (var a in json) {
                                   $("#selectAreaM").append('<option value='+json[a].idArea+'>'+json[a].nombre+'</option>');
                                 }
@@ -327,7 +277,7 @@ $(document).ready(function(){
                                   $("#selectPuesto").append('<option value='+jsonP[a].idPuesto+'>'+jsonP[a].nombrePuesto+'</option>');
                                 }
                                 
-                                $("#selectPuestoM").html('<option value="'+0+'">Seleccionar Puesto</option>');
+                                
                                 for (var a in jsonP) {
                                   $("#selectPuestoM").append('<option value='+jsonP[a].idPuesto+'>'+jsonP[a].nombrePuesto+'</option>');
                                 }
@@ -377,7 +327,7 @@ $(document).ready(function(){
                                 for (var a in json) {
                                   $("#selectGrado").append('<option value='+json[a].idGradoEstudio+'>'+json[a].grado+'</option>');
                                 }
-                                 $("#selectGradoM").append('<option value="'+0+'">Seleccionar</option>');
+                                
                                 for (var a in json) {
                                   $("#selectGradoM").append('<option value='+json[a].idGradoEstudio+'>'+json[a].grado+'</option>');
                                 } 
@@ -389,7 +339,7 @@ $(document).ready(function(){
         
         
         /*---------------------FIN  PARA CARGAR  SELECT Grado de estudio*/
-       //agregarrr
+       //CAMPOO QUE SE UTILIZA PARA EL SWITCH DE ESTADO DE ACTIVACION DE LA OFERTA AGREGAR.
        $(document).on('change','#txtEstadoOf',function(e)
        {
         if ($(this).is(':checked')) {
@@ -402,16 +352,17 @@ $(document).ready(function(){
         }
            
        });
-       //modificar
+       
+       //CAMPOO QUE SE UTILIZA PARA EL SWITCH DE ESTADO DE ACTIVACION DE LA OFERTA MODIFICAR.
        $(document).on('change','#txtEstadoOfM',function(e)
        {
         if ($(this).is(':checked')) {
             
-            $('#txtEstadoDesactivo').attr('value',1);   
+            $('#txtEstadoDesactivoM').attr('value',1);   
         }else
         {
             
-            $('#txtEstadoDesactivo').attr('value',0);
+            $('#txtEstadoDesactivoM').attr('value',0);
         }
            
        });
@@ -420,18 +371,7 @@ $(document).ready(function(){
     /*---------------------------------------------- PARA AGREGAR OFERTAS--------------------*/
     
         $(document).one("click","#btnGuardadNuevaOferta", function(){
-           /* var formdata = $("#frmRequisitos").serializeArray();
-                                        var info = {};
-                                        _.each(formdata, function(element){
-                                        // Return all of the values of the object's properties.
-                                          var value = _.values(element);
-                                        // name : value 
-                                          info[value[0]] = value[1];
-                                        });
-
-                                       var json=JSON.stringify(info);
-                                       console.log(json.length);*/
-                                       
+              
            var titulo =$("#txtTituloOferta").val();
            var descripcion =$("#txtDescripcionOferta").val();
            var vacantes=$("#txtVacantesOferta").val();
@@ -466,10 +406,19 @@ $(document).ready(function(){
                                                 closeOnConfirm: true,
                                                 closeOnCancel: true
 
-                                                });
+                                                }).then((result) => {
+                                                    swal({
+                                                    title: 'Recuerda modificar tu oferta para agregar Requisitos!!',
+                                                    animation: false,
+                                                    customClass: 'animated tada'
+                                                  }).then((resulta) => {
+                                                          location.reload();
+                                                       });
+                                                  
+                                               });
                                                 
-                                                 tableOfertas.ajax.reload();
-                                            
+                                                //cargarTable();
+                                                
                                 }else
                                 {
                                     swal({
@@ -481,7 +430,6 @@ $(document).ready(function(){
                                             closeOnCancel: true
                                     });
                                 }
-                                
                             }
 
                   });
@@ -494,7 +442,85 @@ $(document).ready(function(){
     /*--------------------------------------------- MODIFICAR OFERTAS--------------------*/
      
      $(document).on("click","#btnGuardarModOferta",function(){
-        alert("holaMundo");  
+           var titulo =$("#txtTituloOfertaM").val();
+           var descripcion =$("#txtDescripcionOfertaM").val();
+           var vacantes=$("#txtVacantesOfertaM").val();
+           var salarioMinimo=$("#txtSalarioMinimoM").val();
+           var salarioMaximo=$("#txtSalarioMaximoM").val();
+           var idOferta=$("#idOfertaM").val();
+           var aniosExperiencia=$("#txtAnosExperienciaM").val();
+           var edadMinima=$("#txtEdadMinimaM").val();
+           var edadMaxima=$("#txtEdadMaximaM").val();
+           var idArea=$("#selectAreaM").val();
+           var idPuesto=$("#selectPuestoM").val();
+           var fechaPublicacion= new Date();
+           var idGradoEstudio=$("#selectGradoM").val();
+           var sexo=$("#txtGeneroPreferenciaM").val();
+           var estadoP=$("#txtEstadoDesactivoM").val();
+           var key='modificarOferta';
+            
+           const swalWithBootstrapButtons = swal.mixin({
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+              })
+
+              swalWithBootstrapButtons({
+                title: 'Modificar Oferta',
+                text: "Esta seguro de modificar la oferta?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, Borrar',
+                cancelButtonText: 'No, Cancelar',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.value) {
+                    
+                    $.ajax({
+                            type:'post',
+                            data:{key,titulo,descripcion,vacantes,salarioMinimo,
+                                 salarioMaximo,idOferta,aniosExperiencia,edadMinima,
+                                 edadMaxima,idArea,idPuesto,fechaPublicacion,
+                                 idGradoEstudio,sexo,estadoP},
+                            url: '../../procesarOfertas',
+                            success: function(data){
+                                if (data>0){
+                                        swal({
+                                          title:"EXITO!",
+                                          text: "Oferta modificada con exito",
+                                          timer: 1800,
+                                          type: 'success',
+                                          closeOnConfirm: true,
+                                          closeOnCancel: true
+                                             })
+                                       location.reload();
+                                }else{
+                                    swal({
+                                            title:"Error!",
+                                            text: "No se pudo modificar la oferta.",
+                                            timer: 1800,
+                                            type: 'error',
+                                            closeOnConfirm: true,
+                                            closeOnCancel: true
+                                    });
+                                }
+                            }
+
+                       });
+                    
+                   
+                } else if (
+                  // Read more about handling dismissals
+                  result.dismiss === swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons(
+                    'Cancelado',
+                    'Se ha cancelado la modificacion de la oferta',
+                    'error'
+                  );
+                }
+           });
+         
      });
      /*--------------------------------------------- FIN MODIFICAR OFERTAS--------------------*/
     
@@ -502,9 +528,9 @@ $(document).ready(function(){
         
         cargarTableRequisitos();
         $("#modalGestionRequisitosOferta").show();
-        var idOf =$("#idOferta").val(); 
-            $("#idOfertaM").val(idOf);
-            
+        var idOf =$("#idOfertaM").val(); 
+        var idOfR=$("#idOfertaMR").val(idOf); 
+           
     });
     
     /****************   GESTION DE REQUISITOS   *****************/
@@ -513,11 +539,239 @@ $(document).ready(function(){
     
     /**************** FIN GESTION DE REQUISITOS   ***************/
     
+    function cargarTableRequisitos(){
+            
+            var tableRequisitos;
+            var key='getRequisitoOferta';
+            var id=$("#idOfertaM").val();
+
+           tableRequisitos= $('#tableRequerimientos').DataTable( {
+                                    "destroy":true,
+                                    ajax:{
+                                        method: "post",
+                                        "data": {key,id},
+                                        "url": "../../procesarRequisitos",
+                                        "dataSrc": "requisitos",
+                                        
+                                    },
+                                    "columns": [
+                                            {"data": "idRequisito"},
+                                            {"data": "requisito"},
+                                            {"data": "descripcion"},
+                                            {"data": "idOferta"},
+                                            {"defaultContent":"<div class='waves-effect waves-green btn btn-danger cargarDataRequisito'><span class='glyphicon glyphicon-retweet'></span></div> "},
+                                    ],
+                                    "columnDefs": [
+                                    {
+                                        "targets": [0,3],
+                                        "visible": false,
+                                        "searchable": true
+                                    }],
+                                
+                        });
+             
+             obtenerDataRequisito("#tableRequerimientos tbody",tableRequisitos);
+             //obtenerDataEliminarRequisito("#tableOfertas tbody",tableRequisitos);
+             
+             
+         }
+    
+   var obtenerDataRequisito = function(tbody, table)
+    {
+        var filaR={};
+        
+        $(tbody).on("click","div.cargarDataRequisito",function(){
+           filaR= table.row( $(this).parents("tr")).data();
+           
+            console.log("info de la fila "+filaR);
+           
+            $("#idRequisito").val(filaR.idRequisito);
+            $("#tituloRequisito").val(filaR.requisito);
+            $("#descripcionRequisito").val(filaR.descripcion);
+            
+            console.log(filaR);
+            controlBotonesRequisitos(0);
+            
+            $('.resetBotones').click(function(){
+                controlBotonesRequisitos(1);
+                limpiarFrmRe();
+            });
+            
+        });
+        
+    };  
+    
+    //----------------GUARDAR
+        $(document).on("click","#btnAgregarRequisito",function(){
+            
+          var titulo=$("#tituloRequisito").val();
+          var descripcion=$("#descripcionRequisito").val();
+          var idOfertaR=$("#idOfertaMR").val();
+          var key="agregarRequisito";
+          if (titulo==="" || descripcion==="") 
+          {
+              swal({
+                title: 'COMPLETA TODOS LOS CAMPOS!!',
+                animation: false,
+                customClass: 'animated tada'
+               }); 
+          }else
+          {
+            $.ajax({
+                type:'post',
+                data:{titulo,key,descripcion,idOfertaR},
+                url: '../../procesarRequisitos',
+                success: function(response){
+                if (response>0){                    
+                       swal({
+                              title:"EXITO!",
+                              text: "Requisito agregado con exito",
+                              timer: 1800,
+                              type: 'success',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                            });
+                                            //$("#modalAgregarArea").hide();
+                                            //limpiarFrmRe();
+                                            //$("#tableRequerimientos").DataTable().Destroy();
+                                            cargarTableRequisitos();
+                                            //location.reload();
+                }else{
+                       swal({
+                              title:"Error!",
+                              text: "No se pudo agregar el requisito.",
+                              timer: 1800,
+                              type: 'error',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                      });
+                   }
+                 }
+              });
+                         
+          }
+          
+        });
+    
+    //----------------MODIFICAR 
+         $(document).on("click","#btnModificarRequisito",function(){
+          var idRequisito=$("#idRequisito").val();  
+          var titulo=$("#tituloRequisito").val();
+          var descripcion=$("#descripcionRequisito").val();
+          var idOferta=$("#idOfertaMR").val();
+          var key="modificarRequisito";
+          
+          console.log(titulo);
+          console.log(descripcion);
+          
+          if (titulo==="" || descripcion==="") 
+          {
+              swal({
+                title: 'COMPLETA TODOS LOS CAMPOS!!',
+                animation: false,
+                customClass: 'animated tada'
+               }); 
+          }else
+          {
+            $.ajax({
+                type:'post',
+                data:{titulo,key,descripcion,idOferta,idRequisito},
+                url: '../../procesarRequisitos',
+                success: function(response){
+                if (response>0){                    
+                       swal({
+                              title:"EXITO!",
+                              text: "requisito modificado con exito",
+                              timer: 1800,
+                              type: 'success',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                            });
+                                            //$("#modalAgregarArea").hide();
+                                            //limpiarFrmRe();
+                                            //$("#tableRequerimientos").DataTable().Destroy();
+                                            var table = $("#tableRequerimientos").DataTable();
+                                            table.ajax.reload( function (){
+                                                
+                                            });
+                                            
+                }else{
+                       swal({
+                              title:"Error!",
+                              text: "No se pudo modificar el area.",
+                              timer: 1800,
+                              type: 'error',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                      });
+                   }
+                 }
+              });
+                         
+          }
+          
+        });
+    //----------------ELIMINAR
+    $(document).on("click","#btnEliminarRequisito",function(){
+          var idRequisito=$("#idRequisito").val();  
+          var titulo=$("#tituloRequisito").val();
+          var descripcion=$("#descripcionRequisito").val();
+          var idOferta=$("#idOfertaMR").val();
+          var key="eliminarRequisito";
+          
+          console.log(titulo);
+          console.log(descripcion);
+          
+          if (titulo==="" || descripcion==="") 
+          {
+              swal({
+                title: 'COMPLETA TODOS LOS CAMPOS!!',
+                animation: false,
+                customClass: 'animated tada'
+               }); 
+          }else
+          {
+            $.ajax({
+                type:'post',
+                data:{idRequisito,key},
+                url: '../../procesarRequisitos',
+                success: function(response){
+                if (response>0){                    
+                       swal({
+                              title:"EXITO!",
+                              text: "requisito eliminado con exito",
+                              timer: 1800,
+                              type: 'success',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                            });
+                                            //$("#modalAgregarArea").hide();
+                                            //limpiarFrmRe();
+                                            //$("#tableRequerimientos").DataTable().Destroy();
+                                            cargarTableRequisitos();
+                }else{
+                       swal({
+                              title:"Error!",
+                              text: "No se pudo eliminar el area.",
+                              timer: 1800,
+                              type: 'error',
+                              closeOnConfirm: true,
+                              closeOnCancel: true
+                      });
+                   }
+                 }
+              });
+                         
+          }
+          
+        });
+    
+/*----------------------------FIN GESTION DE REQUISITOS------------------------*/
     
 });
  
 
-/*FIN DEL DOCUMENT READY*/
+/********************************************************************************FIN DEL DOCUMENT READY*/
 
 
 /*----------    PARA GESTION DE OFERTAS OFERTAS -------------------------------------*/
@@ -580,11 +834,38 @@ $(document).ready(function(){
             $("#txtAnosExperienciaM").val(fila.aniosExperiencia);
             $("#txtEdadMinimaM").val(fila.edadMinima);
             $("#txtEdadMaximaM").val(fila.edadMaxima);
-            $("#selectAreaM").val(fila.idArea);
-            $("#selectPuestoM").val(fila.idPuesto);
-            $("#idOferta").val(fila.idOferta);
+            $("#selectAreaM").val(fila.idArea).attr('selected','selected');
             
+            var codEmpresaSelect=fila.idArea;
+                var key="mostrarPuestos";
+                    $.ajax({
+                       type:'post',
+                       data:{key,codEmpresaSelect},
+                       url: '../../procesarPuestos',
+                       success: function(data){
+                           var jsonP=JSON.parse(data);
+                                 
+                                for (var a in jsonP) {
+                                  $("#selectPuestoM").append('<option value='+jsonP[a].idPuesto+'>'+jsonP[a].nombrePuesto+'</option>');
+                                }
+                                $("#selectPuestoM").val(fila.idPuesto).attr('selected','selected');
+                                $('select').formSelect();
+                                $("#selectPuestoM").val(fila.idPuesto).attr('selected','selected');
+                       }
+                    });
             
+            $("#selectGradoM").val(fila.idGradoEstudio).attr('selected','selected');
+            $("#idOfertaM").val(fila.idOferta);
+            $("#txtEstadoDesactivoM").val(fila.estadoP);
+            if (fila.estadoP===1)
+            {
+                $("#txtEstadoOfM").prop('checked', true);
+            }else
+            {
+                $("#txtEstadoOfM").prop('checked', false);
+            }
+            
+           
         });
     };
     var obtenerDataEliminar = function(tbody, table)
@@ -609,11 +890,36 @@ $(document).ready(function(){
                 reverseButtons: true
               }).then((result) => {
                 if (result.value) {
-                  swalWithBootstrapButtons(
-                    'Eliminado!',
-                    'Se ha eliminado el registro correctamente..',
-                    'success'
-                  );
+                    var key='eliminarOferta';
+                       $.ajax({
+                            type:'post',
+                            data:{key,idof},
+                            url: '../../procesarOfertas',
+                            success: function(response){
+                            if (response>0){                    
+                                   swal({
+                                          title:"EXITO!",
+                                          text: "oferta eliminada con exito",
+                                          timer: 1800,
+                                          type: 'success',
+                                          closeOnConfirm: true,
+                                          closeOnCancel: true
+                                        });
+                                                        $("#modalAgregarArea").hide();
+                                                        location.reload();
+                            }else{
+                                   swal({
+                                          title:"Error!",
+                                          text: "No se pudo eliminar la oferta.",
+                                          timer: 1800,
+                                          type: 'error',
+                                          closeOnConfirm: true,
+                                          closeOnCancel: true
+                                  });
+                               }
+                             }
+                          });
+                   
                 } else if (
                   // Read more about handling dismissals
                   result.dismiss === swal.DismissReason.cancel
@@ -635,62 +941,9 @@ $(document).ready(function(){
 
 /*----------------------------PARA GESTION DE REQUISITOS----------------------*/
 
-   function cargarTableRequisitos(){
-            
-            var tableRequisitos;
-            var key='getRequisitoOferta';
-            var id=$("#idOferta").val();
-
-           tableRequisitos= $('#tableRequerimientos').DataTable( {
-                                    "destroy":true,
-                                    ajax:{
-                                        method: "post",
-                                        "data": {key,id},
-                                        "url": "../../procesarRequisitos",
-                                        "dataSrc": "requisitos",
-                                        
-                                    },
-                                    "columns": [
-                                            {"data": "idRequisito"},
-                                            {"data": "requisito"},
-                                            {"data": "descripcion"},
-                                            {"data": "idOferta"},
-                                            {"defaultContent":"<input type='button' value='cargar' class='waves-effect waves-green btn btn-danger cargarDataRequisito'>"},
-                                    ],
-                                    "columnDefs": [
-                                    {
-                                        "targets": [0,3],
-                                        "visible": false,
-                                        "searchable": true
-                                    }],
-                                
-                        });
-             
-             obtenerDataRequisito("#tableRequerimientos tbody",tableRequisitos);
-             //obtenerDataEliminarRequisito("#tableOfertas tbody",tableRequisitos);
-             
-             
-         }
+   
     
-    var obtenerDataRequisito = function(tbody, table)
-    {
-        var filaR="";
-        $(tbody).on("click","input.cargarDataRequisito",function(){
-           filaR= table.row( $(this).parents("tr")).data();
-            $("#idRequisito").val(filaR.idRequisito);
-            $("#tituloRequisito").val(filaR.requisito);
-            $("#descripcionRequisito").val(filaR.descripcion);
-            
-            console.log(filaR);
-            controlBotonesRequisitos(0);
-            
-            $('.resetBotones').click(function(){
-                controlBotonesRequisitos(1);
-                limpiarFrmRe();
-            });
-            
-        });
-    };
+   
     
     var limpiarFrmRe= function()
     {
@@ -716,113 +969,5 @@ $(document).ready(function(){
             
         }
     }
-    //----------------GUARDAR
-        $(document).on("click","#btnAgregarRequisito",function(){
-            
-          var titulo=$("#tituloRequisito").val();
-          var descripcion=$("#descripcionRequisito").val();
-          var idOferta=$("#idOfertaM").val();
-          var key="agregarRequisito";
-          if (titulo==="" || descripcion==="") 
-          {
-              swal({
-                title: 'COMPLETA TODOS LOS CAMPOS!!',
-                animation: false,
-                customClass: 'animated tada'
-               }); 
-          }else
-          {
-            $.ajax({
-                type:'post',
-                data:{titulo,key,descripcion,idOferta},
-                url: '../../procesarRequisitos',
-                success: function(response){
-                if (response>0){                    
-                       swal({
-                              title:"EXITO!",
-                              text: "Requisito agregado con exito",
-                              timer: 1800,
-                              type: 'success',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                            });
-                                            $("#modalAgregarArea").hide();
-                                            limpiarFrmRe();
-                                            $("#tableRequerimientos").DataTable().Destroy();
-                                            cargarTableRequisitos();
-                }else{
-                       swal({
-                              title:"Error!",
-                              text: "No se pudo agregar el requisito.",
-                              timer: 1800,
-                              type: 'error',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                      });
-                   }
-                 }
-              });
-                         
-          }
-          
-        });
     
-    //----------------MODIFICAR 
-         $(document).on("click","#btnModificarRequisito",function(){
-          var idRequisito=$("#idRequisito").val();  
-          var titulo=$("#tituloRequisito").val();
-          var descripcion=$("#descripcionRequisito").val();
-          var idOferta=$("#idOfertaM").val();
-          var key="modificarRequisito";
-          
-          console.log(titulo);
-          console.log(descripcion);
-          
-          if (titulo==="" || descripcion==="") 
-          {
-              swal({
-                title: 'COMPLETA TODOS LOS CAMPOS!!',
-                animation: false,
-                customClass: 'animated tada'
-               }); 
-          }else
-          {
-            $.ajax({
-                type:'post',
-                data:{titulo,key,descripcion,idOferta,idRequisito},
-                url: '../../procesarRequisitos',
-                success: function(response){
-                if (response>0){                    
-                       swal({
-                              title:"EXITO!",
-                              text: "requisito modificado con exito",
-                              timer: 1800,
-                              type: 'success',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                            });
-                                            $("#modalAgregarArea").hide();
-                                            limpiarFrmRe();
-                                            $("#tableRequerimientos").DataTable().Destroy();
-                                            cargarTableRequisitos();
-                }else{
-                       swal({
-                              title:"Error!",
-                              text: "No se pudo modificar el area.",
-                              timer: 1800,
-                              type: 'error',
-                              closeOnConfirm: true,
-                              closeOnCancel: true
-                      });
-                   }
-                 }
-              });
-                         
-          }
-          
-        });
-    //----------------ELIMINAR
-    
-/*----------------------------FIN GESTION DE REQUISITOS------------------------*/
 
- 

@@ -5,14 +5,16 @@
  */
 package com.controladores;
 
-import com.dao.DaoRequisito;
+import com.dao.DaoDepartamento;
+import com.dao.DaoEmpresa;
+import com.dao.DaoProvincia;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.modelos.Requisitos;
+import com.modelos.Departamento;
+import com.modelos.Empresa;
+import com.modelos.Provincia;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author josue
  */
-public class ProcesarRequisitos extends HttpServlet {
+public class ProcesarEmpresa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,54 +41,66 @@ public class ProcesarRequisitos extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Requisitos re = new Requisitos();
-        DaoRequisito daoR = new DaoRequisito();
-        String op = request.getParameter("key");
+        DaoEmpresa daoe = new DaoEmpresa();
+        Empresa e= new Empresa();
+        String op= request.getParameter("key");
         Gson json = new Gson();
-        int resp=0;
         switch(op)
         {
-            case "getRequisitoOferta":
-                int idOferta = Integer.parseInt(request.getParameter("id"));
-                com.google.gson.JsonObject obj = new JsonObject();
-                JsonArray array = new JsonArray();
-                List<Requisitos> listaR = daoR.mostrarRequisito(idOferta);
+            case"agregarEmpresa":
+                e.setNombre(request.getParameter("nombre"));
+                e.setTelefono(request.getParameter("tel"));
+                e.setCorreo(request.getParameter("correo"));
+                e.setIdPais(Integer.parseInt(request.getParameter("pais")));
+                e.setIdUsuario(Integer.parseInt(request.getParameter("data")));
+                out.println(daoe.agregarEmpresa(e));
+                break;
+                        
+            case"obtenerCombosDepartamento":
                 
-                for (Requisitos of : listaR) {
-                        JsonObject item = new JsonObject();
-                        item.addProperty("idRequisito",of.getIdRequisito());
-                        item.addProperty("requisito",of.getRequisito());
-                        item.addProperty("descripcion",of.getDescripcion());
-                        item.addProperty("idOferta",of.getIdOferta());
-                        array.add(item);
-                    }
-                obj.add("requisitos", array);
-                out.print(obj.toString());
+                DaoDepartamento daoD = new DaoDepartamento();
+                
+                List<Departamento> listaDepartamento = new ArrayList();
+                
+                listaDepartamento = daoD.mostrarDeptoPorPais(Integer.parseInt(request.getParameter("pais")));
+                
+                String jsnD=json.toJson(listaDepartamento);
+                
+                
+                out.println(jsnD);
+                break;  
+                
+              case"obtenerCombosProvincia":
+                
+                DaoProvincia daoP = new DaoProvincia();
+                
+                List<Provincia> listaProvincia = new ArrayList();
+                
+                listaProvincia = daoP.mostrarDeptoPorPais(Integer.parseInt(request.getParameter("dep")));
+                
+                String jsnP=json.toJson(listaProvincia);
+                
+                out.println(jsnP);
                 break;
                 
-            case "agregarRequisito":
-                re.setIdOferta(Integer.parseInt(request.getParameter("idOfertaR")));
-                re.setRequisito(request.getParameter("titulo"));
-                re.setDescripcion(request.getParameter("descripcion"));
-                resp = daoR.agregarRequisito(re);
-                out.print(resp);
-                    break;
-            case "modificarRequisito":
-                re=new Requisitos();
-                re.setIdOferta(Integer.parseInt(request.getParameter("idOferta")));
-                re.setRequisito(request.getParameter("titulo"));
-                re.setDescripcion(request.getParameter("descripcion"));
-                re.setIdRequisito(Integer.parseInt(request.getParameter("idRequisito")));
-                resp = daoR.modificarRequisito(re);
-                out.print(resp);
-                    break;
-                    
-            case "eliminarRequisito":
-                re=new Requisitos();
+            case"getDataEmpresa":
+                List<Empresa> listaEmpresa = new ArrayList<Empresa>();
+                listaEmpresa = daoe.getDataEmpresa(Integer.parseInt(request.getParameter("idUsuario")));
+                String jsnE="";
                 
-                out.print(daoR.eliminarRequisito(Integer.parseInt(request.getParameter("idRequisito"))));
-                    break;
+                jsnE=json.toJson(listaEmpresa);
+                out.print(jsnE);
+                
+                break;
+            
+            case"primera":
+               
+                out.print(daoe.primera(Integer.parseInt(request.getParameter("idUsuario"))));
+                //out.print(request.getParameter("idUsuario"));
+                break;
+                
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -104,7 +118,7 @@ public class ProcesarRequisitos extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ProcesarRequisitos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcesarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -122,7 +136,7 @@ public class ProcesarRequisitos extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ProcesarRequisitos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcesarEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

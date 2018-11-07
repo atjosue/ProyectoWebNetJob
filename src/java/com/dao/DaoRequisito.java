@@ -68,15 +68,29 @@ public class DaoRequisito extends Conexion{
             this.conectar();
             String sql="UPDATE requisitos SET requisito=?, descripcion=? WHERE idRequisito=?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, 0);
-            pre.setString(2, re.getRequisito());
-            pre.setString(3, re.getDescripcion());
-            pre.setInt(4, re.getIdOferta());
+            pre.setString(1, re.getRequisito());
+            pre.setString(2, re.getDescripcion());
+            pre.setInt(3, re.getIdRequisito());
             resp = pre.executeUpdate();
         } catch (Exception e) {
         throw e;
         }
         return resp;
     }
-    
+    public int eliminarRequisito(int id) throws Exception
+    {
+        int resp=0;
+        ResultSet res;
+        
+        try {
+            this.conectar();
+            String sql="delete from requisitos where idRequisito=?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, id);
+            resp = pre.executeUpdate();
+        } catch (Exception e) {
+        throw e;
+        }
+        return resp;
+    }
 }

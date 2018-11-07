@@ -1,9 +1,12 @@
 
 package com.dao;
 import com.conexion.Conexion;
+import com.modelos.Empresa;
 import com.modelos.Usuario;
 import static java.lang.System.out;
 import java.sql.*;
+import java.util.List;
+import jdk.nashorn.internal.ir.BreakNode;
 
 /**
  *
@@ -100,6 +103,46 @@ public class DaoUsuario extends Conexion{
         }
         
         return resp;
+    
+    }
+    
+    //METODO PARA VERIFICAR
+    public int  agregarEmpresa(Usuario use, Empresa em) throws Exception
+    {
+        ResultSet res;
+        int resp=0;
+        String us1=use.getNombreUsuario();
+        String us2=use.getNombreUsuario();
+        int idUsuario=0;
+        try {
+            this.conectar();
+            String sql ="insert into usuario values(?,?,?,?,?)";
+            String sql3 ="select idUsuario from usuario where nombreUsuario='"+use.getNombreUsuario()+"'";
+            
+            PreparedStatement pre1 = this.getCon().prepareStatement(sql);
+            PreparedStatement pre3 = this.getCon().prepareStatement(sql3);
+            
+            pre1.setInt(1,0);
+            pre1.setString(2, use.getNombreUsuario());
+            pre1.setString(3, use.getContraseña());
+            pre1.setInt(4, 1);
+            pre1.setInt(5, 4);
+            
+            idUsuario=pre1.executeUpdate();
+            res=pre3.executeQuery();
+            while(res.next())
+            {
+                idUsuario=res.getInt("idUsuario");
+            }
+            
+        } catch (SQLException e) {
+            throw e;
+        }finally
+        {
+            this.desconectar();
+        }
+        
+        return idUsuario;
     
     }
     

@@ -54,8 +54,11 @@ $(document).ready(function(){
      
         });
         
+    });
+    
+    $("#btnAbrirRegistro").click(function (){
         
-        
+        window.location.href="jsp/empresa/registroEmpresa.jsp";
     });
     
     //agregando Postulante

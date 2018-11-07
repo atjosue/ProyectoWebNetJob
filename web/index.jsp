@@ -12,6 +12,7 @@
         <title>NetJob</title>
         <jsp:include page="utilidades/frontend/headerLinks.jsp" />
         <link href="css/index.css" rel="stylesheet" type="text/css"/>
+        <script src="js/index.js" type="text/javascript"></script>
     </head>
     <header>
         <nav class="teal lighten-2">
@@ -358,7 +359,42 @@
                 </div>
             </div>
             <div class="s1 m1"></div>
+            
         </div>    
         
     </body>
+    <footer class=" teal lighten-2">
+     
+        <div class="row">
+            <div class="col s1"></div>
+            <div class="col s10">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="height: 80px;">
+                    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+                    <h5><br>¿Eres una empresa? se parte de nuestra familia y  logra muchas cosas.!<br><br></h5>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="Contenido/Imagenes/Sistema/iconos.png" width="250px" height="65px" />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                
+                <br>
+                <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="btn btn-default" id="btnAbrirRegistro">
+                    Ver Mas..
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col s1"></div>
+            <div class="clearfix"l></div>
+            <div class="s12" style="background-color: #00897b; height: 50px; font-size: 16px; width: 100%;"><br>
+                    <center>  NETJOB todos los derechos reservados por Copyright. © 2018  </center>
+            </div>
+            
+        </div>
+     
+  </footer>
 </html>

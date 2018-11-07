@@ -12,7 +12,7 @@ estado int not null
 #creando la tabla usuario
 create table usuario(
 idUsuario int not null primary key auto_increment,
-nombreUsuario varchar(50),
+nombreUsuario varchar(50) unique,
 contraseña varchar(50),
 estado int not null,
 idRol int not null
@@ -118,19 +118,19 @@ estado int
 create table empresa(
 idEmpresa int not null primary key auto_increment,
 nombre varchar(75) not null,
-direccion varchar(75) not null,
+direccion varchar(75) ,
 telefono varchar(25) not null,
-mision varchar(500),
-vision varchar(500),
+mision varchar(500) ,
+vision varchar(500) ,
 correo varchar(50) not null,
-latitud varchar(150),
-longitud varchar(150),
+latitud varchar(150) ,
+longitud varchar(150) ,
 idUsuario int not null,
-idRubro int not null,
-idProvincia int not null,
-idDepartamento int not null,
-idPais int not null ,
-estado int
+idRubro int ,
+idProvincia int ,
+idDepartamento int ,
+idPais int not null,
+estado int not null
 
 );
 
@@ -251,10 +251,10 @@ alter table detalleHabilidad  add constraint fk_detalleHabilidad1 foreign key (i
 alter table detalleHabilidad  add constraint fk_detalleHabilidad2 foreign key (idPostulante)references postulante (idPostulante);
 alter table relacion add constraint fk_relacionUsuario1 foreign key (idSeguido)references usuario (idUsuario);
 alter table relacion  add constraint fk_relacion foreign key (idSeguidor)references usuario (idUsuario);
-alter table empresa  add constraint fk_empresaPais foreign key (idPais)references pais (idPais);
-alter table empresa  add constraint fk_empresaDepartamento foreign key (idDepartamento)references departamento (idDepartamento);
-alter table empresa  add constraint fk_empresaProvincia foreign key (idProvincia)references provincia (idProvincia);
-alter table empresa  add constraint fk_empresaRubro foreign key (idRubro)references rubro (idRubro);
+#alter table empresa  add constraint fk_empresaPais foreign key (idPais)references pais (idPais);
+#alter table empresa  add constraint fk_empresaDepartamento foreign key (idDepartamento)references departamento (idDepartamento);
+#alter table empresa  add constraint fk_empresaProvincia foreign key (idProvincia)references provincia (idProvincia);
+#alter table empresa  add constraint fk_empresaRubro foreign key (idRubro)references rubro (idRubro);
 alter table experiencia  add constraint fk_experienciaPostulante foreign key (idPostulante)references postulante (idPostulante);
 alter table carrera add constraint fk_carrera_gradoUniversitario foreign key(idGradoUniversitario) references gradoUniversitario(idGradoUniversitario);
 alter table puesto add constraint fk_puestoArea foreign key(idArea) references area(idArea);
@@ -384,8 +384,11 @@ INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Media', '1');
 INSERT INTO `vacantes`.`gradoestudio` (`grado`, `estado`) VALUES ('Superior', '1');
 
 /*INSERTAR OFERTA DE PRUEBA*/
-INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES (' solo hoy DBA ', 'esta es la primera oportonuidad que esta a tus pies', '2', '250', '250', '1', '3', '18', '60', '1', '1', '10/18/18', '1', '2', 'masculino', '1');
-INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', 'femenino', '1');
+INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES (' solo hoy DBA ', 'esta es la primera oportonuidad que esta a tus pies', '2', '250', '250', '1', '3', '18', '60', '1', '1', '10/18/18', '1', '2', '1', '1');
+INSERT INTO `vacantes`.`oferta` (`titulo`, `descripcion`, `vacantes`, `salarioMinimo`, `salarioMaximo`, `idEmpresa`, `aniosExperiencia`, `edadMinima`, `edadMaxima`, `idArea`, `idPuesto`, `fechaPublicacion`, `estado`, `idGradoEstudio`, `sexo`, `estadoP`) VALUES ('Se busca programador java', 'estamos ogreciendo grandes prestaciopnes a los mejores y tu eres uno', '2', '215', '156', '1', '3', '18', '61', '1', '1', '0000-00-00', '1', '2', '1', '1');
+
+select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora estándar central)';
+
 select * from usuario;
 select idOferta from oferta where edadMaxima=25 and idEmpresa=1 and idGradoEstudio=4 and fechaPublicacion='Sat Nov 03 2018 17:34:32 GMT-0600 (hora estándar central)';
 
@@ -398,21 +401,15 @@ INSERT INTO `vacantes`.`profesion` (`profesion`, `estado`, `descripcion`) VALUES
 INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Inglés', '1');
 INSERT INTO `vacantes`.`idioma` (`idioma`, `estado`) VALUES ('Francés', '1');
 
-select * from habilidades;
-select * from usuario;
-select * from postulante where idUsuario=6
-select * from relacion;
+alter table empresa add column estadoA int;
+alter table empresa drop column imagenEmpresa;
+alter table empresa add column imagen2 longblob;
 
-
-
-select idPostulante ,nombres, apellidos, fotoPerfil from postulante where idUsuario=6
-
-select e.nombre, o.idOferta, o.titulo, o.Descripcion from oferta o inner join empresa e on o.idEmpresa= e.idEmpresa;
-select o.idEmpresa as empresa , idOferta , titulo , descripcion , vacantes , salarioMinimo , salarioMaximo , aniosExperiencia , edadMinima , edadMaxima , idArea ,idPuesto , idGradoEstudio , sexo , estadoP  from oferta o inner join empresa e;
-
-select * from DetalleHabilidad
-select * from experiencia where idPostulante=1
-
-select d.idDetalleHabilidad as idDetalle, h.habilidad as habilidadfrom detalleHabilidad d inner join habilidades h on h.idHabilidad=d.idHabilidad where d.idPostulante=1;
-alter table puesto drop column idEmpresa;
-select p.nombres from postulante p inner join relacion r on r.idSeguidor=2;
+use vacantes;
+select * from rubro;
+select * from requisitos;
+INSERT INTO empresa (idEmpresa , nombre, telefono, correo, idUsuario,idPais, estado, estadoA) VALUES (0,'bimbo','561','fef',22,1,1,0);
+INSERT INTO empresa (idEmpresa , nombre, telefono, correo, idUsuario,idPais, estado, estadoA ) VALUES (0,'Curacao','84653','bvuifn@feo',42,1,1,0);
+select * from departamento;
+select * from provincia;
+select * from empresa where idUsuario=12
