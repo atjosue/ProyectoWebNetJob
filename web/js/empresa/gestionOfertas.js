@@ -412,7 +412,7 @@ $(document).ready(function(){
                                                     animation: false,
                                                     customClass: 'animated tada'
                                                   }).then((resulta) => {
-                                                          location.reload();s
+                                                          location.reload();
                                                        });
                                                   
                                                });

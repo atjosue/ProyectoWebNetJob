@@ -1,5 +1,22 @@
 $(document).ready(function(){
-    //mismiadf
+    var idUsuario=$("#idUsuarioGlobal").val();
+   
+    
+    var primeravex= function() {
+        var key="primera";
+        $.ajax({
+            type:'post',
+            data:{idUsuario,key},
+            url: '../../procesarEmpresa',
+            success: function(data){
+                if (data=="null") {
+                    window.location.href="gestionPerfil.jsp"; 
+                }
+            }
+        });
+    };
+    primeravex();
+    
      $(".dropdown-trigger").dropdown();
     
      cargarSelectGrado(); 

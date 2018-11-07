@@ -16,7 +16,7 @@
     <jsp:include page="../../utilidades/frontend/headerLinks.jsp" />
     <script src="../../js/empresa/gestionOfertas.js" type="text/javascript"></script>
     <script src="../../utilidades/frontend/Ajax_Camvas/underscoreJS.js" type="text/javascript"></script>
-    <!--<link href="../../css/empresa/AnimateCss.css" rel="stylesheet" type="text/css"/>-->
+    <link href="../../css/empresa/AnimateCss.css" rel="stylesheet" type="text/css"/>
 </head>
 <header>
          <nav class="nav-extended teal">
@@ -30,7 +30,7 @@
                 <li style="width: 150px;">
                             <a class="dropdown-trigger" href="#!" data-target="dropdown1">
                                 <img src="../../Contenido/Imagenes/postulantes/carla.jpg" class="rounded-circle " width="35px" height="35px" style="border-radius: 16px;"> 
-                                <%= session.getAttribute("users") %>
+                                <%= session.getAttribute("user") %>
                             </a>
 
                 </li>
@@ -47,7 +47,7 @@
 
         <!-- Contenedor del submenu de opciones -->
                 <ul id="dropdown1" class="dropdown-content" style="width: 150px;">
-                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
+                      <li><a href="gestionPerfil.jsp"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
                       <li><a href="#"><span class="glyphicon glyphicon-unchecked"></span> Seguimiento</a></li>
                       <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log-Out</a></li>
                 </ul>

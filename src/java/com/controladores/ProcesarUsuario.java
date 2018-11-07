@@ -6,6 +6,7 @@
 package com.controladores;
 
 import com.dao.DaoUsuario;
+import com.modelos.Empresa;
 import com.modelos.Usuario;
 import com.recursos.Encriptacion;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class ProcesarUsuario extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-         Usuario us= new Usuario();
+        Usuario us= new Usuario();
         DaoUsuario daou= new DaoUsuario();
         Encriptacion enc= new Encriptacion();
         HttpSession sesion=request.getSession();
@@ -100,8 +101,22 @@ public class ProcesarUsuario extends HttpServlet {
                 resp=daou.insertar(us);
                 
                 out.print(resp);
-                
-               
+                break;
+            case "agregarEmpresa":
+                 us=new Usuario();
+                 Empresa em= new Empresa();
+                 
+                us.setNombreUsuario(request.getParameter("us"));
+                String pass1=enc.SHA1(request.getParameter("repass"));
+                String passEnd1=enc.MD5(pass1);
+                us.setContraseña(passEnd1);
+                 em.setNombre(request.getParameter("nombre"));
+                 em.setTelefono(request.getParameter("tel"));
+                 em.setIdPais(Integer.parseInt(request.getParameter("pais")));
+                 em.setCorreo(request.getParameter("correo"));
+                 
+                 out.print(daou.agregarEmpresa(us,em));
+               break;
         
         }
     }

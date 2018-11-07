@@ -30,8 +30,7 @@ public class DaoOferta extends Conexion{
             String sql="select o.idEmpresa as empresa , idOferta , titulo , "
                     + "descripcion , vacantes , salarioMinimo , salarioMaximo , "
                     + "aniosExperiencia , edadMinima , edadMaxima , idArea , "
-                    + "idPuesto , idGradoEstudio , sexo , estadoP  from oferta o "
-                    + "inner join empresa e on e.idUsuario=? and o.estado=1;";
+                    + "idPuesto , idGradoEstudio , sexo , estadoP  from oferta o inner join empresa e on o.idEmpresa=e.IdEmpresa and e.idUsuario=? and o.estado=1;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, idUsuarioEmpresa);
             res=pre.executeQuery();

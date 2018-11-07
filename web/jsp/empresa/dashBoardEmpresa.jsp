@@ -52,7 +52,7 @@
 
         <!-- Contenedor del submenu de opciones -->
                 <ul id="dropdown1" class="dropdown-content" style="width: 150px;">
-                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
+                      <li><a href="gestionPerfil.jsp"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
                       <li><a href="#"><span class="glyphicon glyphicon-unchecked"></span> Seguimiento</a></li>
                       <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log-Out</a></li>
                 </ul>
