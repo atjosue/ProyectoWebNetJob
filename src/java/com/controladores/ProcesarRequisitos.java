@@ -38,7 +38,7 @@ public class ProcesarRequisitos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+       PrintWriter out = response.getWriter();
         Requisitos re = new Requisitos();
         DaoRequisito daoR = new DaoRequisito();
         String op = request.getParameter("key");
