@@ -92,7 +92,6 @@ idExperiencia int not null primary key auto_increment,
 empresa varchar(50),
 cargo varchar(50),
 descripcion varchar(50),
-salario double,
 tiempoLaborado int,
 idPostulante int not null,
 estado int
@@ -267,6 +266,7 @@ alter table aplicacionOferta add constraint fk_OfertaPostulante foreign key(idOf
 alter table comentario add constraint fk_comentarioUsuario foreign key(idUsuario) references usuario(idUsuario);
 alter table comentarioPerfil add constraint fk_PerfilComentario foreign key(idComentario) references comentario(idComentario);
 alter table comentarioPerfil add constraint fk_ComentarioPerfil foreign key(idPostulante) references postulante(idPostulante);
+alter table Experiencia add constraint fk_ExperienciaPostulante foreign key(idPostulante) references postulante(idPostulante);
 
 
 
@@ -280,6 +280,7 @@ insert into usuario values(0,'CarlosCampos','27b97374ec529e1ec0cadae4cd25e04c',1
 insert into usuario values(0,'JosueTrejo','27b97374ec529e1ec0cadae4cd25e04c',1,1);
 insert into usuario values(0,'FernandoFlamenco','27b97374ec529e1ec0cadae4cd25e04c',1,1);
 insert into usuario values(0,'KevinMontiel','27b97374ec529e1ec0cadae4cd25e04c',1,1);
+insert into usuario values(0,'EduardoRamos','123',1,1);
 
 
 select r.descRol, u.nombreUsuario from usuario u inner join Rol r on r.idRol=u.idRol where nombreUsuario='CarlosCampos' and contraseña='27b97374ec529e1ec0cadae4cd25e04c';
@@ -348,7 +349,7 @@ INSERT INTO `vacantes`.`area` (`nombre`, `estado`) VALUES ('Sistemas', '1');
  /*INSERTAR EN Puesto para rrhh y sistemas*/
  select * from puesto;
 alter table puesto add column idEmpresa int;
-alter table puesto add constraint fk_empresa_puesto foreign key (idEmpresa) references empresa(idEmpresa);
+alter table puesto drop constraint fk_empresa_puesto foreign key (idEmpresa) references empresa(idEmpresa);
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Gerente', 'gerente de el area de recursos huanos el aca vamos a cevr todas las cosas que se cese', '1', '1');
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Supervisor', 'supervisor de el area', '1', '1');
 INSERT INTO `vacantes`.`puesto` (`nombrePuesto`, `descripcion`, `idArea`, `estado`) VALUES ('Secretaria ', 'secretaria de recursos humanos', '1', '1');
@@ -409,3 +410,6 @@ select * from usuario;
 select * from requisitos;
 INSERT INTO empresa (idEmpresa , nombre, telefono, correo, idUsuario,idPais, estado, estadoA) VALUES (0,'bimbo','561','fef',22,1,1,0);
 INSERT INTO empresa (idEmpresa , nombre, telefono, correo, idUsuario,idPais, estado, estadoA ) VALUES (0,'Curacao','84653','bvuifn@feo',42,1,1,0);
+select * from departamento;
+select * from provincia;
+select * from empresa where idUsuario=12

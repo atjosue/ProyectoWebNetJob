@@ -1,5 +1,5 @@
 <%-- 
-    Document   : dashBoardPostulante
+    Document   :
     Created on : 10-26-2018, 04:58:03 PM
     Author     : josue
 --%>
@@ -15,7 +15,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <jsp:include page="../../utilidades/frontend/headerLinks.jsp" />
-         <script src="../../js/postulante/dashBoardPostulante.js" type="text/javascript"></script>
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+         <script src="../../js/postulante/personas.js" type="text/javascript"></script>
         <title>JSP Page</title>
         <%
             HttpSession sesion= request.getSession();
@@ -62,7 +63,7 @@
                 <!-- Contenedor del submenu de opciones -->
                 <ul id="dropdown1" class="dropdown-content" style="width: 150px;">
                       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-                      <li><a href="personas.jsp"><span class="glyphicon glyphicon-unchecked"></span> Seguimiento</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-unchecked"></span> Seguimiento</a></li>
                       <li><a href="#"><span class="glyphicon glyphicon-education"></span> Ayuda</a></li>
                       <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log-Out</a></li>
                 </ul>
@@ -79,56 +80,47 @@
          </nav>
     </header>
     <body>
+        
        <br><br>
         
         
-        <div class="col-md-1 col-sm-1 col-xs-1"></div>
-        <div class="col-md-10 col-sm-10 col-xs-10">
+        <div class="col-md-3 col-sm-3 col-xs-3" > <ul class="collection with-header">
+        <li class="collection-header"><h4>Personas</h4></li>
+        <li class="collection-item"><div>Seguidos<a href="Seguidos.jsp" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        <li class="collection-item"><div>Seguidores<a href="Seguidores.jsp" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        
+      </ul></div>
+        <div class="col-md-8 col-sm-8 col-xs-8">
             
-            <!--Obteniendo ofertas-->
-            <%
-                    Oferta of= new Oferta();
-                    DaoOferta daoO= new DaoOferta();
-                    
-                    
-            %>
-               
-            <div class=" col-md-12 col-xs-12 col-sm-12  contenedorTargetas">
+           
+            <div class=" col-md-10 col-xs-10 col-sm-10 contenedorTargetas">
+                <ul class="collection">
                 <%
-                    List<Oferta> lstOf=daoO.getOfertas();
-                    for(Oferta o: lstOf)
-                    {
-
-                 %>
-
-                 <div class="row">
-                     
-                <!-- inicio de tarjeta-->
+                   
+                    List<Postulante> lstpos=daop.getPostulantes(Integer.parseInt(sesion.getAttribute("idPostulante").toString()));
+                    
+                     for(Postulante ps: lstpos)
+                     {
+                %>
                 
-                    <div class="col-md-12 col-xs-12 col-sm-12">
-                        <div class="card">
-                           
-                          <div class="card-image">
-                            
-                          </div>
-                              <span class="card-title black-text"><%=o.getTitulo() %></span>
-                          <div class="card-content">
-                            <p><%=o.getDescripcion() %></p>
-                          </div>
-                          <div class="card-action teal lighten-3">
-                            <a href="#">Gestionar</a>
-                          </div>
+                    <li class="collection-item avatar">
+                        <img src="data: image / jpg; base64, <%= ps.getBase64Image() %>" alt="" class="circle">
+                        <a class="verPerfil" id="<%=ps.getIdPostulante() %>" href="#"><span class="title"><%=ps.getNombres() %>&nbsp;<%=ps.getApellidos() %></span></a>
+                        <p><%=ps.getCorreo()%><br>
+                            Second Line
+                        </p>
                         
-                        </div>
-                    </div>
-                 
+                        <a href="#" class="secondary-content seguir" id="<%=ps.getIdPostulante() %>"><i class="material-icons">add_circle</i></a>
+                        
+                    </li>
+                    
                 
                 
-                  </div>
-                 <%
-                     }
-                 %>
-
+                <%
+                }
+                %>
+                    </ul>
+                <input type="hidden" value="<%=post.getIdPostulante() %>" id="idPostulante">
             </div>
         </div>
         

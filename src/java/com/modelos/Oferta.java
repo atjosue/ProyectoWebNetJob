@@ -27,13 +27,13 @@ public class Oferta implements Serializable{
   private String  fechaPublicacion;
   private int  estado;
   private int  idGradoEstudio;
-  private int  sexo;
+  private String  sexo;
   private int estadoP;
 
     public Oferta() {
     }
     
-    public Oferta(int idOferta, String titulo, String descripcion, int vacantes, double salarioMinimo, double salarioMaximo, int idEmpresa, int aniosExperiencia, int edadMinima, int edadMaxima, int idArea, int idPuesto, String fechaPublicacion, int estado, int idGradoEstudio, int sexo, int estadoP) {
+    public Oferta(int idOferta, String titulo, String descripcion, int vacantes, double salarioMinimo, double salarioMaximo, int idEmpresa, int aniosExperiencia, int edadMinima, int edadMaxima, int idArea, int idPuesto, String fechaPublicacion, int estado, int idGradoEstudio, String sexo, int estadoP) {
         this.idOferta = idOferta;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -173,11 +173,11 @@ public class Oferta implements Serializable{
         this.idGradoEstudio = idGradoEstudio;
     }
 
-    public int getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(int sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
