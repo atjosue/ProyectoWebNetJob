@@ -116,7 +116,7 @@ public class ProcesarOfertas extends HttpServlet {
                     o.setIdPuesto(Integer.parseInt(request.getParameter("idPuesto")));
                     o.setFechaPublicacion(request.getParameter("fechaPublicacion"));
                     o.setIdGradoEstudio(Integer.parseInt(request.getParameter("idGradoEstudio")));
-                    o.setSexo(Integer.parseInt(request.getParameter("sexo")));
+                    o.setSexo(request.getParameter("sexo"));
                     o.setEstadoP(Integer.parseInt(request.getParameter("estadoP")));
                     List resp =daoO.agregarOferta(o);
                     out.print(resp);
@@ -139,7 +139,7 @@ public class ProcesarOfertas extends HttpServlet {
                     o.setIdPuesto(Integer.parseInt(request.getParameter("idPuesto")));
                     o.setFechaPublicacion(request.getParameter("fechaPublicacion"));
                     o.setIdGradoEstudio(Integer.parseInt(request.getParameter("idGradoEstudio")));
-                    o.setSexo(Integer.parseInt(request.getParameter("sexo")));
+                    o.setSexo(request.getParameter("sexo"));
                     o.setEstadoP(Integer.parseInt(request.getParameter("estadoP")));
                     int respM =daoO.modificarOferta(o);
                     out.print(respM);

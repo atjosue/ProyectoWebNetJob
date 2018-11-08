@@ -5,24 +5,56 @@
         <servlet-class>com.controladores.gestionAreas</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProcesarPuestos</servlet-name>
+        <servlet-class>com.controladores.ProcesarPuestos</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ProcesarArea</servlet-name>
         <servlet-class>com.controladores.ProcesarArea</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcesarPuestos</servlet-name>
-        <servlet-class>com.controladores.ProcesarPuestos</servlet-class>
+        <servlet-name>ProcesarEmpresa</servlet-name>
+        <servlet-class>com.controladores.ProcesarEmpresa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcesarExperiencia</servlet-name>
+        <servlet-class>com.controladores.ProcesarExperiencia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcesarUsuario</servlet-name>
+        <servlet-class>com.controladores.ProcesarUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcesarEstadisticaEmpresa</servlet-name>
+        <servlet-class>com.controladores.ProcesarEstadisticaEmpresa</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>gestionAreas</servlet-name>
         <url-pattern>/GestionAreas</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ProcesarPuestos</servlet-name>
+        <url-pattern>/procesarPuestos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ProcesarArea</servlet-name>
         <url-pattern>/procesarArea</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcesarPuestos</servlet-name>
-        <url-pattern>/procesarPuestos</url-pattern>
+        <servlet-name>ProcesarEmpresa</servlet-name>
+        <url-pattern>/procesarEmpresa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarExperiencia</servlet-name>
+        <url-pattern>/procesarExperiencia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarUsuario</servlet-name>
+        <url-pattern>/procesarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarEstadisticaEmpresa</servlet-name>
+        <url-pattern>/procesarEstadisticaEmpresa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

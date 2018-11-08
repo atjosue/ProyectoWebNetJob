@@ -12,7 +12,7 @@
         <link href=" http://localhost:8080/NetJob/utilidades/frontend/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" type="text/css"/>
         <script src="http://localhost:8080/NetJob/utilidades/frontend/bootstrap/jquery-3.3.1.min.js" type="text/javascript"></script>
         <script src="http://localhost:8080/NetJob/utilidades/frontend/Semantic-UI-CSS-master/semantic.js" type="text/javascript"></script>
-        <script src="http://localhost:8080/NetJob/utilidades/frontend/Ajax_Camvas/ajaxTransactions.js" type="text/javascript"></script>
+        <script src="http://localhost:8080/NetJob/utilidades/frontend/Ajax_Canvas/canvasjs.min.js" type="text/javascript"></script>
         <script src="http://localhost:8080/NetJob/utilidades/frontend/DataTables/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <link href="http://localhost:8080/NetJob/utilidades/frontend/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <script src="http://localhost:8080/NetJob/utilidades/frontend/sweetalert2.0/sweetalert2.js" type="text/javascript"></script>

@@ -18,10 +18,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bienvenidos.</title>
         <jsp:include page="../../utilidades/frontend/headerLinks.jsp" />
+        <jsp:include page="../../utilidades/frontend/assets/headerEstadistica.jsp"/>
         <script src="../../js/empresa/dashBoardEmpresa.js" type="text/javascript"></script>
         <link href="../../css/empresa/dashBoardEmpresa.css" rel="stylesheet" type="text/css"/>
-        <script src="../../utilidades/frontend/Ajax_Camvas/underscoreJS.js" type="text/javascript"></script>
+        <script src="../../utilidades/frontend/Ajax_Canvas/underscoreJS.js" type="text/javascript"></script>
         <link href="../../css/empresa/AnimateCss.css" rel="stylesheet" type="text/css"/>
+        <script src="../../js/empresa/EstadisticaEmpresa.js" type="text/javascript"></script>
+        <script src="../../js/empresa/GraficoEmpresa.js" type="text/javascript"></script>
     </head>
     <header>
          <nav class="nav-extended teal">
@@ -68,6 +71,158 @@
                <div class="tab-content">
                  <!-- CONTENEDOR PARA LAS ESTADISTICAS -->
                  <div id="menu1" class="tab-pane fade in active">
+                   
+                     <div class="pcoded-content">
+                                <div class="pcoded-inner-content">
+
+                                    <div class="main-body">
+                                        <div class="page-wrapper">
+                                            <div class="page-header">
+                                                <div class="page-header-title">
+                                                    <h4>Dashboard</h4>
+                                                </div>
+                                                <div class="page-header-breadcrumb">
+                                                    <ul class="breadcrumb-title">
+                                                        <li class="breadcrumb-item">
+                                                            <a href="#!">
+                                                                <i class="icofont icofont-home"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="page-body">
+                                                <div class="row">
+                                                    <div class="col-md-7 col-xl-2">
+                                                        <!-- table card start -->
+                                                        <div class="card table-card">
+                                                            <div class="">
+                                                                <div class="row-table">
+                                                                    <div class="col-sm-6 card-block-big br">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4">
+                                                                                <i class="icofont icofont-eye-alt text-success"></i>
+                                                                            </div>
+                                                                            <div class="col-sm-8 text-center">
+                                                                                <h5><div id="idUsuariosA"></div></h5>
+                                                                                <span>Usuarios Activos</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 card-block-big">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4">
+                                                                                <i class="icofont icofont-ui-music text-danger"></i>
+                                                                            </div>
+                                                                            <div class="col-sm-8 text-center">
+                                                                                <h5><div id="idEmpresasA"></div></h5>
+                                                                                <span>Empresas Activas</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="row-table">
+                                                                    <div class="col-sm-6 card-block-big br">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4">
+                                                                                <i class="icofont icofont-files text-info"></i>
+                                                                            </div>
+                                                                            <div class="col-sm-8 text-center">
+                                                                                <h5><div id="idOfertasEs"></div></h5>
+                                                                                <span>ofertas</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 card-block-big">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4">
+                                                                                <i class="icofont icofont-envelope-open text-warning"></i>
+                                                                            </div>
+                                                                            <div class="col-sm-8 text-center">
+                                                                                <h5><div id="idPost"></div></h5>
+                                                                                <span>Post</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- table card end -->
+                                                    </div>
+                                                    
+                                                    <div class="col-md-5 col-xl-4">
+                                                        <!-- widget primary card start -->
+                                                        <div class="card table-card widget-primary-card">
+                                                            <div class="">
+                                                                <div class="row-table">
+                                                                    <div class="col-sm-3 card-block-big">
+                                                                        <i class="icofont icofont-star"></i>
+                                                                    </div>
+                                                                    <div class="col-sm-9">
+                                                                        <h4><div id="idSeguidores"></div></h4>
+                                                                        <h6>Seguidores</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- widget primary card end -->
+                                                        <!-- widget-success-card start -->
+                                                        <div class="card table-card widget-success-card">
+                                                            <div class="">
+                                                                <div class="row-table">
+                                                                    <div class="col-sm-3 card-block-big">
+                                                                        <i class="icofont icofont-trophy-alt"></i>
+                                                                    </div>
+                                                                    <div class="col-sm-9">
+                                                                        <h4><div id="idSeguidos"></div></h4>
+                                                                        <h6>Siguiendo</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- widget-success-card end -->
+                                                    </div>
+                                                    <div class="col-md-12">
+
+                                                        <div class="col-md-7 col-xl-4">
+                                                            <div class="card">
+
+
+
+
+                                                                <div id="chartContainer" style="height: 300px; width: 100%;">
+
+
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5 col-xl-4">
+                                                            <div class="card">
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                     
+                     
+                     
+                     
+                     
                      
                  </div>
                  <!-- FIN CONTENEDOR PARA LAS ESTADISTICAS -->
@@ -75,12 +230,7 @@
                
                
                  <!-- CONTENEDOR PARA LA GESTION DE SOLICITUDES -->
-                 <div id="menu3" class="tab-pane fade" >
-                        
-                     
-                     
-                     
-                     
+                 <div id="menu3" class="tab-pane fade" >        
                  </div>
                  <!-- FIN CONTENEDOR PARA LA GESTION DE SOLICITUDES -->
                  <!-- CONTENEDOR PARA LA AREAS -->
@@ -101,8 +251,7 @@
                          <tbody>
                             
                          </tbody>
-                     </table>
-                        
+                     </table>                      
                  </div>
                          
                  <!-- FIN CONTENEDOR PARA LA AREAS -->
