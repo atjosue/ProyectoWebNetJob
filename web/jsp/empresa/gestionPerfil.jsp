@@ -52,7 +52,9 @@
                 </ul>
 </header>    
     <body>
+        <form id="formInfoEmpresa" action="../../procesarEmpresa" enctype="multipart/form-data">
         <input type="hidden" id="idUsuario" name="idUsuario" value="<%= session.getAttribute("idUsuario")%>">
+        <input type="hidden" name="key" value="actualizarEmpresa">   
         <div class="row" id="contInfoEmpresa">
             <div class="col s2"></div>
             <div class="col s8">
@@ -88,13 +90,13 @@
                 <div class="clearfix"></div><br>
                 <div class="col-sm-6 col-md-6 col-xs-6">
                     <div class="input-field">
-                        <textarea id="txtMision" name ="txtMision" class="materialize-textarea"></textarea>
+                        <textarea id="txtMision" name="txtMision" class="materialize-textarea"></textarea>
                         <label for="txtMision">Mision de la Empresa</label>
                     </div>
                 </div>  
                 <div class="col-sm-6 col-md-6 col-xs-6">
                     <div class="input-field">
-                        <textarea id="txtVision" class="materialize-textarea"></textarea>
+                        <textarea id="txtVision" name="txtVision" class="materialize-textarea"></textarea>
                         <label for="txtVision">Vision de la Empresa</label>
                     </div>
                 </div>
@@ -141,13 +143,13 @@
                 <div class="clearfix"></div><br>
                 <div class="col-sm-2 col-md-2 col-xs-2"></div>
                 <div class="col-sm-4 col-md-4 col-xs-4">
-                    <select class="search selection" id="selectDepa" name="pais">
+                    <select class="search selection" id="selectDepa" name="selectDepa">
                                 
                     </select>
                     <label for="selectDepa">Departamento</label>
                 </div>
                 <div class="col-sm-4 col-md-4 col-xs-4">
-                    <select class="search selection" id="selectProv" name="pais">
+                    <select class="search selection" id="selectProv" name="selectProv">
                                 
                     </select>
                     <label for="selectProv">Provincia</label>
@@ -170,7 +172,7 @@
                         <div class="file-field input-field">
                             <div class="btn">
                               <span>Seleccionar</span>
-                              <input type="file">
+                              <input type="file" id="img1" name="img1" >
                             </div>
                             <div class="file-path-wrapper">
                               <input class="file-path validate" type="text">
@@ -192,7 +194,7 @@
                         <div class="file-field input-field">
                             <div class="btn">
                               <span>Seleccionar</span>
-                              <input type="file">
+                              <input type="file" id="img2" name="img2">
                             </div>
                             <div class="file-path-wrapper">
                               <input class="file-path validate" type="text">
@@ -228,9 +230,8 @@
                 <div class="col-md-2 col-sm-2 col-xs-2 btn" id="cancelarCambio">
                     CANCELAR
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-4 btn" id="guardarCambios">
-                    GUARDAR
-                </div>
+                <input type="submit" class="col-md-4 col-sm-4 col-xs-4 btn" >
+              </form>
             </div>
             <div class="col s1"></div>
         </div>

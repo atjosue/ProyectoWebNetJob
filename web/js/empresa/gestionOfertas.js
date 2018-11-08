@@ -632,10 +632,13 @@ $(document).ready(function(){
                               closeOnCancel: true
                             });
                                             //$("#modalAgregarArea").hide();
-                                            //limpiarFrmRe();
+                                            limpiarFrmRe();
+                                            controlBotonesRequisitos(1);
                                             //$("#tableRequerimientos").DataTable().Destroy();
-                                            cargarTableRequisitos();
-                                            //location.reload();
+                                            var table = $("#tableRequerimientos").DataTable();
+                                            table.ajax.reload( function (){
+                                                
+                                            });
                 }else{
                        swal({
                               title:"Error!",
@@ -688,8 +691,9 @@ $(document).ready(function(){
                               closeOnCancel: true
                             });
                                             //$("#modalAgregarArea").hide();
-                                            //limpiarFrmRe();
+                                            limpiarFrmRe();
                                             //$("#tableRequerimientos").DataTable().Destroy();
+                                            controlBotonesRequisitos(1);
                                             var table = $("#tableRequerimientos").DataTable();
                                             table.ajax.reload( function (){
                                                 
@@ -746,9 +750,12 @@ $(document).ready(function(){
                               closeOnCancel: true
                             });
                                             //$("#modalAgregarArea").hide();
-                                            //limpiarFrmRe();
-                                            //$("#tableRequerimientos").DataTable().Destroy();
-                                            cargarTableRequisitos();
+                                            limpiarFrmRe();
+                                            controlBotonesRequisitos(1);
+                                           var table = $("#tableRequerimientos").DataTable();
+                                            table.ajax.reload( function (){
+                                                
+                                            });
                 }else{
                        swal({
                               title:"Error!",
@@ -947,9 +954,9 @@ $(document).ready(function(){
     
     var limpiarFrmRe= function()
     {
-        $("#tituloRequisito").text("");
-        $("#descripcionRequisito").text("");
-        $("#idRequisito").text("");
+        $("#tituloRequisito").val("");
+        $("#descripcionRequisito").val("");
+        $("#idRequisito").val("");
     };
 
     var controlBotonesRequisitos = function(a)

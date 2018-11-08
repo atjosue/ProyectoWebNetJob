@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('#contPrincipal').hide();
     var primeravex= function() {
         var key="primera";
+        var idUsuario=$("#idUsuario").val();
         $.ajax({
             type:'post',
             data:{idUsuario,key},
@@ -214,6 +215,31 @@ $(document).ready(function(){
             }
         });
     };
+    //prueba de agregado de informacion de la empresa
+    /*$(document).on("click","#guardarCambios",function (){
+       alert("se viene");
+       var nombre=$("#txtNombre").val();
+       var descripcion1=$("#txtDescripcion1").val();
+       var descripcion2=$("#txtDescripcion2").val();
+       var mision =$("#txtMision").val();
+       var vision= $("#txtVision").val();
+       var telefono= $("#txtTelefono").val();
+       var direccion= $("#txtDireccion").val();
+       var correo= $("#txtCorreo").val();
+       var rubro =$("#selectRubro").val();
+       var departamento=$("#selectDepa").val();
+       var provincia =$("#selectProv").val();
+       var paginaWeb = $("#txtPagina").val();
+       var facebook=$("#txtFace").val();
+       var intagram=$("#txtInsta").val();
+       var idEmpresa=$("#txtIdEmpresa").val(); 
+       var data1 = document.getElementById("img1");
+       var imagen1 = new FormData(data1);
+       var data2 = document.getElementById("img2");
+        
+       
+    });
+    */
     
     
     

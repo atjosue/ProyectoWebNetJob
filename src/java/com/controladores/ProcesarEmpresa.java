@@ -14,18 +14,24 @@ import com.modelos.Empresa;
 import com.modelos.Provincia;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author josue
  */
+@WebServlet("/uploadServlet")
+@MultipartConfig( maxFileSize = 16177215)
 public class ProcesarEmpresa extends HttpServlet {
 
     /**
@@ -93,14 +99,87 @@ public class ProcesarEmpresa extends HttpServlet {
                 
                 break;
             
-            case"primera":
+            case "primera":
                
                 out.print(daoe.primera(Integer.parseInt(request.getParameter("idUsuario"))));
                 //out.print(request.getParameter("idUsuario"));
                 break;
+            case "actualizarEmpresa":
+               int ksk=0; 
+                try {
+                e= new Empresa();
                 
+                e.setNombre(request.getParameter("txtNombre"));
+                e.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+                e.setDescripcion1(request.getParameter("txtDescripcion1"));
+                e.setDescripcion2(request.getParameter("txtDescripcion2"));
+                e.setMision(request.getParameter("txtMision"));
+                e.setVision(request.getParameter("txtVision"));
+                e.setTelefono(request.getParameter("txtTelefono"));
+                e.setDireccion(request.getParameter("txtDireccion"));
+                e.setCorreo(request.getParameter("txtCorreo"));
+                e.setIdRubro(Integer.parseInt(request.getParameter("selectRubro")));
+                e.setIdDepartamento(Integer.parseInt(request.getParameter("selectDepa")));
+                e.setIdProvincia(Integer.parseInt(request.getParameter("selectProv")));
+                e.setPaginaWeb(request.getParameter("txtPagina"));
+                e.setFacebook(request.getParameter("txtFace"));
+                e.setInstagram(request.getParameter("txtInsta"));
+                
+//**************************imagen 1
+                
+                Part filePart = request.getPart("img1"); //Obtener la parte del archivo cargado
+                if (filePart != null){
+                e.setImagen(filePart.getInputStream());
+                e.setEstado(1);
+                }else
+                {
+                e.setEstado(0);
+                }
+                
+                
+                //***********************IMAGEN 2
+                Part filePart2 = request.getPart("img2"); //Obtener la parte del archivo cargado
+                if (filePart2 != null){
+                e.setImagen2(filePart2.getInputStream());// Obtiene flujo de entrada del archivo de carga  
+                e.setEstadoA(1);    
+                }else
+                {
+                e.setEstadoA(0); 
+                }
+               
+                //out.print(e.getEstadoA());
+        //PROCESANDO
+               int dec=0;
+               
+               //solo imagen1
+                if (e.getEstado()==1 && e.getEstadoA()==0) {
+                    dec=1;
+                }
+                //solo imagen 2
+                if (e.getEstado()==0 && e.getEstadoA()==1) {
+                    dec=2;
+                }
+                //dos imgenes
+                if (e.getEstado()==1 && e.getEstadoA()==1) {
+                    dec=3;
+                }else
+                {
+                    //ninguna imagen
+                    dec=4;
+                }
+                
+                //ksk=daoe.actualizarEmpresa(e,dec);
+                out.print("ksk");
+                //response.sendRedirect("jsp/empresa/gestionPerfil.jsp");
+               
+                
+           } catch (IOException | NumberFormatException | ServletException ex) {
+             out.print(e);
+           }
+               
+                break;  
         }
-        
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

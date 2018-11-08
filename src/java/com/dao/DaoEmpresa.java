@@ -174,5 +174,130 @@ public class DaoEmpresa extends Conexion{
         return b;
     }
     
+    public int actualizarEmpresa(Empresa e,int op) throws Exception
+    {
+       ResultSet res;
+       String sql="";
+       PreparedStatement pre;
+       int a=0;
+     try {
+            
+       switch(op)
+       {
+           case 1:
+               sql="UPDATE `vacantes`.`empresa` SET `nombre` = ?, `direccion` = ? , "
+                       + "`telefono` = ?, `mision` = ?, `vision` = ?, `correo` = ?, "
+                       + "`idRubro` = ?, `idProvincia` = ?, `idDepartamento` = ?, `"
+                       + "facebook` = ?, `instagram` = ?, `paginaWeb` = ?, `descripcion1` = ?, "
+                       + "`descripcion2` = ? , `imagen` = ? WHERE (`idEmpresa` = ?);";
+               pre= this.getCon().prepareStatement(sql);
+               pre.setString(1, e.getNombre());
+               pre.setString(2, e.getDireccion());   //correo idusuario rubro provincia 
+               pre.setString(3, e.getTelefono());    //departamento pais estado fb inta paginawe 
+               pre.setString(4, e.getMision());    //esc1 desc2 estadA descr im1 im2
+               pre.setString(5, e.getVision());
+               pre.setString(6, e.getCorreo());
+               pre.setInt(7, e.getIdRubro());
+               pre.setInt(8, e.getIdProvincia());
+               pre.setInt(9, e.getIdDepartamento());
+               pre.setString(10, e.getFacebook());
+               pre.setString(11, e.getInstagram());
+               pre.setString(12, e.getPaginaWeb());
+               pre.setString(13, e.getDescripcion1());
+               pre.setString(14, e.getDescripcion2());
+               pre.setBlob(15, e.getImagen());
+               pre.setInt(16, e.getIdEmpresa());
+               a=pre.executeUpdate();
+               
+               break;
+           case 2:
+               sql="UPDATE `vacantes`.`empresa` SET `nombre` = ?, `direccion` = ? , "
+                       + "`telefono` = ?, `mision` = ?, `vision` = ?, `correo` = ?, "
+                       + "`idRubro` = ?, `idProvincia` = ?, `idDepartamento` = ?, `"
+                       + "facebook` = ?, `instagram` = ?, `paginaWeb` = ?, `descripcion1` = ?, "
+                       + "`descripcion2` = ? , `imagen2` = ? WHERE (`idEmpresa` = ?);";
+               pre= this.getCon().prepareStatement(sql);
+               pre.setString(1, e.getNombre());
+               pre.setString(2, e.getDireccion());   //correo idusuario rubro provincia 
+               pre.setString(3, e.getTelefono());    //departamento pais estado fb inta paginawe 
+               pre.setString(4, e.getMision());    //esc1 desc2 estadA descr im1 im2
+               pre.setString(5, e.getVision());
+               pre.setString(6, e.getCorreo());
+               pre.setInt(7, e.getIdRubro());
+               pre.setInt(8, e.getIdProvincia());
+               pre.setInt(9, e.getIdDepartamento());
+               pre.setString(10, e.getFacebook());
+               pre.setString(11, e.getInstagram());
+               pre.setString(12, e.getPaginaWeb());
+               pre.setString(13, e.getDescripcion1());
+               pre.setString(14, e.getDescripcion2());
+               pre.setBlob(15, e.getImagen2());
+               pre.setInt(16, e.getIdEmpresa());
+               a=pre.executeUpdate();
+               
+               break;
+           case 3:
+               sql="UPDATE `vacantes`.`empresa` SET `nombre` = ?, `direccion` = ? , "
+                       + "`telefono` = ?, `mision` = ?, `vision` = ?, `correo` = ?, "
+                       + "`idRubro` = ?, `idProvincia` = ?, `idDepartamento` = ?, `"
+                       + "facebook` = ?, `instagram` = ?, `paginaWeb` = ?, `descripcion1` = ?, "
+                       + "`descripcion2` = ? , `imagen` = ?, `imagen2` = ? WHERE (`idEmpresa` = ?);";
+               pre= this.getCon().prepareStatement(sql);
+               pre.setString(1, e.getNombre());
+               pre.setString(2, e.getDireccion());   //correo idusuario rubro provincia 
+               pre.setString(3, e.getTelefono());    //departamento pais estado fb inta paginawe 
+               pre.setString(4, e.getMision());    //esc1 desc2 estadA descr im1 im2
+               pre.setString(5, e.getVision());
+               pre.setString(6, e.getCorreo());
+               pre.setInt(7, e.getIdRubro());
+               pre.setInt(8, e.getIdProvincia());
+               pre.setInt(9, e.getIdDepartamento());
+               pre.setString(10, e.getFacebook());
+               pre.setString(11, e.getInstagram());
+               pre.setString(12, e.getPaginaWeb());
+               pre.setString(13, e.getDescripcion1());
+               pre.setString(14, e.getDescripcion2());
+               pre.setBlob(15, e.getImagen());
+               pre.setBlob(16, e.getImagen2());
+               pre.setInt(17, e.getIdEmpresa());
+               a=pre.executeUpdate();
+               break;
+           case 4:
+               sql="UPDATE `vacantes`.`empresa` SET `nombre` = ?, `direccion` = ? , "
+                       + "`telefono` = ?, `mision` = ?, `vision` = ?, `correo` = ?, "
+                       + "`idRubro` = ?, `idProvincia` = ?, `idDepartamento` = ?, `"
+                       + "facebook` = ?, `instagram` = ?, `paginaWeb` = ?, `descripcion1` = ?, "
+                       + "`descripcion2` = ?  WHERE (`idEmpresa` = ?);";
+               pre= this.getCon().prepareStatement(sql);
+               pre.setString(1, e.getNombre());
+               pre.setString(2, e.getDireccion());   //correo idusuario rubro provincia 
+               pre.setString(3, e.getTelefono());    //departamento pais estado fb inta paginawe 
+               pre.setString(4, e.getMision());    //esc1 desc2 estadA descr im1 im2
+               pre.setString(5, e.getVision());
+               pre.setString(6, e.getCorreo());
+               pre.setInt(7, e.getIdRubro());
+               pre.setInt(8, e.getIdProvincia());
+               pre.setInt(9, e.getIdDepartamento());
+               pre.setString(10, e.getFacebook());
+               pre.setString(11, e.getInstagram());
+               pre.setString(12, e.getPaginaWeb());
+               pre.setString(13, e.getDescripcion1());
+               pre.setString(14, e.getDescripcion2());
+               pre.setInt(15, e.getIdEmpresa());
+               a=pre.executeUpdate();
+               
+               break;
+       }
+       
+            
+       
+        
+        } catch (Exception ex){
+            
+        }
+        
+       
+        return a;
+    }
     
 }

@@ -41,7 +41,7 @@ public class ProcesarOfertas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+            PrintWriter out = response.getWriter();
         DaoOferta daoO = new DaoOferta();
         DaoGradoEstudio daoG = new DaoGradoEstudio();
         
@@ -80,10 +80,6 @@ public class ProcesarOfertas extends HttpServlet {
                 
                 obj.add("oferta", array);
                 out.print(obj.toString());
-                break;
-                
-                case "eliminarOferta":
-                    out.print(daoO.eliminarOferta(Integer.parseInt(request.getParameter("idof"))));
                 break;
                 
                 case "obtenerGrados":
@@ -143,8 +139,7 @@ public class ProcesarOfertas extends HttpServlet {
                     o.setEstadoP(Integer.parseInt(request.getParameter("estadoP")));
                     int respM =daoO.modificarOferta(o);
                     out.print(respM);
-                    break;        
-                
+                    break; 
         }
     }
 

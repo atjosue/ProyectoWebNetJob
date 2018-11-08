@@ -33,7 +33,7 @@ import javax.servlet.http.Part;
 
 /**
  *
- * @author Carlos_Campos
+ * @author josue
  */
 public class ProcesarPostulante extends HttpServlet {
 
@@ -49,7 +49,7 @@ public class ProcesarPostulante extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-       PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
         Gson json= new Gson();
         DaoDepartamento daod= new DaoDepartamento();
         DaoProvincia daopro= new DaoProvincia();
